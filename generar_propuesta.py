@@ -342,7 +342,7 @@ VENTAJAS_PDI = [
         "indicadores": [
             {"t": "Soporte al Plan Indicativo", "m": "Datos oportunos para seguimiento de líneas y metas"},
             {"t": "Decisiones directivas con evidencia", "m": "Meta orientativa: al menos 3 decisiones documentadas por trimestre"},
-            {"t": "Uso compartido de capacidad", "m": "Workstation disponible para Observatorio y otros procesos priorizados"},
+            {"t": "Uso compartido de capacidad", "m": "Computador de alto rendimiento disponible para Observatorio y otros procesos priorizados"},
             {"t": "Transparencia operativa", "m": "Trazabilidad de fuentes, productos y responsables"},
         ],
     },
@@ -380,7 +380,7 @@ DIM_LABEL = {
 
 HW = {
     "ws": {
-        "titulo": "Workstation IA · Ryzen 9 9950X + RTX 5090",
+        "titulo": "Computador de alto rendimiento · Ryzen 9 9950X + RTX 5090",
         "specs": [
             "AMD Ryzen 9 9950X (16 núcleos / 32 hilos)",
             "192 GB DDR5 · NVIDIA GeForce RTX 5090 32 GB",
@@ -396,7 +396,7 @@ HW = {
             "Online doble conversión",
             "2000 VA / 1800 W",
             "Autonomía 5–15 min según carga",
-            "Cubre consumo estimado del workstation bajo carga",
+            "Cubre consumo estimado del equipo bajo carga",
         ],
         "cop": 2_400_000,
     },
@@ -409,7 +409,7 @@ _total = _ws + _ups + _ia
 PRESUPUESTO = {
     "total": _total,
     "lineas": [
-        {"nombre": "Workstation IA (Ryzen 9 9950X + RTX 5090)", "valor": _ws, "pct": round(_ws / _total * 100, 1)},
+        {"nombre": "Computador de alto rendimiento (Ryzen 9 9950X + RTX 5090)", "valor": _ws, "pct": round(_ws / _total * 100, 1)},
         {"nombre": "UPS Eaton DX2000LAN", "valor": _ups, "pct": round(_ups / _total * 100, 1)},
         {"nombre": "Implementación de IA", "valor": _ia, "pct": round(_ia / _total * 100, 1)},
     ],
@@ -1505,6 +1505,8 @@ assert "Eaton DX2000LAN" in html
 assert "Implementación de IA" in html
 assert "Red y conectividad" not in html
 assert "Dell Precision" not in html
+assert "Workstation" not in html
+assert "Computador de alto rendimiento" in html
 assert "KPI-01" in html
 assert 'id="problema"' in html
 assert 'id="ventajas-pdi"' in html
