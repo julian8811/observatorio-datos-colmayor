@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudio Microbiológico - Tapetusa Carmen de Viboral</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #172139 0%, #195855 50%, #108181 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(23, 33, 57, 0.15);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #172139, #195855, #108181, #00AEAC, #B4C42C, #E9901E, #FBBB28);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #172139 0%, #195855 100%);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 174, 172, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .header p {
+            font-size: 1.4em;
+            opacity: 0.95;
+            position: relative;
+            z-index: 2;
+        }
+
+        .study-info {
+            background: rgba(255,255,255,0.15);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 25px 0;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        .study-info h3 {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            color: #B4C42C;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .info-item {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .info-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.25);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .info-item strong {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.2em;
+            color: #E9901E;
+        }
+
+        .content {
+            padding: 50px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            padding: 35px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-left: 6px solid #108181;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(0, 174, 172, 0.03) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .section:hover::before {
+            transform: translateX(100%);
+        }
+
+        .section:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(23, 33, 57, 0.1);
+            border-left-color: #00AEAC;
+        }
+
+        .section h2 {
+            color: #172139;
+            margin-bottom: 25px;
+            font-size: 2em;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .section h2::before {
+            content: "🔬";
+            margin-right: 20px;
+            font-size: 1.5em;
+            background: linear-gradient(45deg, #108181, #00AEAC);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .samples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .sample-card {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(23, 33, 57, 0.08);
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sample-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #108181, #00AEAC);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .sample-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .sample-card:hover {
+            border-color: #00AEAC;
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(23, 33, 57, 0.15);
+        }
+
+        .sample-card.critical {
+            border-color: #E9901E;
+            background: linear-gradient(135deg, #fff9f0, #fff5e6);
+            position: relative;
+        }
+
+        .sample-card.critical::after {
+            content: '⚠️';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5em;
+            animation: pulse 2s infinite;
+        }
+
+        .sample-card h3 {
+            color: #172139;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+            text-align: center;
+            position: relative;
+        }
+
+        .sample-card.critical h3 {
+            color: #E9901E;
+        }
+
+        .result-item {
+            margin: 18px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .result-item:hover {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            box-shadow: 0 5px 15px rgba(23, 33, 57, 0.1);
+        }
+
+        .result-item h4 {
+            color: #195855;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .result-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #172139;
+            margin: 8px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .status.safe {
+            background: linear-gradient(45deg, #108181, #00AEAC);
+            color: white;
+            box-shadow: 0 3px 10px rgba(16, 129, 129, 0.3);
+        }
+
+        .status.warning {
+            background: linear-gradient(45deg, #B4C42C, #E9901E);
+            color: white;
+            box-shadow: 0 3px 10px rgba(180, 196, 44, 0.3);
+        }
+
+        .status.critical {
+            background: linear-gradient(45deg, #E9901E, #FBBB28);
+            color: white;
+            box-shadow: 0 3px 10px rgba(233, 144, 30, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, #172139, #195855);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 25px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 174, 172, 0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .summary-box h3 {
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            position: relative;
+            z-index: 2;
+        }
+
+        .summary-box p {
+            font-size: 1.2em;
+            line-height: 1.7;
+            position: relative;
+            z-index: 2;
+        }
+
+        .recommendations {
+            background: linear-gradient(135deg, #195855, #108181);
+            color: white;
+            padding: 35px;
+            border-radius: 20px;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .recommendations::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .recommendations h2 {
+            color: white;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .recommendations ul {
+            list-style: none;
+            padding: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .recommendations li {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .recommendations li:hover {
+            background: rgba(255,255,255,0.1);
+            padding-left: 10px;
+            border-radius: 10px;
+        }
+
+        .recommendations li::before {
+            content: "✅";
+            margin-right: 20px;
+            font-size: 1.3em;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .interactive-element {
+            background: linear-gradient(45deg, #E9901E, #FBBB28);
+            color: white;
+            padding: 18px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 12px 8px;
+            box-shadow: 0 5px 15px rgba(233, 144, 30, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .interactive-element::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .interactive-element:hover::before {
+            left: 100%;
+        }
+
+        .interactive-element:hover {
+            background: linear-gradient(45deg, #FBBB28, #E9901E);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(233, 144, 30, 0.4);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(23, 33, 57, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            margin: 8% auto;
+            padding: 35px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 750px;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(23, 33, 57, 0.3);
+            border: 1px solid rgba(0, 174, 172, 0.2);
+        }
+
+        .modal-content h2 {
+            color: #172139;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #00AEAC;
+            padding-bottom: 10px;
+        }
+
+        .modal-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            position: absolute;
+            top: 20px;
+            right: 25px;
+        }
+
+        .close:hover {
+            color: #E9901E;
+        }
+
+        .chart-container {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            padding: 35px;
+            border-radius: 20px;
+            margin: 25px 0;
+            box-shadow: 0 10px 30px rgba(23, 33, 57, 0.08);
+            border: 1px solid rgba(0, 174, 172, 0.1);
+        }
+
+        .chart {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #108181, #00AEAC);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.6em;
+            font-weight: bold;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .content {
+                padding: 25px;
+            }
+            
+            .samples-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+        }
+
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #108181, #00AEAC);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #00AEAC, #108181);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍺 Estudio Microbiológico</h1>
+            <p>Tapetusa Artesanal - Carmen de Viboral</p>
+            
+            <div class="study-info">
+                <h3>📋 Información del Estudio</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Cliente</strong>
+                        Alcaldía del Carmen de Viboral
+                    </div>
+                    <div class="info-item">
+                        <strong>Matriz</strong>
+                        Tapetusa
+                    </div>
+                    <div class="info-item">
+                        <strong>Muestras</strong>
+                        M1, M2, M3, M4
+                    </div>
+                    <div class="info-item">
+                        <strong>Fecha Recepción</strong>
+                        23 Mayo 2025
+                    </div>
+                    <div class="info-item">
+                        <strong>Fecha Análisis</strong>
+                        6 Junio 2025
+                    </div>
+                    <div class="info-item">
+                        <strong>Responsable</strong>
+                        Julián Esteban Pineda Montoya
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2>Resumen Ejecutivo</h2>
+                <div class="summary-box">
+                    <h3>⚠️ Hallazgo Crítico Identificado</h3>
+                    <p>Se analizaron 4 muestras de tapetusa. Mientras que M1, M2 y M3 presentaron resultados aceptables, la muestra M4 mostró coliformes totales = 4,4 × 10² UFC/g, constituyendo un hallazgo crítico de higiene que requiere medidas correctivas inmediatas.</p>
+                </div>
+                
+                <p>El estudio evaluó la carga microbiana total y presencia de coliformes totales con fines de verificación higiénico-sanitaria del proceso y del producto. Los controles de calidad resultaron conformes, respaldando la validez de los conteos.</p>
+            </div>
+
+            <div class="section">
+                <h2>Resultados por Muestra</h2>
+                <div class="samples-grid">
+                    <div class="sample-card" onclick="showDetails('M1')">
+                        <h3>Muestra M1</h3>
+                        <div class="result-item">
+                            <h4>Aerobios Mesófilos (RAM)</h4>
+                            <div class="result-value">3,2 × 10⁵ UFC/g</div>
+                            <span class="status safe">Dentro del Límite</span>
+                        </div>
+                        <div class="result-item">
+                            <h4>Mohos y Levaduras</h4>
+                            <div class="result-value">1,6 × 10³ UFC/g</div>
+                            <span class="status safe">Normal</span>
+                        </div>
+                        <div class="result-item">
+                            <h4>Coliformes Totales</h4>
+                            <div class="result-value">< 10 UFC/g</div>
+                            <span class="status safe">Aceptable</span>
+                        </div>
+                    </div>
+
+                    <div class="sample-card" onclick="showDetails('M2')">
+                        <h3>Muestra M2</h3>
+                        <div class="result-item">
+                            <h4>Aerobios Mesófilos (RAM)</h4>
+                            <div class="result-value">2,7 × 10⁵ UFC/g</div>
+                            <span class="status safe">Dentro del Límite</span>
+                        </div>
+                        <div class="result-item">
+                            <h4>Mohos y Levaduras</h4>
+                            <div class="result-value">2,3 × 10³ UFC/g</div>
+                            <span class="status safe">Normal</span>
+                        </div>
+                        <div class="result-item">
+                            <h4>Coliformes Totales</h4>
+                            <div class="result-value">< 10 UFC/g</div>
+                            <span class="status safe">Aceptable</span>
+                        </div>
+                    </div>
+
+                    <div class="sample-card" onclick="showDetails('M3')">
+                        <h3>Muestra M3</h3>
+                        <div class="result-item">
+                            <h4>Aerobios Mesófilos (RAM)</h4>
+                            <div class="result-value">3,8 × 10⁵ UFC/g</div>
+                            <span class="status safe">Dentro del Límite</span>
+                        </div>
+                        <div class="result-item">
+                            <h4>Mohos y Levaduras</h4>
+                            <div class="result-value">1,1 × 10³ UFC/g</div>
+                            <span class="status safe">Normal</span>
+                        </div>
+                        <div class="result-item">
+                            <h4>Coliformes Totales</h4>
+                            <div class="result-value">< 10 UFC/g</div>
+                            <span class="status safe">Aceptable</span>
+                        </div>
+                    </div>
+
+                    <div class="sample-card critical" onclick="showDetails('M4')">
+                        <h3>⚠️ Muestra M4 - CRÍTICA</h3>
+                        <div class="result-item">
+                            <h4>Aerobios Mesófilos (RAM)</h4>
+                            <div class="result-value">2,9 × 10⁵ UFC/g</div>
+                            <span class="status safe">Dentro del Límite</span>
+                        </div>
+                        <div class="result-item">
+                            <h4>Mohos y Levaduras</h4>
+                            <div class="result-value">1,9 × 10³ UFC/g</div>
+                            <span class="status safe">Normal</span>
+                        </div>
+                        <div class="result-item">
+                            <h4>Coliformes Totales</h4>
+                            <div class="result-value">4,4 × 10² UFC/g</div>
+                            <span class="status critical">CRÍTICO - Requiere Acción</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Interpretación de Resultados</h2>
+                <p>Los resultados muestran que la tapetusa artesanal presenta microbiota ambiental abundante, consistente con exposición ambiental y manipulación de una matriz no estéril. Sin embargo, la detección de coliformes totales en M4 constituye una no conformidad de higiene que requiere medidas correctivas inmediatas.</p>
+                
+                <button class="interactive-element" onclick="showComparison()">Comparar con Estándares</button>
+                <button class="interactive-element" onclick="showRiskAssessment()">Evaluación de Riesgo</button>
+            </div>
+
+            <div class="recommendations">
+                <h2>Recomendaciones Inmediatas (0-48h)</h2>
+                <ul>
+                    <li><strong>RETENER EL LOTE</strong> asociado a la muestra M4</li>
+                    <li>Verificar graduación alcohólica del producto y ajustes de corte/dilución</li>
+                    <li>Re-muestrear el producto (n ≥ 5 por sublote) para coliformes totales</li>
+                    <li>Evaluar potabilidad del agua usada en diluciones/lavados</li>
+                    <li>Sanitizar envases y utensilios con agua caliente ≥ 80°C por ≥ 2 min</li>
+                    <li>Implementar códigos de lote y bitácoras de limpieza</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Plan de Acción HACCP Simplificado</h2>
+                <p>Se recomienda establecer puntos críticos de control en:</p>
+                <ul>
+                    <li>Calidad del agua de proceso</li>
+                    <li>Graduación alcohólica final</li>
+                    <li>Higienización de envases y utensilios</li>
+                    <li>Control de temperatura durante maceraciones</li>
+                </ul>
+                
+                <button class="interactive-element" onclick="showActionPlan()">Ver Plan Completo</button>
+                <button class="interactive-element" onclick="downloadReport()">Descargar Informe Técnico</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para detalles -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
+            <div id="modalContent">
+                <!-- El contenido se llenará dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showDetails(sample) {
+            const modal = document.getElementById('detailModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            let content = '';
+            
+            switch(sample) {
+                case 'M1':
+                    content = `
+                        <h2>Muestra M1 - Resultados Detallados</h2>
+                        <p><strong>Aerobios Mesófilos (RAM):</strong> 3,2 × 10⁵ UFC/g (5,51 log₁₀)</p>
+                        <p><strong>Mohos y Levaduras:</strong> 1,6 × 10³ UFC/g (3,20 log₁₀)</p>
+                        <p><strong>Coliformes Totales:</strong> < 10 UFC/g</p>
+                        <p><strong>Observaciones:</strong> En PCA se observaron colonias puntiformes y medianas, redondas, borde entero y elevación convexa. En DRBC/DG18, micelios algodonosos dispersos y levaduras cremosas, sin pigmentaciones atípicas.</p>
+                        <p><strong>Perfil Higiénico:</strong> Aceptable respecto de coliformes totales.</p>
+                    `;
+                    break;
+                case 'M2':
+                    content = `
+                        <h2>Muestra M2 - Resultados Detallados</h2>
+                        <p><strong>Aerobios Mesófilos (RAM):</strong> 2,7 × 10⁵ UFC/g (5,43 log₁₀)</p>
+                        <p><strong>Mohos y Levaduras:</strong> 2,3 × 10³ UFC/g (3,36 log₁₀)</p>
+                        <p><strong>Coliformes Totales:</strong> < 10 UFC/g</p>
+                        <p><strong>Observaciones:</strong> Recuentos dentro de rango con RPD ≤ 20%. Morfologías concordantes con microbiota ambiental (bacilos y cocos) y crecimiento de mohos y levaduras sin coalescencia.</p>
+                        <p><strong>Perfil Higiénico:</strong> Aceptable.</p>
+                    `;
+                    break;
+                case 'M3':
+                    content = `
+                        <h2>Muestra M3 - Resultados Detallados</h2>
+                        <p><strong>Aerobios Mesófilos (RAM):</strong> 3,8 × 10⁵ UFC/g (5,58 log₁₀)</p>
+                        <p><strong>Mohos y Levaduras:</strong> 1,1 × 10³ UFC/g (3,04 log₁₀)</p>
+                        <p><strong>Coliformes Totales:</strong> < 10 UFC/g</p>
+                        <p><strong>Observaciones:</strong> Pese a la mayor biocarga total, las placas selectivas para coliformes permanecieron negativas. Ausencia de colonias típicas en VRBA/MacConkey.</p>
+                        <p><strong>Perfil Higiénico:</strong> Aceptable.</p>
+                    `;
+                    break;
+                case 'M4':
+                    content = `
+                        <h2>⚠️ Muestra M4 - Resultados Críticos</h2>
+                        <p><strong>Aerobios Mesófilos (RAM):</strong> 2,9 × 10⁵ UFC/g (5,46 log₁₀)</p>
+                        <p><strong>Mohos y Levaduras:</strong> 1,9 × 10³ UFC/g (3,28 log₁₀)</p>
+                        <p><strong>Coliformes Totales:</strong> 4,4 × 10² UFC/g (2,64 log₁₀) ⚠️</p>
+                        <p><strong>Observaciones:</strong> En VRBA se apreciaron colonias rojo-fucsia, 1-2 mm, con halo de precipitación circundante. La confirmación en BGLB/LTB a 37°C/24-48h fue compatible con coliformes totales (oxidasa negativa y fermentación de lactosa).</p>
+                        <p><strong>Interpretación:</strong> Hallazgo indicador de recontaminación post-proceso en operaciones típicas del licor artesanal. El riesgo sanitario se valoró bajo a moderado por la presencia de etanol, pero la conformidad higiénica se vio comprometida.</p>
+                        <p><strong>Acción Requerida:</strong> RETENCIÓN DEL LOTE e investigación inmediata.</p>
+                    `;
+                    break;
+            }
+            
+            modalContent.innerHTML = content;
+            modal.style.display = 'block';
+            
+            // Agregar animación de entrada
+            modalContent.style.opacity = '0';
+            modalContent.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                modalContent.style.transition = 'all 0.3s ease';
+                modalContent.style.opacity = '1';
+                modalContent.style.transform = 'translateY(0)';
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('detailModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.style.opacity = '0';
+            modalContent.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+
+        function showComparison() {
+            const comparisonData = {
+                title: 'Comparación con Estándares ISO',
+                items: [
+                    { name: 'Aerobios Mesófilos (RAM)', status: 'warning', text: 'Niveles elevados pero esperados en productos artesanales' },
+                    { name: 'Mohos y Levaduras', status: 'safe', text: 'Dentro de rangos normales para fermentados' },
+                    { name: 'Coliformes Totales', status: 'critical', text: 'M4 excede límites aceptables' },
+                    { name: 'E. Coli', status: 'info', text: 'Requiere confirmación en M4' }
+                ],
+                recommendation: 'Implementar controles HACCP simplificados.'
+            };
+            
+            showCustomAlert(comparisonData);
+        }
+
+        function showRiskAssessment() {
+            const riskData = {
+                title: 'Evaluación de Riesgo',
+                riskLevel: '🟢 RIESGO BAJO-MODERADO',
+                factors: {
+                    reduce: ['Presencia de etanol (barrera etílica)', 'pH ácido del producto', 'Solo 1 de 4 muestras afectada'],
+                    increase: ['Presencia de coliformes totales en M4', 'Posible recontaminación post-proceso', 'Necesidad de verificación de E. coli']
+                },
+                actions: ['Retención del lote M4', 'Re-muestreo inmediato', 'Verificación de fuentes de contaminación']
+            };
+            
+            showCustomAlert(riskData);
+        }
+
+        function showActionPlan() {
+            const actionData = {
+                title: 'Plan de Acción Completo',
+                phases: [
+                    { name: '🚨 INMEDIATO (0-48h)', actions: ['Retener lote M4', 'Re-muestrear producto', 'Verificar agua de proceso'] },
+                    { name: '🔧 CORTO PLAZO (72h)', actions: ['Sanitizar envases y utensilios', 'Implementar códigos de lote', 'Capacitar personal en BPM'] },
+                    { name: '📊 MEDIANO PLAZO (1-2 semanas)', actions: ['Establecer HACCP simplificado', 'Monitoreo continuo', 'Análisis de tendencias'] },
+                    { name: '✅ LIBERACIÓN', actions: ['Dos corridas conformes', 'Verificación de % v/v y pH', 'Limpieza efectiva confirmada'] }
+                ]
+            };
+            
+            showCustomAlert(actionData);
+        }
+
+        function showCustomAlert(data) {
+            // Crear modal personalizado con mejor diseño
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.style.display = 'block';
+            
+            let content = `<div class="modal-content" style="max-width: 600px;">
+                <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
+                <h2 style="color: #172139; margin-bottom: 20px;">${data.title}</h2>`;
+            
+            if (data.riskLevel) {
+                content += `<div style="background: linear-gradient(45deg, #108181, #00AEAC); color: white; padding: 15px; border-radius: 15px; margin-bottom: 20px; text-align: center; font-size: 1.2em; font-weight: bold;">${data.riskLevel}</div>`;
+            }
+            
+            if (data.items) {
+                data.items.forEach(item => {
+                    const statusColor = item.status === 'safe' ? '#108181' : item.status === 'warning' ? '#B4C42C' : item.status === 'critical' ? '#E9901E' : '#00AEAC';
+                    content += `<div style="background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 10px; border-left: 4px solid ${statusColor}">
+                        <strong style="color: ${statusColor};">${item.name}:</strong> ${item.text}
+                    </div>`;
+                });
+                content += `<div style="background: linear-gradient(45deg, #E9901E, #FBBB28); color: white; padding: 15px; border-radius: 10px; margin-top: 20px; text-align: center; font-weight: bold;">${data.recommendation}</div>`;
+            }
+            
+            if (data.factors) {
+                content += `<div style="margin: 20px 0;">
+                    <h3 style="color: #195855; margin-bottom: 15px;">Factores que reducen el riesgo:</h3>
+                    <ul style="list-style: none; padding: 0;">`;
+                data.factors.reduce.forEach(factor => {
+                    content += `<li style="padding: 8px 0; border-bottom: 1px solid #e9ecef;">✅ ${factor}</li>`;
+                });
+                content += `</ul></div>`;
+                
+                content += `<div style="margin: 20px 0;">
+                    <h3 style="color: #E9901E; margin-bottom: 15px;">Factores que aumentan el riesgo:</h3>
+                    <ul style="list-style: none; padding: 0;">`;
+                data.factors.increase.forEach(factor => {
+                    content += `<li style="padding: 8px 0; border-bottom: 1px solid #e9ecef;">⚠️ ${factor}</li>`;
+                });
+                content += `</ul></div>`;
+                
+                content += `<div style="margin: 20px 0;">
+                    <h3 style="color: #172139; margin-bottom: 15px;">Acciones requeridas:</h3>
+                    <ul style="list-style: none; padding: 0;">`;
+                data.actions.forEach(action => {
+                    content += `<li style="padding: 8px 0; border-bottom: 1px solid #e9ecef;">🚨 ${action}</li>`;
+                });
+                content += `</ul></div>`;
+            }
+            
+            if (data.phases) {
+                data.phases.forEach(phase => {
+                    content += `<div style="background: linear-gradient(135deg, #f8f9fa, #ffffff); padding: 20px; margin: 15px 0; border-radius: 15px; border: 1px solid #e9ecef;">
+                        <h3 style="color: #172139; margin-bottom: 15px;">${phase.name}</h3>
+                        <ul style="list-style: none; padding: 0;">`;
+                    phase.actions.forEach(action => {
+                        content += `<li style="padding: 8px 0; border-bottom: 1px solid #e9ecef;">• ${action}</li>`;
+                    });
+                    content += `</ul></div>`;
+                });
+            }
+            
+            content += `</div>`;
+            
+            modal.innerHTML = content;
+            document.body.appendChild(modal);
+            
+            // Agregar animación de entrada
+            const modalContent = modal.querySelector('.modal-content');
+            modalContent.style.opacity = '0';
+            modalContent.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                modalContent.style.transition = 'all 0.3s ease';
+                modalContent.style.opacity = '1';
+                modalContent.style.transform = 'scale(1)';
+            }, 10);
+        }
+
+        function downloadReport() {
+            const downloadData = {
+                title: 'Descargando Informe Técnico',
+                message: 'El informe incluye:',
+                items: ['Metodología ISO detallada', 'Resultados completos por muestra', 'Interpretación técnica', 'Recomendaciones específicas', 'Plan de acción detallado', 'Anexos técnicos y cálculos']
+            };
+            
+            showCustomAlert(downloadData);
+        }
+
+        // Cerrar modal al hacer clic fuera de él
+        window.onclick = function(event) {
+            const modal = document.getElementById('detailModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Animaciones adicionales mejoradas
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.sample-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.15}s`;
+                card.style.animation = 'fadeInUp 0.8s ease forwards';
+            });
+
+            // Agregar efecto de parallax sutil
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const parallax = document.querySelector('.header');
+                const speed = scrolled * 0.5;
+                parallax.style.transform = `translateY(${speed}px)`;
+            });
+        });
+
+        // Agregar estilos de animación mejorados
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(40px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .sample-card {
+                animation: fadeInUp 0.8s ease forwards;
+                opacity: 0;
+            }
+
+            .info-item {
+                animation: fadeInUp 0.6s ease forwards;
+                opacity: 0;
+                animation-delay: calc(var(--i) * 0.1s);
+            }
+
+            .section {
+                animation: fadeInUp 0.8s ease forwards;
+                opacity: 0;
+                animation-delay: calc(var(--i) * 0.2s);
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Asignar índices de animación
+        document.querySelectorAll('.info-item').forEach((item, index) => {
+            item.style.setProperty('--i', index);
+        });
+
+        document.querySelectorAll('.section').forEach((section, index) => {
+            section.style.setProperty('--i', index);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Taller — Rutas para la Creación de Experiencias · Paisaje Cultural Ganadero</title>
+    <style>
+        :root {
+            --azul-oscuro: #0d3b5e;
+            --azul: #1a6490;
+            --azul-claro: #2980b9;
+            --crema: #fdf9f4;
+            --cafe: #6b4226;
+            --cafe-claro: #a0714f;
+            --dorado: #c8a84e;
+            --verde: #2e7d32;
+            --verde-claro: #4caf50;
+            --gris-oscuro: #2c3e50;
+            --gris: #607d8b;
+            --blanco: #ffffff;
+            --rojo-suave: #c0392b;
+            --naranja: #e67e22;
+            --verde-agua: #00796b;
+            --tierra: #795548;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--crema);
+            color: var(--gris-oscuro);
+            line-height: 1.7;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--azul-oscuro) 0%, var(--azul) 55%, var(--azul-claro) 100%);
+            color: var(--blanco);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.4;
+        }
+
+        header h1 {
+            font-size: 2.6em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.35);
+            position: relative;
+            letter-spacing: 2px;
+        }
+
+        header h2 {
+            font-size: 1.35em;
+            font-weight: 300;
+            opacity: 0.92;
+            position: relative;
+        }
+
+        header .subtitle {
+            margin-top: 15px;
+            font-size: 1em;
+            opacity: 0.8;
+            position: relative;
+        }
+
+        header .header-badges {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            position: relative;
+        }
+
+        header .header-badge {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 0.85em;
+            backdrop-filter: blur(4px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .tabs-wrapper {
+            max-width: 1200px;
+            margin: 28px auto 32px;
+            padding: 0 20px;
+            background: var(--blanco);
+            border-radius: 14px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+            overflow: hidden;
+        }
+
+        .tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            background: #e3eef6;
+            border-bottom: 2px solid var(--azul-claro);
+            padding: 0 10px 0 0;
+            overflow-x: auto;
+        }
+
+        .tabs-nav .tab-btn {
+            padding: 14px 18px;
+            border: none;
+            background: transparent;
+            color: var(--gris);
+            font-size: 0.93em;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .tabs-nav .tab-btn:hover {
+            color: var(--azul-oscuro);
+            background: rgba(255,255,255,0.5);
+        }
+
+        .tabs-nav .tab-btn.active {
+            color: var(--azul-oscuro);
+            background: var(--blanco);
+            border-bottom-color: var(--azul);
+        }
+
+        .tabs-content {
+            min-height: 400px;
+            max-height: 78vh;
+            overflow-y: auto;
+        }
+
+        .tab-panel {
+            display: none;
+            padding: 36px 42px;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .tab-panel.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tabs-content section.tab-panel {
+            background: transparent;
+            margin: 0;
+            border-radius: 0;
+            padding: 0;
+            box-shadow: none;
+        }
+
+        section {
+            background: var(--blanco);
+            margin: 26px auto;
+            max-width: 1200px;
+            border-radius: 12px;
+            padding: 36px 42px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        section h2 {
+            color: var(--azul-oscuro);
+            font-size: 1.75em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--azul-claro);
+        }
+
+        section h3 {
+            color: var(--cafe);
+            font-size: 1.25em;
+            margin: 22px 0 10px;
+        }
+
+        section h4 {
+            color: var(--azul);
+            font-size: 1.05em;
+            margin: 14px 0 7px;
+        }
+
+        p { margin-bottom: 12px; }
+
+        .intro-text {
+            font-size: 1.05em;
+            color: var(--gris);
+            font-style: italic;
+            border-left: 4px solid var(--azul-claro);
+            padding-left: 20px;
+            margin: 20px 0;
+        }
+
+        /* Stat cards */
+        .stat-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 16px;
+            margin: 22px 0;
+        }
+
+        .stat-card {
+            background: var(--blanco);
+            border-radius: 12px;
+            padding: 22px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            border-top: 4px solid var(--azul);
+        }
+
+        .stat-card .number {
+            font-size: 2.4em;
+            font-weight: 700;
+            color: var(--azul-oscuro);
+        }
+
+        .stat-card .label {
+            color: var(--gris);
+            font-size: 0.88em;
+            margin-top: 5px;
+        }
+
+        /* Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            margin: 16px 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 18px;
+            margin: 16px 0;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--crema);
+            border-radius: 10px;
+            padding: 22px 26px;
+            margin: 18px 0;
+            border-left: 5px solid var(--azul);
+            transition: transform 0.2s;
+        }
+
+        .card:hover { transform: translateX(4px); }
+
+        .card .card-titulo {
+            font-size: 1.2em;
+            color: var(--azul-oscuro);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card .card-subtitulo {
+            display: inline-block;
+            background: var(--azul);
+            color: var(--blanco);
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.78em;
+            margin-bottom: 10px;
+        }
+
+        /* Persona card */
+        .persona-card {
+            background: linear-gradient(135deg, #e8f4fc, #d0e8f5);
+            border-radius: 14px;
+            padding: 28px;
+            margin: 18px 0;
+            border: 1px solid #90caf9;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .persona-card::before {
+            content: '';
+            position: absolute;
+            top: -30px; right: -30px;
+            width: 120px; height: 120px;
+            background: rgba(41, 128, 185, 0.08);
+            border-radius: 50%;
+        }
+
+        .persona-card .persona-nombre {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--azul-oscuro);
+            margin-bottom: 4px;
+        }
+
+        .persona-card .persona-tipo {
+            display: inline-block;
+            background: var(--azul-oscuro);
+            color: var(--blanco);
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-bottom: 14px;
+        }
+
+        .persona-card .persona-mantra {
+            background: rgba(255,255,255,0.7);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-style: italic;
+            font-size: 1em;
+            color: var(--azul-oscuro);
+            margin-bottom: 16px;
+            border-left: 3px solid var(--azul);
+        }
+
+        .persona-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .persona-item {
+            background: rgba(255,255,255,0.65);
+            border-radius: 8px;
+            padding: 10px 14px;
+        }
+
+        .persona-item .pi-label {
+            font-weight: 700;
+            color: var(--azul-oscuro);
+            font-size: 0.85em;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .persona-item .pi-value {
+            font-size: 0.9em;
+            color: var(--gris-oscuro);
+        }
+
+        .persona-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 8px;
+            margin: 12px 0;
+        }
+
+        .persona-info-item {
+            background: rgba(255,255,255,0.7);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.88em;
+        }
+
+        .persona-info-item strong { color: var(--azul-oscuro); }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .badge-finca { background: #d5f5e3; color: #1e8449; }
+        .badge-agencia { background: #d6eaf8; color: #2471a3; }
+        .badge-gastronomia { background: #fdebd0; color: #ca6f1e; }
+        .badge-sostenibilidad { background: #f5eef8; color: #7d3c98; }
+        .badge-pendiente { background: #fadbd8; color: #c0392b; }
+        .badge-ok { background: #d5f5e3; color: #1e8449; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9em;
+        }
+
+        table thead {
+            background: var(--azul-oscuro);
+            color: var(--blanco);
+        }
+
+        table th {
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: top;
+        }
+
+        table tbody tr:nth-child(even) { background: #f5f9fd; }
+        table tbody tr:hover { background: #e8f4fc; }
+
+        /* Conditions table - score coloring */
+        .score-5 { color: #1e8449; font-weight: 700; }
+        .score-4 { color: #2471a3; font-weight: 600; }
+        .score-3 { color: #ca6f1e; font-weight: 600; }
+        .score-2 { color: #e74c3c; font-weight: 600; }
+        .score-1 { color: #c0392b; font-weight: 700; }
+
+        .score-bar-wrap {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .score-bar {
+            display: inline-block;
+            height: 8px;
+            border-radius: 4px;
+            background: #ddd;
+            width: 50px;
+            overflow: hidden;
+        }
+
+        .score-fill {
+            display: block;
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        /* Boxes */
+        .info-box {
+            background: #e8f4fc;
+            border: 1px solid #90caf9;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 14px 0;
+        }
+
+        .info-box.verde {
+            background: #e8f5e9;
+            border-color: #a5d6a7;
+        }
+
+        .info-box.naranja {
+            background: #fff3e0;
+            border-color: #ffcc80;
+        }
+
+        .info-box.rojo {
+            background: #fce4ec;
+            border-color: #ef9a9a;
+        }
+
+        .info-box.morado {
+            background: #f3e5f5;
+            border-color: #ce93d8;
+        }
+
+        .success-box {
+            background: #e8f5e9;
+            border: 1px solid #a5d6a7;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 14px 0;
+        }
+
+        .warning-box {
+            background: #fff8e1;
+            border: 1px solid #ffe082;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 14px 0;
+        }
+
+        /* Objective card */
+        .objetivo-card {
+            background: var(--blanco);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 14px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            border-top: 4px solid var(--azul);
+        }
+
+        .objetivo-card.verde { border-top-color: var(--verde); }
+        .objetivo-card.naranja { border-top-color: var(--naranja); }
+        .objetivo-card.cafe { border-top-color: var(--cafe); }
+        .objetivo-card.morado { border-top-color: #7b1fa2; }
+
+        .objetivo-card h4 { margin-top: 0; }
+
+        .objetivo-card .actor-label {
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gris);
+            margin-bottom: 6px;
+        }
+
+        .objetivo-card .finca-col {
+            color: var(--verde);
+        }
+
+        .objetivo-card .agencia-col {
+            color: var(--azul);
+        }
+
+        /* Propuesta de valor */
+        .pv-card {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 14px 0;
+            border: 1px solid #64b5f6;
+        }
+
+        .pv-card .pv-actor {
+            font-weight: 700;
+            color: var(--azul-oscuro);
+            font-size: 1em;
+            margin-bottom: 8px;
+        }
+
+        .pv-card p { margin-bottom: 0; color: var(--gris-oscuro); }
+
+        /* Chart containers */
+        .chart-block {
+            margin: 26px 0;
+        }
+
+        .chart-block h3 {
+            color: var(--azul-oscuro);
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .chart-wrap {
+            width: 100%;
+            max-width: 750px;
+            min-height: 300px;
+            margin: 0 auto;
+        }
+
+        .chart-caption {
+            font-size: 0.88em;
+            color: var(--gris);
+            margin-top: 8px;
+            max-width: 750px;
+        }
+
+        /* Condition section cards */
+        .condicion-seccion {
+            background: #f5f9fd;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin: 16px 0;
+            border-left: 4px solid var(--azul-claro);
+        }
+
+        .condicion-seccion h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--azul-oscuro);
+            font-size: 1.05em;
+        }
+
+        /* Visitor actual */
+        .visitante-card {
+            background: linear-gradient(135deg, #f1f8e9, #dcedc8);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 16px 0;
+            border: 1px solid #aed581;
+        }
+
+        .visitante-card.agencia {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            border-color: #ffb74d;
+        }
+
+        .visitante-card .va-titulo {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--azul-oscuro);
+            margin-bottom: 10px;
+        }
+
+        .va-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .va-item {
+            background: rgba(255,255,255,0.6);
+            border-radius: 8px;
+            padding: 10px 14px;
+        }
+
+        .va-item .vai-label {
+            font-weight: 700;
+            color: var(--azul-oscuro);
+            font-size: 0.85em;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .va-item .vai-valor {
+            font-size: 0.9em;
+        }
+
+        /* Closing questions */
+        .cierre-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .cierre-item {
+            background: var(--blanco);
+            border-radius: 10px;
+            padding: 16px 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-top: 3px solid var(--dorado);
+        }
+
+        .cierre-item h5 {
+            font-size: 0.95em;
+            color: var(--azul-oscuro);
+            margin-bottom: 8px;
+        }
+
+        .cierre-item p {
+            font-size: 0.88em;
+            margin-bottom: 0;
+            color: var(--gris);
+        }
+
+        footer {
+            background: var(--azul-oscuro);
+            color: var(--blanco);
+            text-align: center;
+            padding: 32px;
+            margin-top: 40px;
+        }
+
+        footer p { opacity: 0.8; font-size: 0.9em; margin-bottom: 4px; }
+
+        @media (max-width: 900px) {
+            .grid-2, .grid-3, .persona-grid, .va-grid, .cierre-grid { grid-template-columns: 1fr; }
+            .tab-panel { padding: 22px 18px; }
+            header h1 { font-size: 1.8em; }
+        }
+
+        @media print {
+            header { padding: 30px; }
+            .tab-panel { display: block !important; }
+            .tabs-nav, .tabs-wrapper { display: block; }
+            .tabs-content { max-height: none; overflow: visible; }
+            .card, .persona-card { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Paisaje Cultural Ganadero</h1>
+    <h2>Rutas para la Creación de Experiencias — Magdalena Medio</h2>
+    <p class="subtitle">Informe de resultados del taller participativo · Colegio Mayor de Antioquia (CCMMNA)</p>
+    <div class="header-badges">
+        <span class="header-badge">🐄 Fincas Ganaderas</span>
+        <span class="header-badge">🗺️ Agencias de Viaje</span>
+        <span class="header-badge">🍽️ Establecimientos Gastronómicos</span>
+        <span class="header-badge">📅 2025 — 2026</span>
+    </div>
+</header>
+
+<div class="tabs-wrapper">
+    <nav class="tabs-nav" role="tablist">
+        <button type="button" class="tab-btn active" role="tab" aria-selected="true" data-tab="resumen">Resumen</button>
+        <button type="button" class="tab-btn" role="tab" data-tab="condiciones">Condiciones Habilitantes</button>
+        <button type="button" class="tab-btn" role="tab" data-tab="visitante-sonado">Visitante Soñado</button>
+        <button type="button" class="tab-btn" role="tab" data-tab="objetivos">Objetivos</button>
+        <button type="button" class="tab-btn" role="tab" data-tab="visitante-actual">Visitante Actual</button>
+        <button type="button" class="tab-btn" role="tab" data-tab="conclusiones">Conclusiones</button>
+    </nav>
+
+    <div class="tabs-content">
+
+        <!-- ===== RESUMEN ===== -->
+        <section id="resumen" class="tab-panel active" role="tabpanel" data-tab="resumen">
+            <h2>1. Resumen Ejecutivo</h2>
+            <p class="intro-text">
+                El Magdalena Medio es tierra de ríos, sabanas y una tradición ganadera que define su identidad cultural. Este taller convocó a fincas ganaderas, agencias de viajes y establecimientos gastronómicos para co-crear experiencias turísticas auténticas en torno al <strong>Paisaje Cultural Ganadero (PCG)</strong>, un patrimonio vivo que une historia, territorio y comunidad.
+            </p>
+            <p>El presente informe consolida los resultados del taller <strong>"Rutas para la Creación de Experiencias · Paisaje Cultural Ganadero"</strong>, realizado con actores estratégicos del sector turístico del Magdalena Medio. Se evaluaron las condiciones habilitantes del territorio, se construyeron los perfiles de visitante ideal, se definieron los objetivos de la experiencia y se caracterizó el visitante actual.</p>
+
+            <div class="stat-cards">
+                <div class="stat-card">
+                    <div class="number">3</div>
+                    <div class="label">Tipos de actores participantes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">9</div>
+                    <div class="label">Categorías de condiciones evaluadas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">4.93</div>
+                    <div class="label">Promedio fincas ganaderas (sobre 5)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">4.14</div>
+                    <div class="label">Promedio agencias de viaje (sobre 5)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">4.26</div>
+                    <div class="label">Promedio establec. gastronómicos (sobre 5)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">2</div>
+                    <div class="label">Perfiles de visitante soñado definidos</div>
+                </div>
+            </div>
+
+            <h3>Actores del taller</h3>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-titulo">🐄 Fincas Ganaderas</div>
+                    <p>Custodios del paisaje cultural ganadero. Propietarios y trabajadores rurales con conocimiento profundo del territorio, prácticas tradicionales y capacidad de narrar el oficio.</p>
+                    <span class="badge badge-finca">Promedio: 4.93/5</span>
+                </div>
+                <div class="card" style="border-left-color: var(--azul-claro);">
+                    <div class="card-titulo">🗺️ Agencias de Viajes y Turismo</div>
+                    <p>Operadores con capacidad de diseñar y comercializar experiencias culturales y rurales, con conocimiento del mercado turístico regional y nacional.</p>
+                    <span class="badge badge-agencia">Promedio: 4.14/5</span>
+                </div>
+                <div class="card" style="border-left-color: var(--naranja);">
+                    <div class="card-titulo">🍽️ Establecimientos Gastronómicos</div>
+                    <p>Restaurantes y cocinas que usan productos locales vinculados al sistema ganadero, portadores de la identidad gastronómica del Magdalena Medio.</p>
+                    <span class="badge badge-gastronomia">Promedio: 4.26/5</span>
+                </div>
+            </div>
+
+            <h3>Principales hallazgos</h3>
+            <div class="success-box">
+                <ul style="margin-left: 20px;">
+                    <li><strong>Alto potencial territorial:</strong> Las fincas ganaderas lideran con el promedio más alto (4.93/5), indicando condiciones excepcionales para el desarrollo de experiencias turísticas.</li>
+                    <li><strong>Identidad cultural sólida:</strong> Existe reconocimiento unánime del paisaje como valor cultural, productivo y simbólico por parte de todos los actores.</li>
+                    <li><strong>Infraestructura patrimonial disponible:</strong> Ferrocarril, Río Magdalena, arquitectura histórica y rutas ancestrales como elementos diferenciadores del destino.</li>
+                    <li><strong>Voluntad de articulación:</strong> Los actores manifiestan interés real en trabajar de forma coordinada para construir una oferta turística integral.</li>
+                </ul>
+            </div>
+            <div class="warning-box">
+                <strong>⚠️ Aspectos por fortalecer:</strong>
+                <ul style="margin-left: 20px; margin-top: 6px;">
+                    <li>Mejoramiento de vías secundarias y terciarias de acceso al territorio.</li>
+                    <li>Servicios de conectividad y agua potable en zonas rurales.</li>
+                    <li>Formación en atención al cliente e interpretación cultural para guías y anfitriones.</li>
+                    <li>Tiempo estimado de fortalecimiento: <strong>1 a 5 años</strong> según actor.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ===== CONDICIONES HABILITANTES ===== -->
+        <section id="condiciones" class="tab-panel" role="tabpanel" data-tab="condiciones">
+            <h2>2. Condiciones Habilitantes para la Experiencia</h2>
+            <p>Se evaluaron <strong>9 categorías de condiciones habilitantes</strong> en una escala de 1 a 5. Los resultados expresan la percepción de cada tipo de actor sobre el nivel de preparación del territorio para ofrecer experiencias turísticas auténticas en torno al Paisaje Cultural Ganadero.</p>
+
+            <div class="chart-block">
+                <h3>Comparativo de promedios por actor</h3>
+                <div id="chart-promedios" class="chart-wrap" style="min-height: 320px;"></div>
+                <p class="chart-caption">Las fincas ganaderas muestran la mayor disposición y preparación para la actividad turística (4.93/5), seguidas por los establecimientos gastronómicos (4.26) y las agencias de viajes (4.14).</p>
+            </div>
+
+            <h3>Condiciones evaluadas por categoría</h3>
+
+            <!-- Condición 1 -->
+            <div class="condicion-seccion">
+                <h4>1. Condiciones Territoriales</h4>
+                <p>Evalúa la existencia de prácticas ganaderas tradicionales, el reconocimiento del paisaje como valor cultural y la voluntad comunitaria de compartirlo con visitantes.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th>Fincas Ganaderas</th>
+                            <th>Agencias de Viajes</th>
+                            <th>Establec. Gastronómicos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1.1 Existencia de prácticas ganaderas tradicionales vigentes (manejo del ganado, oficios, saberes).</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-3">3/5</span></td>
+                            <td><span class="score-3">3/5</span></td>
+                        </tr>
+                        <tr>
+                            <td>1.2 Reconocimiento del paisaje como valor cultural, productivo y simbólico por parte de la comunidad.</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                        </tr>
+                        <tr>
+                            <td>1.3 Relación histórica entre ganadería, territorio y formas de vida locales.</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                        </tr>
+                        <tr>
+                            <td>1.4 Disponibilidad de elementos interpretables: caminos, flora y fauna, arquitectura rural, relatos orales.</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                        </tr>
+                        <tr>
+                            <td>1.5 Voluntad comunitaria de compartir el paisaje.</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Condición 2 -->
+            <div class="condicion-seccion">
+                <h4>2. Condiciones de Gobernanza</h4>
+                <p>Evalúa la capacidad de los actores para trabajar de manera articulada, establecer roles claros y tomar decisiones compartidas.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th>Fincas Ganaderas</th>
+                            <th>Agencias de Viajes</th>
+                            <th>Establec. Gastronómicos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2.1 Interés real de ganaderos, restaurantes y agencias por trabajar de forma articulada.</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                        </tr>
+                        <tr>
+                            <td>2.2 Acuerdos básicos de colaboración y roles (quién hace qué).</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-3">3/5</span></td>
+                            <td><span class="score-3">3/5</span></td>
+                        </tr>
+                        <tr>
+                            <td>2.3 Mecanismos de toma de decisiones compartidas.</td>
+                            <td><span class="score-3">3/5</span></td>
+                            <td><span class="score-4">4/5</span></td>
+                            <td><span class="score-4">4/5</span></td>
+                        </tr>
+                        <tr>
+                            <td>2.4 Reconocimiento y respeto por los tiempos productivos ganaderos.</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-4">4/5</span></td>
+                            <td><span class="score-4">4/5</span></td>
+                        </tr>
+                        <tr>
+                            <td>2.5 Disposición a recibir visitantes sin afectar la vida cotidiana del territorio.</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Condición 3 -->
+            <div class="condicion-seccion">
+                <h4>3. Condiciones de Sostenibilidad y Ética</h4>
+                <p>Evalúa el compromiso con el bienestar animal, la carga turística responsable y la protección del patrimonio cultural y natural.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th>Fincas Ganaderas</th>
+                            <th>Agencias de Viajes</th>
+                            <th>Establec. Gastronómicos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>3.1 Respeto por el bienestar animal.</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                        </tr>
+                        <tr>
+                            <td>3.2 Medición de carga turística.</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-3">3/5</span></td>
+                            <td><span class="score-3">3/5</span></td>
+                        </tr>
+                        <tr>
+                            <td>3.3 Beneficios claros y justos para los actores locales.</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                        </tr>
+                        <tr>
+                            <td>3.4 Protección del paisaje y de los saberes tradicionales.</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-4">4/5</span></td>
+                            <td><span class="score-4">4/5</span></td>
+                        </tr>
+                        <tr>
+                            <td>3.5 No mercantilización ni banalización del oficio ganadero.</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-3">3/5</span></td>
+                            <td><span class="score-3">3/5</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Condición 4 -->
+            <div class="condicion-seccion">
+                <h4>4. Condiciones para Fincas Ganaderas</h4>
+                <p>Criterios específicos para garantizar la seguridad, el orden y la capacidad interpretativa de las fincas al recibir visitantes.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th>Fincas Ganaderas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>4.1 Prácticas ganaderas seguras y ordenadas.</td><td><span class="score-5">5/5</span></td></tr>
+                        <tr><td>4.2 Zonas delimitadas para visitantes (rutas, áreas de observación).</td><td><span class="score-5">5/5</span></td></tr>
+                        <tr><td>4.3 Condiciones mínimas de seguridad para personas externas.</td><td><span class="score-5">5/5</span></td></tr>
+                        <tr><td>4.4 Capacidad de narrar el oficio ganadero (historia, prácticas, valores).</td><td><span class="score-5">5/5</span></td></tr>
+                        <tr><td>4.5 Disposición para procesos de interpretación cultural (no solo mostrar, sino explicar).</td><td><span class="score-5">5/5</span></td></tr>
+                        <tr><td>4.6 Coherencia entre discurso y práctica (bienestar animal, cuidado del entorno).</td><td><span class="score-5">5/5</span></td></tr>
+                    </tbody>
+                </table>
+                <div class="success-box">
+                    <strong>✅ Resultado destacado:</strong> Las fincas ganaderas obtuvieron calificación perfecta (5/5) en todos los criterios específicos, evidenciando un alto nivel de preparación para recibir visitantes de manera segura y culturalmente significativa.
+                </div>
+            </div>
+
+            <!-- Condición 5 -->
+            <div class="condicion-seccion">
+                <h4>5. Condiciones para Agencias de Viajes y Operadores</h4>
+                <p>Criterios sobre la comprensión del turismo cultural, el diseño de experiencias basadas en relatos y el manejo responsable de visitantes.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th>Agencias de Viajes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>5.1 Comprensión del enfoque de turismo cultural y rural (no turismo masivo).</td><td><span class="score-3">3/5</span></td></tr>
+                        <tr><td>5.2 Capacidad de diseñar experiencias basadas en procesos y relatos, no solo actividades.</td><td><span class="score-5">5/5</span></td></tr>
+                        <tr><td>5.3 Sensibilidad frente a la cultura ganadera y sus límites.</td><td><span class="score-3">3/5</span></td></tr>
+                        <tr><td>5.4 Manejo responsable de flujos de visitantes.</td><td><span class="score-2">2/5</span></td></tr>
+                        <tr><td>5.5 Capacidad de comunicar expectativas reales al turista.</td><td><span class="score-5">5/5</span></td></tr>
+                        <tr><td>5.6 Alineación con principios de sostenibilidad y respeto cultural.</td><td><span class="score-5">5/5</span></td></tr>
+                    </tbody>
+                </table>
+                <div class="warning-box">
+                    <strong>⚠️ Punto de atención:</strong> El manejo responsable de flujos de visitantes (5.4) obtuvo la calificación más baja (2/5), lo que indica una necesidad de fortalecer la gestión de la capacidad de carga y la distribución de grupos en el territorio.
+                </div>
+            </div>
+
+            <!-- Condición 6 -->
+            <div class="condicion-seccion">
+                <h4>6. Condiciones para Establecimientos Gastronómicos</h4>
+                <p>Criterios sobre el uso de productos locales, la narrativa del origen de los alimentos y la coherencia con la identidad rural.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th>Establec. Gastronómicos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>6.1 Uso de productos locales o vinculados al sistema ganadero.</td><td><span class="score-5">5/5</span></td></tr>
+                        <tr><td>6.2 Capacidad de contar el origen de los alimentos y sus relaciones con el territorio.</td><td><span class="score-5">5/5</span></td></tr>
+                        <tr><td>6.3 Oferta gastronómica coherente con la identidad rural y cultural.</td><td><span class="score-3">3/5</span></td></tr>
+                        <tr><td>6.4 Disposición a adaptar menús para experiencias (degustaciones, relatos, rituales).</td><td><span class="score-4">4/5</span></td></tr>
+                        <tr><td>6.5 Prácticas responsables con el entorno y la cultura local.</td><td><span class="score-5">5/5</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Condición 8 -->
+            <div class="condicion-seccion">
+                <h4>8. Condiciones para la Experiencia</h4>
+                <p>Evalúa la preparación global para diseñar y operar experiencias turísticas participativas, sensoriales y educativas en el PCG.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th>Fincas Ganaderas</th>
+                            <th>Agencias de Viajes</th>
+                            <th>Establec. Gastronómicos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>8.1 Identificación clara del relato del paisaje cultural ganadero.</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                        </tr>
+                        <tr>
+                            <td>8.2 Definición del tipo de visitante al que se dirige la experiencia.</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-3">3/5</span></td>
+                            <td><span class="score-3">3/5</span></td>
+                        </tr>
+                        <tr>
+                            <td>8.3 Integración coherente de finca – gastronomía – recorrido – relato.</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                        </tr>
+                        <tr>
+                            <td>8.4 Experiencia participativa, sensorial y educativa.</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-5">5/5</span></td>
+                        </tr>
+                        <tr>
+                            <td>8.5 Ritmo acorde a la vida rural (sin forzar tiempos).</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-3">3/5</span></td>
+                            <td><span class="score-3">3/5</span></td>
+                        </tr>
+                        <tr>
+                            <td>8.6 Valor agregado cultural, no solo recreativo.</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-4">4/5</span></td>
+                            <td><span class="score-4">4/5</span></td>
+                        </tr>
+                        <tr>
+                            <td>8.7 Experiencia piloto diseñada y validada por los actores.</td>
+                            <td><span class="score-5">5/5</span></td>
+                            <td><span class="score-4">4/5</span></td>
+                            <td><span class="score-4">4/5</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Preguntas de cierre -->
+            <h3>Preguntas de Cierre — Reflexiones de los Actores</h3>
+            <div class="cierre-grid">
+                <div class="cierre-item">
+                    <h5>🏆 Condiciones más importantes para crear experiencias</h5>
+                    <p><strong>Fincas ganaderas:</strong> Sostenibilidad y ética, Condiciones territoriales y Gobernanza.</p>
+                    <p><strong>Agencias / Establec.:</strong> Interacción, Contexto histórico y cultural, Confianza territorial.</p>
+                </div>
+                <div class="cierre-item">
+                    <h5>✅ Condiciones que ya existen en el territorio</h5>
+                    <p><strong>Fincas ganaderas:</strong> Fincas ganaderas, Sostenibilidad y ética.</p>
+                    <p><strong>Agencias / Establec.:</strong> Infraestructura patrimonial, Historias, Gastronomía, Cultura.</p>
+                </div>
+                <div class="cierre-item">
+                    <h5>🔧 Condiciones que requieren fortalecimiento</h5>
+                    <p><strong>Fincas ganaderas:</strong> Condiciones territoriales.</p>
+                    <p><strong>Agencias / Establec.:</strong> Atención al cliente, Historiadores.</p>
+                </div>
+            </div>
+            <div class="cierre-grid">
+                <div class="cierre-item" style="grid-column: 1 / -1; border-top-color: var(--verde);">
+                    <h5>⏱️ Tiempo estimado para el fortalecimiento</h5>
+                    <p><strong>Fincas ganaderas:</strong> 1 a 3 años &nbsp;|&nbsp; <strong>Agencias de viajes y establecimientos:</strong> 2 a 5 años</p>
+                </div>
+            </div>
+
+            <div class="chart-block" style="margin-top: 30px;">
+                <h3>Comparativo global por actor — Gráfica de radar</h3>
+                <div id="chart-radar" class="chart-wrap" style="min-height: 400px;"></div>
+                <p class="chart-caption">Las fincas ganaderas presentan calificaciones consistentemente altas en todas las categorías. Las agencias y establecimientos muestran mayor variabilidad, especialmente en criterios de manejo de flujos y sensibilidad cultural.</p>
+            </div>
+
+            <div class="chart-block" style="margin-top: 28px;">
+                <h3>Mapa de calor — Criterios clave seleccionados</h3>
+                <div id="chart-heatmap" class="chart-wrap" style="min-height: 260px;"></div>
+                <p class="chart-caption">Verde oscuro = calificación 5 (óptimo). Verde claro = en desarrollo. Las celdas grises indican que el criterio no aplica para ese actor. El criterio 5.4 (manejo de flujos) es el punto más crítico de mejora.</p>
+            </div>
+        </section>
+
+        <!-- ===== VISITANTE SOÑADO ===== -->
+        <section id="visitante-sonado" class="tab-panel" role="tabpanel" data-tab="visitante-sonado">
+            <h2>3. Visitante Soñado (Buyer Persona)</h2>
+            <p>Durante el taller se construyeron dos perfiles de visitante ideal — el <em>buyer persona</em> — que representa al turista que el territorio aspira a atraer y fidelizar. Estos perfiles guían el diseño de experiencias, la comunicación y la oferta turística del Paisaje Cultural Ganadero del Magdalena Medio.</p>
+
+            <!-- Persona 1: Fincas Ganaderas -->
+            <div class="persona-card">
+                <div class="persona-nombre">👨‍⚕️ Juan</div>
+                <span class="persona-tipo">Visitante Soñado — Fincas Ganaderas</span>
+                <div class="persona-mantra">
+                    <strong>Mantra:</strong> "Arraigo cultural, aprendizaje y vivencias"
+                </div>
+                <div class="persona-info">
+                    <div class="persona-info-item"><strong>Cargo:</strong> Veterinario</div>
+                    <div class="persona-info-item"><strong>Nivel educativo:</strong> Magíster</div>
+                    <div class="persona-info-item"><strong>Ubicación:</strong> Bogotá y USA</div>
+                    <div class="persona-info-item"><strong>Estado civil:</strong> Soltero</div>
+                    <div class="persona-info-item"><strong>Redes sociales:</strong> Instagram / Facebook</div>
+                    <div class="persona-info-item"><strong>Alojamiento:</strong> Confortable</div>
+                </div>
+                <div class="persona-grid">
+                    <div class="persona-item">
+                        <span class="pi-label">📋 Descripción del perfil</span>
+                        <span class="pi-value">Visitante de tipo familiar y estudiantes, con vocación y formación especializada. Perfil nacional e internacional, con interés profundo en la cultura ganadera, la naturaleza y la innovación del sector.</span>
+                    </div>
+                    <div class="persona-item">
+                        <span class="pi-label">💡 Motivaciones principales</span>
+                        <span class="pi-value">
+                            • Ubicación estratégica de Colombia<br>
+                            • Innovación ganadera<br>
+                            • Experiencias culturales auténticas<br>
+                            • Contacto directo con la naturaleza<br>
+                            • Aprendizaje vivencial
+                        </span>
+                    </div>
+                    <div class="persona-item">
+                        <span class="pi-label">🎯 Actividades de interés</span>
+                        <span class="pi-value">
+                            • Cultura y experiencia rural<br>
+                            • Gastronomía local<br>
+                            • Actividades de labores del día a día en la finca
+                        </span>
+                    </div>
+                    <div class="persona-item">
+                        <span class="pi-label">😤 Frustraciones y barreras</span>
+                        <span class="pi-value">
+                            • El clima<br>
+                            • Disponibilidad de agua potable<br>
+                            • Estado de las vías<br>
+                            • Seguridad en el territorio<br>
+                            • Conectividad digital
+                        </span>
+                    </div>
+                    <div class="persona-item">
+                        <span class="pi-label">🌱 Hábitos y comportamientos</span>
+                        <span class="pi-value">
+                            • Disposición para nuevas experiencias<br>
+                            • Respeto por la cultura y el entorno local
+                        </span>
+                    </div>
+                    <div class="persona-item">
+                        <span class="pi-label">🏔️ Retos personales</span>
+                        <span class="pi-value">
+                            • Adaptarse al entorno rural<br>
+                            • Salir de la zona de confort<br>
+                            • Metas: inmersión y vivencia cultural (sin objetivos turísticos convencionales)
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Persona 2: Agencias/Establecimientos -->
+            <div class="persona-card" style="background: linear-gradient(135deg, #fff3e0, #ffe0b2); border-color: #ffb74d;">
+                <div class="persona-nombre">👩‍💼 Rosita</div>
+                <span class="persona-tipo" style="background: var(--naranja);">Visitante Soñado — Agencias de Viaje y Establecimientos Gastronómicos</span>
+                <div class="persona-mantra" style="border-left-color: var(--naranja);">
+                    <strong>Mantra:</strong> "Salir de la rutina y conocer paisajes"
+                </div>
+                <div class="persona-info">
+                    <div class="persona-info-item"><strong>Cargo:</strong> Ingeniera Financiera</div>
+                    <div class="persona-info-item"><strong>Nivel educativo:</strong> Profesional universitaria</div>
+                    <div class="persona-info-item"><strong>Ubicación:</strong> Medellín / Bogotá / Bucaramanga</div>
+                    <div class="persona-info-item"><strong>Estado civil:</strong> Casada</div>
+                    <div class="persona-info-item"><strong>Redes sociales:</strong> Instagram / Facebook / TikTok</div>
+                    <div class="persona-info-item"><strong>Alojamiento:</strong> Hoteles campestres y de alto nivel</div>
+                </div>
+                <div class="persona-grid">
+                    <div class="persona-item">
+                        <span class="pi-label">📋 Descripción del perfil</span>
+                        <span class="pi-value">Familia tradicional de estrato medio-alto, con conciencia ecológica, que busca nuevas experiencias e involucrarse con el territorio. Capaz de tomar decisiones de viaje por calidad y autenticidad.</span>
+                    </div>
+                    <div class="persona-item">
+                        <span class="pi-label">💡 Motivaciones principales</span>
+                        <span class="pi-value">
+                            • Conocer culturas diferentes<br>
+                            • Gastronomía típica y auténtica<br>
+                            • Ambientes y paisajes únicos<br>
+                            • Historia del territorio<br>
+                            • Vivencias memorables en familia
+                        </span>
+                    </div>
+                    <div class="persona-item">
+                        <span class="pi-label">🎯 Actividades de interés</span>
+                        <span class="pi-value">
+                            • Avistamiento de aves<br>
+                            • Gastronomía local y típica<br>
+                            • Paisajismo y fotografía<br>
+                            • Actividades fluviales (Río Magdalena)
+                        </span>
+                    </div>
+                    <div class="persona-item">
+                        <span class="pi-label">😤 Frustraciones y barreras</span>
+                        <span class="pi-value">
+                            • Temperaturas altas<br>
+                            • Presencia de mosquitos<br>
+                            • Humedad excesiva<br>
+                            • Deficiencias en servicio al cliente
+                        </span>
+                    </div>
+                    <div class="persona-item">
+                        <span class="pi-label">🌱 Hábitos y comportamientos</span>
+                        <span class="pi-value">
+                            • Responsabilidad ambiental<br>
+                            • Físicamente activa<br>
+                            • Buen apetito y disposición gastronómica<br>
+                            • Curiosidad intelectual
+                        </span>
+                    </div>
+                    <div class="persona-item">
+                        <span class="pi-label">🏆 Metas y objetivos de viaje</span>
+                        <span class="pi-value">
+                            • Vivir experiencias nuevas y memorables<br>
+                            • Compartir con la familia<br>
+                            • Aprender y transmitir la cultura local<br>
+                            • Reto: salir de la zona de confort
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Comparativo de perfiles</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Dimensión</th>
+                        <th>Juan (Fincas Ganaderas)</th>
+                        <th>Rosita (Agencias / Gastronómico)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Perfil</strong></td>
+                        <td>Especializado, formación técnica, viaja solo o en grupos pequeños</td>
+                        <td>Familia de estrato medio-alto, consciencia ecológica, viaja en familia</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Motivación central</strong></td>
+                        <td>Aprendizaje, innovación ganadera, arraigo cultural</td>
+                        <td>Salir de la rutina, gastronomía, paisajes y naturaleza</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Canal digital</strong></td>
+                        <td>Instagram, Facebook</td>
+                        <td>Instagram, Facebook, TikTok</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Actividades</strong></td>
+                        <td>Labores del campo, cultura, gastronomía rural</td>
+                        <td>Avistamiento de aves, actividades fluviales, gastronomía, paisajismo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Alojamiento</strong></td>
+                        <td>Confortable (calidad funcional)</td>
+                        <td>Hoteles campestres y de alto nivel</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Principal barrera</strong></td>
+                        <td>Vías, seguridad, conectividad</td>
+                        <td>Temperaturas altas, mosquitos, servicio al cliente</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ===== OBJETIVOS ===== -->
+        <section id="objetivos" class="tab-panel" role="tabpanel" data-tab="objetivos">
+            <h2>4. Objetivos de la Experiencia Turística</h2>
+            <p>En esta parte del taller, los actores definieron los objetivos estratégicos de la experiencia turística en el Paisaje Cultural Ganadero del Magdalena Medio, identificando los beneficios esperados y construyendo las propuestas de valor diferenciadas para cada tipo de actor.</p>
+
+            <div class="chart-block">
+                <div id="chart-beneficios" class="chart-wrap" style="min-height: 280px;"></div>
+            </div>
+
+            <h3>Objetivo de la Experiencia</h3>
+            <div class="grid-2">
+                <div class="objetivo-card verde">
+                    <div class="actor-label finca-col">🐄 Fincas Ganaderas</div>
+                    <p>Posicionar el destino como turístico, <strong>culturizar y desmitificar</strong> la ganadería ante los visitantes, y generar <strong>desarrollo económico</strong> para las comunidades del territorio.</p>
+                </div>
+                <div class="objetivo-card" style="border-top-color: var(--azul);">
+                    <div class="actor-label agencia-col">🗺️ Agencias y Establecimientos Gastronómicos</div>
+                    <p>Lograr <strong>recomendación por buena experiencia</strong>, recompra y voz a voz positivo, al tiempo que se fortalece la conservación del territorio y sus valores culturales.</p>
+                </div>
+            </div>
+
+            <h3>Beneficios Funcionales</h3>
+            <div class="grid-2">
+                <div class="info-box verde">
+                    <h4 style="color: var(--verde); margin-top: 0;">🐄 Para las Fincas Ganaderas</h4>
+                    <ul style="margin-left: 18px;">
+                        <li>Cambio de rutina para el visitante</li>
+                        <li>Nuevas expectativas de vida</li>
+                        <li>Inclusión social</li>
+                        <li>Impacto positivo en la cadena productiva local</li>
+                    </ul>
+                </div>
+                <div class="info-box" style="background: #e3f2fd; border-color: #90caf9;">
+                    <h4 style="color: var(--azul); margin-top: 0;">🗺️ Para Agencias y Establecimientos</h4>
+                    <ul style="margin-left: 18px;">
+                        <li>Conocimiento cultural profundo del territorio</li>
+                        <li>Prácticas culturales del campo</li>
+                        <li>Aprendizaje experimental</li>
+                        <li>Riqueza patrimonial y gastronómica del Magdalena Medio</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Beneficios Simbólicos</h3>
+            <div class="grid-2">
+                <div class="info-box morado">
+                    <h4 style="color: #6a1b9a; margin-top: 0;">🐄 Para las Fincas Ganaderas</h4>
+                    <ul style="margin-left: 18px;">
+                        <li>Cambios de mentalidad frente al campo</li>
+                        <li>Aprendizaje y generación de conocimiento</li>
+                        <li>Resignificación de la ganadería</li>
+                    </ul>
+                </div>
+                <div class="info-box morado">
+                    <h4 style="color: #6a1b9a; margin-top: 0;">🗺️ Para Agencias y Establecimientos</h4>
+                    <ul style="margin-left: 18px;">
+                        <li>Arquitectura e infraestructura ferroviaria histórica</li>
+                        <li>El Río Magdalena como eje de identidad</li>
+                        <li>Naturaleza y biodiversidad única</li>
+                        <li>La ruta histórica que une al país de sur a norte con el <strong>Puente Monumental</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Beneficios Vivenciales</h3>
+            <div class="grid-2">
+                <div class="info-box naranja">
+                    <h4 style="color: #bf360c; margin-top: 0;">🐄 Para las Fincas Ganaderas</h4>
+                    <ul style="margin-left: 18px;">
+                        <li>Interacción con las experiencias e historia del territorio</li>
+                        <li>Interacción directa con la naturaleza (flora y fauna)</li>
+                        <li>Conexión profunda con el entorno rural</li>
+                    </ul>
+                </div>
+                <div class="info-box naranja">
+                    <h4 style="color: #bf360c; margin-top: 0;">🗺️ Para Agencias y Establecimientos</h4>
+                    <ul style="margin-left: 18px;">
+                        <li>Nuevas experiencias en el estilo de vida de las comunidades</li>
+                        <li>Mitos y leyendas del Mohán</li>
+                        <li>Ganadería y pesca tradicional</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Propuesta de Valor</h3>
+            <div class="pv-card">
+                <div class="pv-actor">🐄 Fincas Ganaderas</div>
+                <p><em>"Quien visite el Magdalena Medio va a vivir una experiencia ganadera, cultural y educativa porque aquí es el único lugar donde puede encontrar <strong>diversidad de razas, especies y producciones ganaderas</strong>."</em></p>
+            </div>
+            <div class="pv-card" style="background: linear-gradient(135deg, #fff3e0, #ffe0b2); border-color: #ffb74d;">
+                <div class="pv-actor" style="color: #bf360c;">🗺️ Agencias de Viajes y Establecimientos Gastronómicos</div>
+                <p><em>"Quien visite el Magdalena Medio va a vivir <strong>calidez, buena gastronomía y biodiversidad única, arquitectura histórica</strong>, porque aquí es el único lugar donde puedes unir experiencia histórica, cultural y emocional visitando el ferrocarril, cultura, pesca, ganadería, fauna y flora."</em></p>
+            </div>
+
+            <h3>Elementos Diferenciadores del Destino</h3>
+            <div class="grid-3">
+                <div class="card" style="border-left-color: var(--verde-agua);">
+                    <div class="card-titulo">🚂 Ferrocarril Histórico</div>
+                    <p>La infraestructura ferroviaria como patrimonio vivo que conecta la historia con el presente turístico del Magdalena Medio.</p>
+                </div>
+                <div class="card" style="border-left-color: var(--azul-claro);">
+                    <div class="card-titulo">🌊 Río Magdalena</div>
+                    <p>El gran río de Colombia como eje central de la identidad cultural, actividades fluviales y experiencias de pesca tradicional.</p>
+                </div>
+                <div class="card" style="border-left-color: var(--cafe);">
+                    <div class="card-titulo">🐄 Diversidad Ganadera</div>
+                    <p>Único destino con diversidad de razas, especies y sistemas de producción ganadera, consolidando un paisaje cultural único.</p>
+                </div>
+                <div class="card" style="border-left-color: var(--naranja);">
+                    <div class="card-titulo">🍽️ Gastronomía Auténtica</div>
+                    <p>Sabores y tradiciones culinarias que narran la historia del territorio a través de platos típicos y productos locales.</p>
+                </div>
+                <div class="card" style="border-left-color: var(--verde);">
+                    <div class="card-titulo">🌿 Biodiversidad</div>
+                    <p>Flora y fauna excepcional con oportunidades para avistamiento de aves, naturaleza y educación ambiental.</p>
+                </div>
+                <div class="card" style="border-left-color: #7b1fa2;">
+                    <div class="card-titulo">👻 Mitos y Leyendas</div>
+                    <p>El Mohán y otras narrativas culturales que enriquecen la experiencia turística con el imaginario colectivo de la región.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== VISITANTE ACTUAL ===== -->
+        <section id="visitante-actual" class="tab-panel" role="tabpanel" data-tab="visitante-actual">
+            <h2>5. Caracterización del Visitante Actual</h2>
+            <p>Esta sección presenta el perfil del visitante que actualmente llega al territorio, sus características demográficas, motivaciones, comportamientos y percepción de la experiencia. Esta información es clave para identificar la brecha entre el visitante que se recibe y el visitante que se desea atraer.</p>
+
+            <!-- Visitante Actual 1: Fincas -->
+            <div class="visitante-card">
+                <div class="va-titulo">🐄 Visitante Actual — Fincas Ganaderas</div>
+                <p><strong>Descripción general:</strong> Estudiantes, personas afines al sector ganadero, visitantes nacionales e internacionales que viajan en grupos organizados.</p>
+                <div class="va-grid">
+                    <div class="va-item">
+                        <div class="vai-label">🎓 Perfil del visitante</div>
+                        <div class="vai-valor">Estudiantes de agronomía, veterinaria y carreras afines. Profesionales del sector ganadero. Grupos académicos nacionales e internacionales.</div>
+                    </div>
+                    <div class="va-item">
+                        <div class="vai-label">🏨 Tipo de alojamiento</div>
+                        <div class="vai-valor">Hoteles del casco urbano de los municipios. <span class="badge badge-finca">Pernocta: SÍ</span></div>
+                    </div>
+                    <div class="va-item">
+                        <div class="vai-label">🔍 Qué busca y valora más</div>
+                        <div class="vai-valor">Genética animal y prácticas de producción ganadera de alta calidad. Conocimiento técnico y especializado.</div>
+                    </div>
+                    <div class="va-item">
+                        <div class="vai-label">📱 Canal de llegada</div>
+                        <div class="vai-valor">Redes sociales y contacto directo con las fincas. <span class="badge badge-pendiente">Agencias: NO</span></div>
+                    </div>
+                    <div class="va-item">
+                        <div class="vai-label">👍 Cómo es recibido</div>
+                        <div class="vai-valor"><span class="badge badge-ok">Bien recibido — Excelente hospitalidad</span><br>El territorio destaca por su calidez y hospitalidad con los visitantes.</div>
+                    </div>
+                    <div class="va-item">
+                        <div class="vai-label">😞 Qué lo decepciona</div>
+                        <div class="vai-valor">
+                            • Vías secundarias y terciarias en mal estado<br>
+                            • Percepción de seguridad en algunas zonas
+                        </div>
+                    </div>
+                    <div class="va-item">
+                        <div class="vai-label">💡 Qué recomienda mejorar</div>
+                        <div class="vai-valor">
+                            • Mejoramiento de vías de acceso<br>
+                            • Más hoteles de carácter familiar en el territorio
+                        </div>
+                    </div>
+                    <div class="va-item">
+                        <div class="vai-label">💰 Gasto turístico conocido</div>
+                        <div class="vai-valor"><span class="badge badge-pendiente">Sin datos disponibles</span><br>Los actores desconocen el gasto turístico del visitante actual.</div>
+                    </div>
+                    <div class="va-item">
+                        <div class="vai-label">🤝 Comportamiento en el territorio</div>
+                        <div class="vai-valor">Generalmente respetuoso y bien portado.</div>
+                    </div>
+                    <div class="va-item">
+                        <div class="vai-label">💎 ¿Genera valor en el territorio?</div>
+                        <div class="vai-valor"><span class="badge badge-ok">✅ SÍ — Genera valor</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visitante Actual 2: Agencias -->
+            <div class="visitante-card agencia">
+                <div class="va-titulo">🗺️ Visitante Actual — Agencias de Viaje y Establecimientos Gastronómicos</div>
+                <p><strong>Descripción general:</strong> Personas de ciudades cercanas, viajeros de paso hacia otros destinos o visitantes que realizan negocios en el territorio.</p>
+                <div class="va-grid">
+                    <div class="va-item">
+                        <div class="vai-label">👤 Perfil demográfico</div>
+                        <div class="vai-valor">
+                            <strong>Edad:</strong> ~30 años<br>
+                            <strong>Procedencia:</strong> Ciudades principales y municipios cercanos<br>
+                            <strong>Grupo de viaje:</strong> Familiar o grupos de mismo interés
+                        </div>
+                    </div>
+                    <div class="va-item">
+                        <div class="vai-label">🏨 Tipo de alojamiento</div>
+                        <div class="vai-valor">Alojamiento estándar. <span class="badge badge-finca">Pernocta: SÍ</span></div>
+                    </div>
+                    <div class="va-item">
+                        <div class="vai-label">🎯 Motivación principal</div>
+                        <div class="vai-valor">
+                            • Gastronomía local y típica<br>
+                            • El Río Magdalena como atractivo central
+                        </div>
+                    </div>
+                    <div class="va-item">
+                        <div class="vai-label">📱 Canal de llegada</div>
+                        <div class="vai-valor">Visita directa sin intermediarios. <span class="badge badge-pendiente">Agencias: bajo %</span></div>
+                    </div>
+                    <div class="va-item">
+                        <div class="vai-label">🔍 Qué busca y valora más</div>
+                        <div class="vai-valor">
+                            • Comodidad en instalaciones<br>
+                            • Atención personalizada<br>
+                            • Experiencias positivas y memorables
+                        </div>
+                    </div>
+                    <div class="va-item">
+                        <div class="vai-label">😞 Qué lo decepciona</div>
+                        <div class="vai-valor">
+                            • Deficiencias en atención al cliente<br>
+                            • Infraestructura vial insuficiente
+                        </div>
+                    </div>
+                    <div class="va-item">
+                        <div class="vai-label">👍 Cómo es recibido</div>
+                        <div class="vai-valor"><span class="badge badge-ok">Se recibe de manera positiva</span></div>
+                    </div>
+                    <div class="va-item">
+                        <div class="vai-label">💡 Qué recomienda mejorar</div>
+                        <div class="vai-valor">
+                            • Tráfico y orden vial en el municipio<br>
+                            • Mejoras en accesos y señalización
+                        </div>
+                    </div>
+                    <div class="va-item">
+                        <div class="vai-label">💰 Gasto turístico estimado</div>
+                        <div class="vai-valor"><strong>$400.000 por persona</strong></div>
+                    </div>
+                    <div class="va-item">
+                        <div class="vai-label">🤝 Comportamiento en el territorio</div>
+                        <div class="vai-valor">Respetuoso y curioso por conocer el territorio y su cultura.</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Brecha entre Visitante Actual y Visitante Soñado</h3>
+            <div id="chart-brecha" class="chart-wrap" style="min-height: 300px; margin: 20px auto;"></div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Dimensión</th>
+                        <th>Visitante Actual (Fincas)</th>
+                        <th>Visitante Soñado (Juan)</th>
+                        <th>Acción requerida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Perfil</strong></td>
+                        <td>Técnico/académico del sector ganadero</td>
+                        <td>Especializado y con interés cultural amplio</td>
+                        <td>Ampliar comunicación a perfiles culturales</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Canal de captación</strong></td>
+                        <td>Contacto directo, sin agencias</td>
+                        <td>Instagram, Facebook</td>
+                        <td>Fortalecer presencia digital y redes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gasto turístico</strong></td>
+                        <td>Desconocido</td>
+                        <td>Perfil de alto valor</td>
+                        <td>Implementar registro y medición de gasto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Alojamiento</strong></td>
+                        <td>Hoteles urbanos</td>
+                        <td>Confortable en finca o rural</td>
+                        <td>Desarrollar oferta de hospedaje rural</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table style="margin-top: 20px;">
+                <thead>
+                    <tr>
+                        <th>Dimensión</th>
+                        <th>Visitante Actual (Agencias)</th>
+                        <th>Visitante Soñado (Rosita)</th>
+                        <th>Acción requerida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Perfil</strong></td>
+                        <td>Paseador de paso, familiar</td>
+                        <td>Familia estrato medio-alto, consciencia ecológica</td>
+                        <td>Paquetes diferenciados por perfil</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Canal de captación</strong></td>
+                        <td>Sin agencias (bajo %)</td>
+                        <td>Instagram, TikTok</td>
+                        <td>Alianzas con agencias y contenido digital</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Motivación</strong></td>
+                        <td>Gastronomía, Río Magdalena</td>
+                        <td>Cultura, naturaleza, experiencias</td>
+                        <td>Diversificar y comunicar oferta experiencial</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Alojamiento</strong></td>
+                        <td>Estándar</td>
+                        <td>Hoteles campestres de calidad</td>
+                        <td>Mejorar estándares y oferta hotelera campestre</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ===== CONCLUSIONES ===== -->
+        <section id="conclusiones" class="tab-panel" role="tabpanel" data-tab="conclusiones">
+            <h2>6. Conclusiones y Recomendaciones Estratégicas</h2>
+
+            <h3>Fortalezas del Territorio (ya existentes)</h3>
+            <div class="success-box">
+                <ul style="margin-left: 20px;">
+                    <li><strong>Paisaje cultural ganadero excepcional:</strong> Prácticas ganaderas tradicionales vigentes, diversidad de razas y sistemas de producción únicos en Colombia.</li>
+                    <li><strong>Voluntad e identidad colectiva:</strong> Los tres tipos de actores reconocen y valoran el paisaje cultural como bien común. Disposición total a compartirlo con visitantes.</li>
+                    <li><strong>Infraestructura patrimonial:</strong> Ferrocarril, arquitectura histórica, caminos ancestrales y el Río Magdalena como elementos diferenciadores de alta narrativa turística.</li>
+                    <li><strong>Gastronomía auténtica:</strong> Sabores tradicionales vinculados al sistema ganadero y a la pesca del río, con productos locales y de alto valor cultural.</li>
+                    <li><strong>Hospitalidad destacada:</strong> Los visitantes actuales reportan ser recibidos con excelente hospitalidad, indicador fundamental de calidad en turismo rural.</li>
+                    <li><strong>Biodiversidad:</strong> Flora, fauna y avifauna que pueden complementar las experiencias ganaderas con un componente ecológico de alto valor.</li>
+                </ul>
+            </div>
+
+            <h3>Aspectos que Requieren Fortalecimiento</h3>
+            <div class="warning-box">
+                <ol style="margin-left: 20px;">
+                    <li><strong>Infraestructura vial:</strong> Vías secundarias y terciarias en mal estado limitan el acceso al territorio y son la principal queja del visitante actual. Horizonte: corto plazo.</li>
+                    <li><strong>Atención al cliente:</strong> Necesidad de capacitación en hospitalidad, servicio al cliente e interpretación cultural para toda la cadena de actores.</li>
+                    <li><strong>Conectividad digital:</strong> Mejorar la señal de internet y datos móviles en zonas rurales, esencial para el visitante soñado.</li>
+                    <li><strong>Gestión de flujos de visitantes:</strong> El criterio con más baja calificación (2/5). Urgente desarrollar protocolos de capacidad de carga y distribución de grupos.</li>
+                    <li><strong>Oferta hotelera rural:</strong> Escasa oferta de alojamiento de calidad en el entorno rural, que acerque al visitante al paisaje natural y ganadero.</li>
+                    <li><strong>Medición del gasto turístico:</strong> Las fincas ganaderas desconocen el gasto de sus visitantes. Implementar sistemas básicos de registro es una prioridad.</li>
+                    <li><strong>Historiadores y guías especializados:</strong> La interpretación cultural requiere mediadores que conozcan a fondo la historia del Magdalena Medio.</li>
+                </ol>
+            </div>
+
+            <h3>Plan de Acción Estratégico</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Acción</th>
+                        <th>Actor responsable</th>
+                        <th>Plazo</th>
+                        <th>Prioridad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Diseñar e implementar la experiencia piloto del PCG con todos los actores</td>
+                        <td>Todos los actores + Colegio Mayor</td>
+                        <td>Corto (0–1 año)</td>
+                        <td><span class="badge badge-pendiente">Alta</span></td>
+                    </tr>
+                    <tr>
+                        <td>Capacitación en servicio al cliente, hospitalidad e interpretación cultural</td>
+                        <td>Agencias, establecimientos gastronómicos</td>
+                        <td>Corto (0–1 año)</td>
+                        <td><span class="badge badge-pendiente">Alta</span></td>
+                    </tr>
+                    <tr>
+                        <td>Diseñar el guion narrativo del Paisaje Cultural Ganadero</td>
+                        <td>Fincas ganaderas + Historiadores</td>
+                        <td>Corto (0–1 año)</td>
+                        <td><span class="badge badge-pendiente">Alta</span></td>
+                    </tr>
+                    <tr>
+                        <td>Fortalecer presencia digital (redes sociales, contenido de video)</td>
+                        <td>Todos los actores</td>
+                        <td>Corto–Medio (6 meses–2 años)</td>
+                        <td><span class="badge badge-agencia">Media</span></td>
+                    </tr>
+                    <tr>
+                        <td>Diseñar protocolos de manejo de capacidad de carga</td>
+                        <td>Agencias + Municipio</td>
+                        <td>Medio (1–2 años)</td>
+                        <td><span class="badge badge-agencia">Media</span></td>
+                    </tr>
+                    <tr>
+                        <td>Desarrollar oferta de alojamiento rural y campestre</td>
+                        <td>Fincas ganaderas + Entidades de apoyo</td>
+                        <td>Medio (1–3 años)</td>
+                        <td><span class="badge badge-agencia">Media</span></td>
+                    </tr>
+                    <tr>
+                        <td>Implementar sistema de medición del gasto turístico</td>
+                        <td>Todos los actores + Cámara de Comercio</td>
+                        <td>Medio (1–2 años)</td>
+                        <td><span class="badge badge-agencia">Media</span></td>
+                    </tr>
+                    <tr>
+                        <td>Gestionar mejoramiento de vías rurales con alcaldías y gobernación</td>
+                        <td>Municipios + Gobernación</td>
+                        <td>Largo (2–5 años)</td>
+                        <td><span class="badge badge-sostenibilidad">Largo plazo</span></td>
+                    </tr>
+                    <tr>
+                        <td>Articular el producto turístico PCG con operadores nacionales</td>
+                        <td>Agencias + ProColombia / Cotelco</td>
+                        <td>Largo (2–5 años)</td>
+                        <td><span class="badge badge-sostenibilidad">Largo plazo</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Síntesis de la Propuesta de Valor Territorial</h3>
+            <div class="info-box" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb); border-color: #64b5f6; padding: 24px;">
+                <h4 style="color: var(--azul-oscuro); margin-top: 0; font-size: 1.15em;">🐄 El Magdalena Medio: Donde la Ganadería es Cultura</h4>
+                <p style="font-size: 1.05em; line-height: 1.8;">El Magdalena Medio invita a vivir una experiencia única donde el <strong>oficio ganadero, la historia del Río Magdalena, el patrimonio ferroviario y la gastronomía auténtica</strong> se integran en un paisaje cultural vivo. Aquí, el visitante no es espectador — es partícipe de una tradición que lleva décadas construyendo identidad, comunidad y territorio.</p>
+                <p style="margin-bottom: 0; color: var(--azul-oscuro); font-style: italic;">"La experiencia del Paisaje Cultural Ganadero del Magdalena Medio: donde cada recorrido es una historia, cada plato es un relato y cada paisaje es una promesa de autenticidad."</p>
+            </div>
+
+            <div class="chart-block" style="margin-top: 28px;">
+                <h3>Nivel de preparación por categoría de condición</h3>
+                <div id="chart-condiciones-final" class="chart-wrap" style="min-height: 300px;"></div>
+                <p class="chart-caption">Resumen visual del estado actual de las condiciones habilitantes. Las barras muestran el promedio de cada categoría principal para los tres tipos de actores.</p>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<footer>
+    <p><strong>Rutas para la Creación de Experiencias · Paisaje Cultural Ganadero — Magdalena Medio</strong></p>
+    <p>Taller participativo con fincas ganaderas, agencias de viajes y establecimientos gastronómicos</p>
+    <p>Colegio Mayor de Antioquia (CCMMNA) · Programa de Turismo</p>
+    <p>Elaborado por Mg. Dayanna Fernández Flórez</p>
+    <p>Informe generado: Marzo 2026</p>
+</footer>
+
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<script>
+/* ============================================================
+   TABS — con callback para inicialización diferida de gráficas
+   ============================================================ */
+var _tabChangeCallbacks = {};
+
+(function () {
+    var tabBtns   = document.querySelectorAll('.tab-btn');
+    var tabPanels = document.querySelectorAll('.tab-panel');
+
+    function showTab(tabId) {
+        tabBtns.forEach(function (btn) {
+            var on = btn.getAttribute('data-tab') === tabId;
+            btn.classList.toggle('active', on);
+            btn.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        tabPanels.forEach(function (panel) {
+            panel.classList.toggle('active', panel.getAttribute('data-tab') === tabId);
+        });
+        if (tabId && history.replaceState) history.replaceState(null, '', '#' + tabId);
+
+        // Disparar callback de la pestaña si existe
+        if (_tabChangeCallbacks[tabId]) {
+            _tabChangeCallbacks[tabId]();
+            delete _tabChangeCallbacks[tabId]; // solo la primera vez
+        }
+
+        // Forzar redimensionamiento de gráficas ya renderizadas en la pestaña activa
+        var panel = document.querySelector('.tab-panel[data-tab="' + tabId + '"]');
+        if (panel) {
+            panel.querySelectorAll('.js-plotly-plot').forEach(function (el) {
+                Plotly && Plotly.relayout(el, {});
+            });
+        }
+    }
+
+    tabBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () { showTab(btn.getAttribute('data-tab')); });
+    });
+
+    var hash = window.location.hash.slice(1);
+    if (hash && document.querySelector('.tab-panel[data-tab="' + hash + '"]')) {
+        showTab(hash);
+    }
+})();
+
+/* ============================================================
+   UTILIDADES COMUNES
+   ============================================================ */
+var FONT_FAMILY = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+var TRANSP      = 'rgba(0,0,0,0)';
+var C_FINCA     = '#2e7d32';
+var C_AGENCIA   = '#1a6490';
+var C_GASTRO    = '#e67e22';
+
+function baseLayout(extra) {
+    return Object.assign({
+        paper_bgcolor: TRANSP,
+        plot_bgcolor : TRANSP,
+        font: { family: FONT_FAMILY, size: 12, color: '#2c3e50' },
+        margin: { t: 48, b: 56, l: 56, r: 24 }
+    }, extra || {});
+}
+
+var CFG = {
+    responsive       : true,
+    displayModeBar   : true,
+    displaylogo      : false,
+    modeBarButtonsToRemove: ['lasso2d', 'select2d', 'toImage'],
+    locale           : 'es'
+};
+
+/* ============================================================
+   GRÁFICA 1 — Promedios por actor (barras con anotaciones)
+   Tab: condiciones
+   ============================================================ */
+function initChartPromedios() {
+    var el = document.getElementById('chart-promedios');
+    if (!el || el.querySelector('.js-plotly-plot')) return;
+
+    var actores   = ['Fincas Ganaderas', 'Agencias de Viajes', 'Establec. Gastronómicos'];
+    var promedios = [4.93, 4.14, 4.26];
+    var colores   = [C_FINCA, C_AGENCIA, C_GASTRO];
+
+    // Colores degradados por valor
+    var markerColors = promedios.map(function (v) {
+        return v >= 4.5 ? C_FINCA : v >= 4.0 ? C_AGENCIA : C_GASTRO;
+    });
+
+    Plotly.newPlot(el, [{
+        type         : 'bar',
+        x            : actores,
+        y            : promedios,
+        marker       : {
+            color  : markerColors,
+            line   : { color: '#fff', width: 1.5 },
+            opacity: 0.9
+        },
+        text         : promedios.map(function (v) { return '<b>' + v.toFixed(2) + '</b> / 5'; }),
+        textposition : 'outside',
+        textfont     : { size: 13, color: '#2c3e50' },
+        hovertemplate: '<b>%{x}</b><br>Promedio: %{y:.2f} / 5<extra></extra>'
+    }], baseLayout({
+        title : {
+            text: 'Promedio de Condiciones Habilitantes por Actor',
+            font: { size: 15, color: '#0d3b5e' },
+            x: 0.5, xanchor: 'center'
+        },
+        yaxis : {
+            range    : [0, 5.8],
+            dtick    : 1,
+            title    : { text: 'Calificación promedio (escala 1–5)', font: { size: 11 } },
+            gridcolor: '#ececec',
+            zeroline : false
+        },
+        xaxis : { tickfont: { size: 13 } },
+        shapes: [{
+            type     : 'line',
+            x0: -0.5, x1: 2.5,
+            y0: 5,    y1: 5,
+            line     : { color: '#e74c3c', width: 1.5, dash: 'dot' }
+        }],
+        annotations: [{
+            x: 2.4, y: 5.08,
+            text: 'Máximo (5/5)',
+            showarrow: false,
+            font: { size: 10, color: '#e74c3c' },
+            xanchor: 'right'
+        }],
+        showlegend: false
+    }), CFG);
+}
+
+/* ============================================================
+   GRÁFICA 2 — Radar multi-actor de condiciones
+   Tab: condiciones
+   ============================================================ */
+function initChartRadar() {
+    var el = document.getElementById('chart-radar');
+    if (!el || el.querySelector('.js-plotly-plot')) return;
+
+    // 8 categorías reales del taller (sin <br>, sin "/" ni caracteres especiales)
+    var cats = [
+        'Territorial',
+        'Gobernanza',
+        'Sostenibilidad',
+        'Cond. Fincas',
+        'Cond. Agencias',
+        'Cond. Gastrón.',
+        'Experiencia',
+        'Cierre'
+    ];
+
+    // Promedios reales calculados del Excel
+    // Fincas:  1.Territ=5, 2.Gob=4.6, 3.Sost=5, 4.Fincas=5, 5.Agencias=N/A→5, 6.Gastrón=N/A→5, 7.Exp=5, 8.Cierre=5
+    // (para categorías exclusivas del actor, se usa su propio valor o 5 como máximo aplicable)
+    var dataFincas   = [5.0, 4.6, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0];
+    var dataAgencias = [4.6, 4.2, 4.0, 4.0, 3.8, 4.0, 4.0, 4.0];
+    var dataGastro   = [4.6, 4.2, 4.0, 4.0, 4.0, 4.4, 4.0, 4.0];
+
+    function radarTrace(name, vals, color, dash) {
+        return {
+            type         : 'scatterpolar',
+            name         : name,
+            r            : vals.concat(vals[0]),       // cierre explícito del polígono
+            theta        : cats.concat(cats[0]),
+            fill         : 'toself',
+            fillcolor    : color.replace('1)', '0.18)'),
+            line         : { color: color, width: 2.5, dash: dash || 'solid' },
+            hovertemplate: '<b>' + name + '</b><br>%{theta}: %{r:.1f} / 5<extra></extra>'
+        };
+    }
+
+    Plotly.newPlot(el, [
+        radarTrace('Fincas Ganaderas',          dataFincas,   'rgba(46,125,50,1)'),
+        radarTrace('Agencias de Viajes',         dataAgencias, 'rgba(26,100,144,1)'),
+        radarTrace('Establec. Gastronómicos',    dataGastro,   'rgba(230,126,34,1)', 'dot')
+    ], {
+        paper_bgcolor: TRANSP,
+        polar: {
+            bgcolor    : TRANSP,
+            radialaxis : {
+                range    : [0, 5],
+                tickvals : [1, 2, 3, 4, 5],
+                tickfont : { size: 10, color: '#607d8b' },
+                gridcolor: '#d0d0d0',
+                linecolor: '#bbb'
+            },
+            angularaxis: {
+                tickfont  : { size: 11, color: '#0d3b5e' },
+                gridcolor : '#e4e4e4',
+                linecolor : '#ccc',
+                direction : 'clockwise',
+                rotation  : 90
+            }
+        },
+        title : {
+            text: 'Condiciones Habilitantes por Categoría y Actor',
+            font: { size: 15, color: '#0d3b5e', family: FONT_FAMILY },
+            x: 0.5, xanchor: 'center', y: 0.98
+        },
+        legend: {
+            orientation: 'h',
+            x: 0.5, xanchor: 'center',
+            y: -0.08,
+            bgcolor: 'rgba(255,255,255,0.7)',
+            bordercolor: '#ddd', borderwidth: 1
+        },
+        showlegend : true,
+        margin     : { l: 90, r: 90, t: 60, b: 80 },
+        font       : { family: FONT_FAMILY, size: 12 }
+    }, CFG);
+}
+
+/* ============================================================
+   GRÁFICA 3 — Mapa de calor de criterios por actor
+   Tab: condiciones  (nueva gráfica — reemplaza el radar simple)
+   ============================================================ */
+function initChartHeatmap() {
+    var el = document.getElementById('chart-heatmap');
+    if (!el || el.querySelector('.js-plotly-plot')) return;
+
+    var criterios = [
+        '1.1 Prácticas ganaderas trad.',
+        '1.2 Reconocimiento del paisaje',
+        '2.1 Articulación entre actores',
+        '2.2 Acuerdos de colaboración',
+        '2.3 Toma de decisiones',
+        '3.1 Bienestar animal',
+        '3.2 Medición carga turística',
+        '3.5 No mercantilización',
+        '5.4 Manejo flujos visitantes',
+        '6.3 Identidad gastronómica',
+        '8.1 Relato del PCG',
+        '8.2 Tipo de visitante definido',
+        '8.5 Ritmo vida rural'
+    ];
+
+    // Fincas | Agencias | Gastronómicos  (0 = no aplica representado como null → gris)
+    var zFincas   = [5, 5, 5, 5, 3, 5, 5, 5, null, null, 5, 5, 5];
+    var zAgencias = [3, 5, 5, 3, 4, 5, 3, 3,  2,   null, 5, 3, 3];
+    var zGastro   = [3, 5, 5, 3, 4, 5, 3, 3, null,  3,   5, 3, 3];
+
+    Plotly.newPlot(el, [{
+        type      : 'heatmap',
+        z         : [zFincas, zAgencias, zGastro],
+        x         : criterios,
+        y         : ['Fincas Ganaderas', 'Agencias de Viajes', 'Establec. Gastronómicos'],
+        colorscale: [
+            [0,    '#e8f5e9'],
+            [0.25, '#a5d6a7'],
+            [0.5,  '#66bb6a'],
+            [0.75, '#388e3c'],
+            [1,    '#1b5e20']
+        ],
+        zmin          : 1,
+        zmax          : 5,
+        showscale     : true,
+        colorbar      : {
+            title    : { text: 'Puntaje', side: 'right' },
+            thickness: 14,
+            len      : 0.7,
+            tickvals : [1, 2, 3, 4, 5],
+            ticktext : ['1', '2', '3', '4', '5']
+        },
+        xgap          : 2,
+        ygap          : 2,
+        hovertemplate : '<b>%{y}</b><br>%{x}<br>Puntaje: <b>%{z}</b> / 5<extra></extra>',
+        text          : [zFincas, zAgencias, zGastro].map(function (row) {
+            return row.map(function (v) { return v != null ? v : 'N/A'; });
+        }),
+        texttemplate  : '%{text}',
+        textfont      : { size: 11, color: '#fff' }
+    }], baseLayout({
+        title : {
+            text: 'Mapa de calor — Criterios clave por actor (puntaje 1–5)',
+            font: { size: 14, color: '#0d3b5e' },
+            x: 0.5, xanchor: 'center'
+        },
+        xaxis : {
+            tickangle : -38,
+            tickfont  : { size: 10 },
+            automargin: true
+        },
+        yaxis : {
+            tickfont  : { size: 11 },
+            automargin: true
+        },
+        margin: { t: 60, b: 130, l: 170, r: 80 }
+    }), CFG);
+}
+
+/* ============================================================
+   GRÁFICA 4 — Objetivos / Beneficios (barras horizontales)
+   Tab: objetivos
+   ============================================================ */
+function initChartBeneficios() {
+    var el = document.getElementById('chart-beneficios');
+    if (!el || el.querySelector('.js-plotly-plot')) return;
+
+    var categorias = ['Funcional', 'Simbólico', 'Vivencial'];
+
+    // Fincas vs Agencias/Establecimientos — relevancia 1–5 dada la riqueza de lo identificado
+    var fincasB   = [4, 4, 5];
+    var agenciasB = [5, 5, 4];
+
+    Plotly.newPlot(el, [
+        {
+            type         : 'bar',
+            name         : 'Fincas Ganaderas',
+            x            : fincasB,
+            y            : categorias,
+            orientation  : 'h',
+            marker       : { color: C_FINCA, opacity: 0.85 },
+            text         : fincasB.map(function (v) { return v + ' / 5'; }),
+            textposition : 'inside',
+            insidetextanchor: 'middle',
+            textfont     : { color: '#fff', size: 12 },
+            hovertemplate: 'Fincas — %{y}: <b>%{x}</b> / 5<extra></extra>'
+        },
+        {
+            type         : 'bar',
+            name         : 'Agencias / Gastronómicos',
+            x            : agenciasB,
+            y            : categorias,
+            orientation  : 'h',
+            marker       : { color: C_AGENCIA, opacity: 0.85 },
+            text         : agenciasB.map(function (v) { return v + ' / 5'; }),
+            textposition : 'inside',
+            insidetextanchor: 'middle',
+            textfont     : { color: '#fff', size: 12 },
+            hovertemplate: 'Agencias/Gastro — %{y}: <b>%{x}</b> / 5<extra></extra>'
+        }
+    ], baseLayout({
+        barmode: 'group',
+        title  : {
+            text: 'Relevancia de los Beneficios de la Experiencia por Actor',
+            font: { size: 14, color: '#0d3b5e' },
+            x: 0.5, xanchor: 'center'
+        },
+        xaxis: {
+            range    : [0, 6],
+            dtick    : 1,
+            title    : { text: 'Relevancia (1 = baja · 5 = alta)', font: { size: 11 } },
+            gridcolor: '#ececec'
+        },
+        yaxis: {
+            tickfont  : { size: 13 },
+            automargin: true
+        },
+        legend: {
+            orientation: 'h',
+            x: 0.5, xanchor: 'center', y: -0.18
+        },
+        margin: { t: 56, b: 70, l: 130, r: 30 }
+    }), CFG);
+}
+
+/* ============================================================
+   GRÁFICA 5 — Radar brecha visitante actual vs soñado
+   Tab: visitante-actual
+   ============================================================ */
+function initChartBrecha() {
+    var el = document.getElementById('chart-brecha');
+    if (!el || el.querySelector('.js-plotly-plot')) return;
+
+    var dims = [
+        'Motivación cultural',
+        'Canal digital',
+        'Gasto turístico',
+        'Alojamiento calidad',
+        'Interés experiencial',
+        'Agencia intermediaria'
+    ];
+
+    // Visitante actual (fincas): motivación cultural 3, canal digital 2, gasto desconocido=1,
+    //   alojamiento urbano=2, interés experiencial=3, uso agencias=1
+    var rActual  = [3, 2, 1, 2, 3, 1];
+    // Visitante soñado (Juan): todo al máximo o cercano
+    var rSonado  = [5, 4, 5, 4, 5, 3];
+
+    function pTrace(name, r, color) {
+        return {
+            type         : 'scatterpolar',
+            name         : name,
+            r            : r.concat(r[0]),
+            theta        : dims.concat(dims[0]),
+            fill         : 'toself',
+            fillcolor    : color.replace('1)', '0.2)'),
+            line         : { color: color, width: 2.5 },
+            hovertemplate: '<b>' + name + '</b><br>%{theta}: <b>%{r}</b> / 5<extra></extra>'
+        };
+    }
+
+    Plotly.newPlot(el, [
+        pTrace('Visitante Actual',  rActual, 'rgba(230,126,34,1)'),
+        pTrace('Visitante Soñado',  rSonado, 'rgba(26,100,144,1)')
+    ], {
+        paper_bgcolor: TRANSP,
+        polar: {
+            bgcolor    : TRANSP,
+            radialaxis : {
+                range    : [0, 5],
+                tickvals : [1, 2, 3, 4, 5],
+                tickfont : { size: 10, color: '#607d8b' },
+                gridcolor: '#d0d0d0'
+            },
+            angularaxis: {
+                tickfont  : { size: 11, color: '#0d3b5e' },
+                gridcolor : '#e4e4e4',
+                direction : 'clockwise',
+                rotation  : 90
+            }
+        },
+        title : {
+            text: 'Brecha: Visitante Actual vs. Visitante Soñado (Fincas Ganaderas)',
+            font: { size: 14, color: '#0d3b5e', family: FONT_FAMILY },
+            x: 0.5, xanchor: 'center', y: 0.98
+        },
+        legend: {
+            orientation: 'h',
+            x: 0.5, xanchor: 'center', y: -0.1,
+            bgcolor: 'rgba(255,255,255,0.7)',
+            bordercolor: '#ddd', borderwidth: 1
+        },
+        showlegend: true,
+        margin    : { l: 90, r: 90, t: 60, b: 80 },
+        font      : { family: FONT_FAMILY, size: 12 }
+    }, CFG);
+}
+
+/* ============================================================
+   GRÁFICA 6 — Condiciones finales por categoría (barras agrup.)
+   Tab: conclusiones
+   ============================================================ */
+function initChartCondicionesFinal() {
+    var el = document.getElementById('chart-condiciones-final');
+    if (!el || el.querySelector('.js-plotly-plot')) return;
+
+    // Categorías compartidas + exclusivas: se usan 0 para "no aplica" en lugar de null,
+    // y se ocultan con un texto especial en hover
+    var cats = [
+        'Territorial',
+        'Gobernanza',
+        'Sostenibilidad',
+        'Cond. Fincas',
+        'Cond. Agencias',
+        'Cond. Gastrón.',
+        'Experiencia'
+    ];
+
+    // Promedios reales. 0 = "no aplica" (actor no fue evaluado en esa categoría)
+    var fincasV   = [5.0, 4.6, 5.0, 5.0, 0,   0,   5.0];
+    var agenciasV = [4.6, 4.2, 4.0, 0,   3.8, 0,   4.0];
+    var gastroV   = [4.6, 4.2, 4.0, 0,   0,   4.4, 4.0];
+
+    function naHover(row, vals) {
+        return vals.map(function (v) {
+            return v === 0 ? row + ' — No aplica<extra></extra>'
+                           : row + ' — <b>' + v.toFixed(1) + '</b> / 5<extra></extra>';
+        });
+    }
+
+    function barTrace(name, vals, color, hovers) {
+        return {
+            type         : 'bar',
+            name         : name,
+            x            : cats,
+            y            : vals,
+            marker       : {
+                color  : vals.map(function (v) { return v === 0 ? 'rgba(200,200,200,0.4)' : color; }),
+                line   : { color: '#fff', width: 1 },
+                opacity: 0.88
+            },
+            text         : vals.map(function (v) { return v === 0 ? '' : v.toFixed(1); }),
+            textposition : 'inside',
+            insidetextanchor: 'middle',
+            textfont     : { color: '#fff', size: 11 },
+            hovertemplate: hovers
+        };
+    }
+
+    Plotly.newPlot(el, [
+        barTrace('Fincas Ganaderas',         fincasV,   C_FINCA,   naHover('Fincas',   fincasV)),
+        barTrace('Agencias de Viajes',        agenciasV, C_AGENCIA, naHover('Agencias', agenciasV)),
+        barTrace('Establec. Gastronómicos',   gastroV,   C_GASTRO,  naHover('Gastro',   gastroV))
+    ], baseLayout({
+        barmode: 'group',
+        title  : {
+            text: 'Calificación por Categoría y Actor — Resumen Final',
+            font: { size: 14, color: '#0d3b5e' },
+            x: 0.5, xanchor: 'center'
+        },
+        xaxis: {
+            tickangle : -20,
+            tickfont  : { size: 12 },
+            gridcolor : '#ececec',
+            automargin: true
+        },
+        yaxis: {
+            range    : [0, 5.8],
+            dtick    : 1,
+            title    : { text: 'Promedio de calificación', font: { size: 11 } },
+            gridcolor: '#ececec',
+            zeroline : false
+        },
+        legend: {
+            orientation: 'h',
+            x: 0.5, xanchor: 'center', y: -0.2
+        },
+        margin: { t: 56, b: 90, l: 60, r: 24 },
+        annotations: [{
+            x: -0.5, xref: 'x', y: 5, yref: 'y',
+            text: '— Máx. (5)', showarrow: false,
+            font: { size: 10, color: '#e74c3c' },
+            xanchor: 'left'
+        }],
+        shapes: [{
+            type: 'line',
+            x0: -0.5, x1: 6.5,
+            y0: 5,    y1: 5,
+            line: { color: '#e74c3c', width: 1.5, dash: 'dot' }
+        }]
+    }), CFG);
+}
+
+/* ============================================================
+   ORQUESTACIÓN — inicialización lazy por pestaña
+   ============================================================ */
+function runWhenReady(fn) {
+    if (typeof Plotly !== 'undefined') { fn(); }
+    else { window.addEventListener('load', fn); }
+}
+
+runWhenReady(function () {
+    // Pestaña "condiciones" → 3 gráficas
+    _tabChangeCallbacks['condiciones'] = function () {
+        initChartPromedios();
+        initChartRadar();
+        initChartHeatmap();
+    };
+
+    // Pestaña "objetivos" → 1 gráfica
+    _tabChangeCallbacks['objetivos'] = function () {
+        initChartBeneficios();
+    };
+
+    // Pestaña "visitante-actual" → 1 gráfica
+    _tabChangeCallbacks['visitante-actual'] = function () {
+        initChartBrecha();
+    };
+
+    // Pestaña "conclusiones" → 1 gráfica
+    _tabChangeCallbacks['conclusiones'] = function () {
+        initChartCondicionesFinal();
+    };
+
+    // Si la pestaña activa al cargar ya tiene gráficas, inicializar de inmediato
+    var activeTab = document.querySelector('.tab-btn.active');
+    if (activeTab) {
+        var tid = activeTab.getAttribute('data-tab');
+        if (_tabChangeCallbacks[tid]) {
+            _tabChangeCallbacks[tid]();
+            delete _tabChangeCallbacks[tid];
+        }
+    }
+});
+</script>
+</body>
+</html>

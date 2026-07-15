@@ -1,0 +1,29 @@
+{
+  "project_id": "4926286358731904247",
+  "project_title": "Institutional Visual Identity",
+  "design_system": "Institutional Excellence",
+  "colors": {
+    "background": "#f6faff",
+    "surface": "#f6faff",
+    "surface_container": "#e8eff6",
+    "surface_container_low": "#eef4fc",
+    "charcoal": "#2C3339",
+    "on_surface": "#151c22",
+    "steel_gray": "#4E5A64",
+    "outline": "#867462",
+    "outline_variant": "#d9c3ae",
+    "energy_orange": "#F39A1A",
+    "primary": "#875200",
+    "teal": "#00B3AF",
+    "secondary": "#006a67",
+    "pure_white": "#FFFFFF"
+  },
+  "typography": {
+    "headline": "Hanken Grotesk",
+    "body": "Inter"
+  },
+  "logo": {
+    "file": "logo-colmayor-blanco.png",
+    "source": "https://www.colmayor.edu.co/wp-content/uploads/2021/10/LogoColmayorColorBlanco-2.png"
+  }
+}

@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Diagnóstico de Madurez — Ruta Turística San Pedro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link crossorigin="" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<script crossorigin="" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface-variant": "#d7e4f0",
+                "surface-tint": "#006a67",
+                "tertiary-container": "#a85f39",
+                "secondary-fixed": "#ffddba",
+                "on-error-container": "#93000a",
+                "surface-bright": "#f6faff",
+                "surface-container-high": "#ddeaf6",
+                "background-alt": "#F8FAFB",
+                "background": "#f6faff",
+                "primary-fixed-dim": "#76d6d2",
+                "on-surface": "#111d25",
+                "inverse-surface": "#26323b",
+                "surface-container-highest": "#d7e4f0",
+                "on-background": "#111d25",
+                "surface-container": "#e3effc",
+                "deep-onyx": "#2C3236",
+                "inverse-primary": "#76d6d2",
+                "on-secondary": "#ffffff",
+                "outline-variant": "#bdc9c7",
+                "on-tertiary-fixed": "#341000",
+                "on-secondary-fixed": "#2b1700",
+                "secondary": "#875200",
+                "primary-fixed": "#93f3ee",
+                "secondary-container": "#fda224",
+                "on-tertiary": "#ffffff",
+                "on-tertiary-container": "#fff7f4",
+                "surface-container-lowest": "#ffffff",
+                "surface-container-low": "#ebf5ff",
+                "tertiary": "#8a4723",
+                "error-container": "#ffdad6",
+                "surface-dim": "#cfdce7",
+                "on-primary-fixed": "#00201f",
+                "inverse-on-surface": "#e6f2fe",
+                "primary": "#006562",
+                "on-tertiary-fixed-variant": "#733512",
+                "tertiary-fixed": "#ffdbcb",
+                "on-error": "#ffffff",
+                "on-primary-container": "#e1fffd",
+                "on-primary-fixed-variant": "#00504e",
+                "secondary-fixed-dim": "#ffb867",
+                "outline": "#6e7978",
+                "surface": "#f6faff",
+                "on-secondary-container": "#683e00",
+                "on-primary": "#ffffff",
+                "on-secondary-fixed-variant": "#673d00",
+                "surface-white": "#FFFFFF",
+                "error": "#ba1a1a",
+                "primary-container": "#00807d",
+                "on-surface-variant": "#3e4948",
+                "tertiary-fixed-dim": "#ffb693"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "2xl": "1rem",
+                "full": "0.75rem"
+            },
+            "spacing": {
+                "gutter": "24px",
+                "margin-desktop": "64px",
+                "max-width": "1280px",
+                "base": "8px",
+                "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                "display-lg": ["Hanken Grotesk"],
+                "body-md": ["Inter"],
+                "label-md": ["JetBrains Mono"],
+                "headline-lg": ["Hanken Grotesk"],
+                "body-lg": ["Inter"],
+                "body-sm": ["Inter"],
+                "headline-lg-mobile": ["Hanken Grotesk"],
+                "headline-md": ["Hanken Grotesk"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f6faff;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .font-headline { font-family: 'Hanken Grotesk', sans-serif; }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .ficha-chart {
+            overflow: hidden;
+            width: 100%;
+            height: 220px;
+            position: relative;
+            isolation: isolate;
+        }
+        .ficha-chart .js-plotly-plot,
+        .ficha-chart .plotly,
+        .ficha-chart .svg-container {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100%;
+        }
+        #fichas-container > div {
+            min-width: 0;
+        }
+        #mapa-madurez {
+            height: 600px;
+            background: #e8eef4;
+            width: 100%;
+            border-radius: 1rem;
+            z-index: 1;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(215, 228, 240, 0.5);
+        }
+        .sidebar-item-active {
+            background: #006562;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 101, 98, 0.2);
+        }
+        .nav-link-active {
+            color: #006562;
+            font-weight: 700;
+        }
+        .nav-link-active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #006562;
+            border-radius: 2px;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #bdc9c7; border-radius: 10px; }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.08);
+        }
+
+        .int-timeline-item summary::-webkit-details-marker { display: none; }
+        .int-timeline-item[open] summary { color: #006562; }
+        .marker-cluster-small { background-color: rgba(0, 101, 98, 0.6); }
+        .marker-cluster-small div { background-color: rgba(0, 101, 98, 0.8); color: white; }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- TopNavBar -->
+<nav class="bg-white/80 backdrop-blur-md w-full top-0 border-b border-outline-variant z-50 fixed">
+<div class="flex justify-between items-center w-full px-6 md:px-margin-desktop max-w-max-width mx-auto h-16">
+<div class="flex items-center gap-10">
+<div class="flex flex-col">
+<span class="font-headline text-xl font-extrabold text-primary leading-tight">Ruta turística</span>
+<span class="text-[10px] font-bold text-on-surface-variant opacity-70">San Pedro de los Milagros</span>
+</div>
+<div class="hidden lg:flex items-center gap-8">
+<a class="nav-link relative font-headline text-sm tracking-wide transition-all cursor-pointer nav-link-active" data-target="resumen">Resumen</a>
+<a class="nav-link relative font-headline text-sm tracking-wide transition-all cursor-pointer text-on-surface-variant hover:text-primary" data-target="radar">Análisis</a>
+<a class="nav-link relative font-headline text-sm tracking-wide transition-all cursor-pointer text-on-surface-variant hover:text-primary" data-target="directorio">Empresas</a>
+<a class="nav-link relative font-headline text-sm tracking-wide transition-all cursor-pointer text-on-surface-variant hover:text-primary" data-target="intervenciones">Intervenciones</a>
+<a class="nav-link relative font-headline text-sm tracking-wide transition-all cursor-pointer text-on-surface-variant hover:text-primary" data-target="mapa">Territorio</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-headline text-xs font-bold px-4 py-2 bg-surface-container-low rounded-full border border-outline-variant/30">
+<span class="material-symbols-outlined text-sm">event</span>
+<span>Junio 2026</span>
+</div>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-white border-r border-outline-variant/50 flex flex-col py-6 space-y-8 pt-24 hidden xl:flex">
+<div class="px-8">
+<p class="text-[10px] font-bold text-primary mb-4 opacity-80">Menú principal</p>
+<nav class="space-y-2">
+<button class="nav-item w-full flex items-center gap-3 px-5 py-3.5 rounded-xl transition-all font-headline text-sm sidebar-item-active" data-target="resumen">
+<span class="material-symbols-outlined text-[22px]">dashboard</span>
+                Dashboard
+            </button>
+<button class="nav-item w-full flex items-center gap-3 px-5 py-3.5 text-on-surface-variant hover:bg-primary/5 hover:text-primary rounded-xl transition-all font-headline text-sm" data-target="radar">
+<span class="material-symbols-outlined text-[22px]">analytics</span>
+                Madurez
+            </button>
+<button class="nav-item w-full flex items-center gap-3 px-5 py-3.5 text-on-surface-variant hover:bg-primary/5 hover:text-primary rounded-xl transition-all font-headline text-sm" data-target="directorio">
+<span class="material-symbols-outlined text-[22px]">business</span>
+                Directorio
+            </button>
+<button class="nav-item w-full flex items-center gap-3 px-5 py-3.5 text-on-surface-variant hover:bg-primary/5 hover:text-primary rounded-xl transition-all font-headline text-sm" data-target="intervenciones">
+<span class="material-symbols-outlined text-[22px]">support_agent</span>
+                Intervenciones
+            </button>
+<button class="nav-item w-full flex items-center gap-3 px-5 py-3.5 text-on-surface-variant hover:bg-primary/5 hover:text-primary rounded-xl transition-all font-headline text-sm" data-target="mapa">
+<span class="material-symbols-outlined text-[22px]">explore</span>
+                Geolocalización
+            </button>
+<button class="nav-item w-full flex items-center gap-3 px-5 py-3.5 text-on-surface-variant hover:bg-primary/5 hover:text-primary rounded-xl transition-all font-headline text-sm" data-target="conclusiones">
+<span class="material-symbols-outlined text-[22px]">description</span>
+                Reportes
+            </button>
+</nav>
+</div>
+
+</aside>
+<!-- Main Content -->
+<main class="xl:ml-64 pt-24 pb-20 px-6 md:px-margin-desktop min-h-screen">
+<!-- Header Section -->
+<header class="mb-12 max-w-5xl">
+<div class="flex items-center gap-3 mb-4">
+<span class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold tracking-wide rounded-full">Reporte sectorial 2026</span>
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+<span class="text-xs text-outline font-body" id="hdr-meta">Comfama · Colegio Mayor | 2026-06-16</span>
+</div>
+<h1 class="font-headline text-4xl md:text-5xl font-black text-on-surface tracking-tight leading-tight mb-4" id="hdr-titulo">Diagnóstico de Madurez — Ruta San Pedro</h1>
+<h2 class="font-headline text-xl text-primary font-bold opacity-90" id="hdr-sub">Legado de Tierra y Sabor · Norte de Antioquia</h2>
+</header>
+<!-- Resumen Section -->
+<section class="tab-content active space-y-12" id="resumen">
+<div class="glass-card p-5 rounded-2xl flex flex-wrap items-center gap-6 shadow-sm border-primary/5 bg-gradient-to-r from-white to-primary/5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-xl">filter_alt</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-primary tracking-tight">Etapa de la ruta</p>
+<select class="bg-transparent border-none p-0 text-sm font-bold text-on-surface focus:ring-0 cursor-pointer" id="filtro-global">
+<option value="">Todas las etapas</option>
+</select>
+</div>
+</div>
+<div class="h-8 w-px bg-outline-variant/50 hidden sm:block mx-2"></div>
+<button class="text-xs font-bold text-outline hover:text-primary transition-all flex items-center gap-1" id="btn-limpiar-filtro">
+<span class="material-symbols-outlined text-sm">restart_alt</span> Limpiar
+            </button>
+<span class="ml-auto text-[11px] text-primary/60 font-black italic tracking-wider" id="filtro-activo"></span>
+</div>
+<div class="bento-grid" id="kpi-cards"></div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<div class="lg:col-span-8 space-y-8">
+<div class="bg-white p-10 rounded-3xl shadow-xl shadow-primary/5 border border-primary/5 relative overflow-hidden">
+<div class="absolute -top-12 -right-12 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
+<h3 class="font-headline text-2xl text-primary font-black mb-6">El Potencial de San Pedro</h3>
+<p class="font-body text-lg text-on-surface/80 leading-relaxed italic border-l-4 border-primary pl-6" id="narrativa-intro"></p>
+</div>
+<div class="bg-white p-8 rounded-3xl border border-outline-variant/30">
+<h3 class="font-headline text-xl text-on-surface font-black mb-8">Distribución por Etapa de Madurez</h3>
+<div class="w-full h-[400px]" id="chart-etapas"></div>
+</div>
+</div>
+<div class="lg:col-span-4 space-y-6">
+<h4 class="text-xs font-bold text-primary tracking-tight mb-2 px-2">Insights clave</h4>
+<div class="space-y-4" id="insight-cards"></div>
+</div>
+</div>
+</section>
+<!-- Análisis Section -->
+<section class="tab-content space-y-12" id="radar">
+<header class="border-b border-outline-variant/30 pb-10">
+<h2 class="font-headline text-3xl font-black text-on-surface mb-4 tracking-tight">Radar de Fortalezas Territoriales</h2>
+<p class="text-body text-on-surface-variant">Análisis multidimensional del ecosistema regional basado en 8 pilares clave de competitividad turística.</p>
+</header>
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+<div class="bg-white p-8 rounded-3xl border border-outline-variant/30 shadow-sm card-hover">
+<h3 class="font-headline text-xl text-primary font-black mb-8 flex items-center gap-2">
+<span class="material-symbols-outlined">radar</span> Promedio del Ecosistema
+                </h3>
+<div class="h-[400px]" id="chart-radar-grupo"></div>
+</div>
+<div class="bg-white p-8 rounded-3xl border border-outline-variant/30 shadow-sm card-hover">
+<h3 class="font-headline text-xl text-primary font-black mb-8 flex items-center gap-2">
+<span class="material-symbols-outlined">analytics</span> Distribución de Brechas
+                </h3>
+<div class="h-[400px]" id="chart-brechas"></div>
+</div>
+<div class="xl:col-span-2 bg-white p-8 rounded-3xl border border-outline-variant/30 shadow-sm">
+<h3 class="font-headline text-xl text-primary font-black mb-8 flex items-center gap-2">
+<span class="material-symbols-outlined">grid_view</span> Heatmap: Competitividad por Empresa
+                </h3>
+<div class="h-[500px]" id="chart-heatmap"></div>
+</div>
+<div class="xl:col-span-2 bg-white p-8 rounded-3xl border border-outline-variant/30 shadow-sm">
+<h3 class="font-headline text-xl text-primary font-black mb-8 flex items-center gap-2">
+<span class="material-symbols-outlined">trending_up</span> Avances Estratégicos Post-Asesoría
+                </h3>
+<div class="h-[400px]" id="chart-avances"></div>
+</div>
+</div>
+</section>
+<!-- Directorio Section -->
+<section class="tab-content space-y-12" id="directorio">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h2 class="font-headline text-3xl font-black text-on-surface mb-2">Directorio de Prestadores</h2>
+<p class="text-sm font-body text-outline" id="dir-contador"></p>
+</div>
+
+</div>
+<div class="bg-white p-4 rounded-2xl border border-outline-variant/30 flex flex-wrap gap-4 items-center shadow-sm">
+<div class="flex-1 min-w-[280px] bg-surface-container-low px-5 py-3 rounded-xl border border-outline-variant/20 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full font-body" id="dir-buscar" placeholder="Buscar empresa o contacto..." type="text"/>
+</div>
+<div class="flex gap-2 flex-wrap md:flex-nowrap">
+<select class="bg-white border border-outline-variant/40 rounded-xl text-xs font-bold px-4 py-3 min-w-[140px]" id="dir-municipio">
+<option value="">Todos los municipios</option>
+</select>
+<select class="bg-white border border-outline-variant/40 rounded-xl text-xs font-bold px-4 py-3 min-w-[140px]" id="dir-etapa">
+<option value="">Todas las etapas</option>
+</select>
+</div>
+</div>
+<div class="bg-white rounded-3xl overflow-hidden shadow-xl shadow-primary/5 border border-outline-variant/30">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse" id="dir-tabla">
+<thead>
+<tr class="bg-primary text-white">
+<th class="px-8 py-5 font-headline text-[11px] font-bold tracking-tight">Empresa</th>
+<th class="px-8 py-5 font-headline text-[11px] font-bold tracking-tight">Municipio</th>
+<th class="px-8 py-5 font-headline text-[11px] font-bold tracking-tight text-center">Nivel</th>
+<th class="px-8 py-5 font-headline text-[11px] font-bold tracking-tight text-center">Índice</th>
+<th class="px-8 py-5 font-headline text-[11px] font-bold tracking-tight">Brecha crítica</th>
+<th class="px-8 py-5 font-headline text-[11px] font-bold tracking-tight"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10 font-body text-sm"></tbody>
+</table>
+</div>
+</div>
+<div class="mt-20">
+<div class="flex items-center gap-4 mb-10">
+<div class="h-px flex-1 bg-outline-variant/30"></div>
+<h3 class="font-headline text-2xl text-primary font-black px-4 tracking-tight">Fichas de madurez</h3>
+<div class="h-px flex-1 bg-outline-variant/30"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10" id="fichas-container"></div>
+</div>
+</section>
+
+<!-- Intervenciones Section -->
+<section class="tab-content space-y-12" id="intervenciones">
+<header class="border-b border-outline-variant/30 pb-10 max-w-4xl">
+<h2 class="font-headline text-3xl font-black text-on-surface mb-4 tracking-tight">Diagnóstico de Intervenciones — Empresas Norte</h2>
+<p class="text-body text-on-surface-variant leading-relaxed" id="int-resumen"></p>
+</header>
+<div class="bento-grid" id="int-kpi-cards"></div>
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+<div class="bg-white p-8 rounded-3xl border border-outline-variant/30 shadow-sm card-hover">
+<h3 class="font-headline text-xl text-primary font-black mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">donut_large</span> Estado de intervenciones
+</h3>
+<div class="h-[320px]" id="chart-int-estado"></div>
+</div>
+<div class="bg-white p-8 rounded-3xl border border-outline-variant/30 shadow-sm card-hover">
+<h3 class="font-headline text-xl text-primary font-black mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">stacked_bar_chart</span> Restricciones por empresa
+</h3>
+<div class="h-[360px]" id="chart-int-restricciones"></div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="int-casos-especiales"></div>
+<div class="bg-white p-6 rounded-3xl border border-outline-variant/30 shadow-sm space-y-4">
+<h3 class="font-headline text-lg text-on-surface font-black px-2">Seleccionar empresa</h3>
+<div class="flex flex-wrap gap-2 overflow-x-auto pb-2 custom-scrollbar" id="int-chips"></div>
+</div>
+<div id="int-ficha" class="bg-white p-8 md:p-10 rounded-3xl border border-outline-variant/30 shadow-xl shadow-primary/5"></div>
+<div class="bg-white rounded-3xl overflow-hidden shadow-xl shadow-primary/5 border border-outline-variant/30">
+<div class="p-8 border-b border-outline-variant/20">
+<h3 class="font-headline text-xl text-primary font-black flex items-center gap-2">
+<span class="material-symbols-outlined">checklist</span> Acuerdos y responsabilidades consolidados
+</h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse" id="int-acuerdos-tabla">
+<thead>
+<tr class="bg-primary text-white">
+<th class="px-6 py-4 font-headline text-[11px] font-bold tracking-tight">Empresa</th>
+<th class="px-6 py-4 font-headline text-[11px] font-bold tracking-tight">Acuerdo</th>
+<th class="px-6 py-4 font-headline text-[11px] font-bold tracking-tight">Responsable</th>
+</tr>
+</thead>
+<tbody id="int-acuerdos-body"></tbody>
+</table>
+</div>
+</div>
+</section>
+
+<!-- Map Section -->
+<section class="tab-content space-y-12" id="mapa">
+<header class="max-w-3xl">
+<h2 class="font-headline text-3xl font-black text-on-surface mb-4">Mapeo Territorial de la Ruta</h2>
+<p class="text-body text-on-surface-variant leading-relaxed">Visualización geográfica de los nodos activos y su estado de desarrollo competitivo en el Norte de Antioquia.</p>
+</header>
+<div class="bg-white p-4 rounded-3xl shadow-2xl shadow-primary/10 border border-outline-variant/30 relative overflow-hidden">
+<div id="mapa-madurez"></div>
+<div class="absolute top-8 right-8 bg-white/95 backdrop-blur-md p-6 rounded-2xl shadow-xl z-[1000] border border-outline-variant/40 max-w-[240px]">
+<h4 class="font-headline text-xs font-bold text-primary tracking-tight mb-4 text-center">Niveles de madurez</h4>
+<div class="space-y-3" id="map-legend"></div>
+</div>
+</div>
+</section>
+<!-- Conclusions Section -->
+<section class="tab-content space-y-16" id="conclusiones">
+<header>
+<h2 class="font-headline text-3xl font-black text-on-surface tracking-tight">Síntesis y Ruta de Navegación</h2>
+</header>
+<div class="grid grid-cols-1 gap-10" id="conclusiones-content"></div>
+<div class="space-y-8">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">checklist</span>
+</div>
+<h3 class="font-headline text-2xl text-on-surface font-black">Plan de Acción (Próximos 90 días)</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6" id="kanban-acciones"></div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-white border-t border-outline-variant/40 pt-16 pb-12 xl:ml-64">
+<div class="px-6 md:px-margin-desktop max-w-max-width mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16 items-center">
+<div class="lg:col-span-4 space-y-4">
+<span class="font-headline text-2xl font-black text-primary">San Pedro</span>
+<p class="text-sm text-outline leading-relaxed font-body">Gestión de madurez para el desarrollo competitivo de la Ruta Turística y Gastronómica.</p>
+</div>
+<div class="lg:col-span-8 flex flex-wrap justify-between lg:justify-end gap-12 items-center">
+<div class="flex flex-col gap-4">
+<p class="text-[10px] font-bold text-outline tracking-tight text-center lg:text-right">Instituciones participantes</p>
+<div class="flex items-center gap-10">
+<img alt="Logo Vía Láctea" class="h-14 w-auto grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all" src="https://lh3.googleusercontent.com/aida/AP1WRLvR3nD10A7NQmf736W2JgWyLUUUYJdKVDgcyk7VCbxewzGqJM9UZrtYu9nvPOuMKCVgOsmqzE3Cw8VecQMQpx2Ruh88md7KIa29AjpH9Qc6LSNvVXlC7-NIL585hqNCvDwEblemyYmzcApx_NYicFfGDmSB4b7Eqk8g2rEIXtgL1fYgoTPFFEKy25MjD7yTUekbFIKz8pw4oBuxwlAjtGuxP9mL2b-LQ9VPLnAZ_F2BasGL4H5TrZD2Hdw"/>
+<img alt="Logo Colmayor" class="h-14 w-auto grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all" src="https://lh3.googleusercontent.com/aida/AP1WRLv4fSWD_05cgY-QUsZEapjmfLsd20KgwzAZ4H14Osh0ChNJXZnxNyMX7TfK8Pl2FUYxthoWC0WfonZqCyHAB9d8Kiep1yXraQYE3tUVuys5CgRzyzwAhVS5nQaaVpCdfMlQilLuLcmGedpRWpygn0AIJlwcVwjVBr2CUo3htufjShTHJZGD_wToeFiC2E_5BBNdNIeKoXZKakhcBpfoUNMyyYtGqeJF8K4_lkW1Q80ZQgi-kVUxuo25lA"/>
+</div>
+</div>
+</div>
+</div>
+<div class="border-t border-outline-variant/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+<p class="text-[11px] text-outline opacity-60 font-body">© 2026 Ruta San Pedro · Comfama · Colegio Mayor de Antioquia</p>
+<div class="flex gap-8">
+<a class="text-[11px] font-bold text-outline hover:text-primary transition-colors" href="#">Privacidad</a>
+<a class="text-[11px] font-bold text-outline hover:text-primary transition-colors" href="#">Metodología</a>
+</div>
+</div>
+</div>
+</footer>
+<script>const DATA = {"meta": {"titulo": "Diagnóstico de Madurez — Ruta Turística y Gastronómica San Pedro", "subtitulo": "Legado de Tierra y Sabor · Norte de Antioquia", "fecha_generacion": "2026-06-16", "total": 12, "indice_promedio": 3.64, "aliados": ["Comfama", "Colegio Mayor de Antioquia"]}, "dimensiones": ["propuesta_valor", "producto_experiencia", "capacidad_operativa", "demanda_actual", "avance_asesoria", "articulacion", "comercializacion", "preparacion_ruta"], "dimension_labels": {"propuesta_valor": "Propuesta de valor", "producto_experiencia": "Producto / experiencia", "capacidad_operativa": "Capacidad operativa", "demanda_actual": "Demanda actual", "avance_asesoria": "Avance post-asesoría", "articulacion": "Articulación territorial", "comercializacion": "Comercialización digital", "preparacion_ruta": "Preparación para ruta"}, "etapas_colores": {"Inicial": "#ba1a1a", "En desarrollo": "#fda224", "Intermedia": "#875200", "Avanzada": "#006a67", "Consolidada": "#006562"}, "establecimientos": [{"id": "capaguas", "nombre": "Capaguas", "contacto": "Wilfer Norvey Martinez Garcia", "email": "Fundacioncapaguas@gmail.com", "municipio": "Santa Rosa de Osos", "etapa": "Intermedia", "etapa_ordinal": 3, "scores": {"propuesta_valor": 3.0, "producto_experiencia": 3.75, "capacidad_operativa": 3.0, "demanda_actual": 4.0, "avance_asesoria": 4.5, "articulacion": 5.0, "comercializacion": 3.8, "preparacion_ruta": 3.0}, "maturity_index": 3.76, "coords": [6.6294, -75.4837], "respuestas": {"q1": "Capaguas", "q2": "Wilfer Norvey Martinez Garcia", "q3": "STA ROSA DE OSOS", "q4": "Intermedia", "q5": "3", "q6": "Sí", "q7": "Sí", "q8": "No", "q9": "Quincenal", "q10": "4", "q11": "4", "q12": "Diseño de experiencia, Mejora de infraestructura, Ajuste de producto/menú, Marketing digital, Alianzas, Capacitación del equipo", "q13": "Sí", "q14": "Sí", "q15": "No", "q16": "No aplica", "q17": "5", "q18": "Otros establecimientos, Operadores/agencias, Alcaldía/entidades, Comunidad local", "q19": "Operadores", "q20": "3", "q21": "Comercialización", "q22": "Diseño de experiencia", "q23": "Comercialización, promoción de la ruta más alojamiento ya que están establecidos.", "q24": "Ruta del café ya constituida.", "q25": "En el tema de la cocina, definir 5 platos dependiendo de la temporada de cosecha para aplicarlos a la ruta."}, "avances": ["Diseño de experiencia", "Mejora de infraestructura", "Ajuste de producto/menú", "Marketing digital", "Alianzas", "Capacitación del equipo"], "brechas": {"principal": "Comercialización", "secundaria": "Diseño de experiencia"}, "apoyo": "Comercialización, promoción de la ruta más alojamiento ya que están establecidos.", "accion_90": "Ruta del café ya constituida.", "aprendizaje": "En el tema de la cocina, definir 5 platos dependiendo de la temporada de cosecha para aplicarlos a la ruta.", "semaforos": {"experiencia": "Sí", "capacidad": "Sí", "protocolos": "No", "costos": "Sí", "piloto": "No"}, "comfama": {"nombre_comfama": "Reserva Natural Capaguas", "descripcion": "Senderismo, ciclomontañismo y turismo de naturaleza en Santa Rosa de Osos. Alianza comunitaria con potencial ecológico alto; en adecuación de oferta gastronómica para la ruta.", "dofa": {"fortalezas": ["Alto potencial turístico ecológico", "Premios de sostenibilidad", "Alianza comunitaria"], "debilidades": ["Bajo potencial agro-gastronómico actual", "Cocina y menú en adecuación"], "oportunidades": ["Integración a rutas de naturaleza", "Diversificación gastronómica"], "amenazas": ["Dependencia de temporada", "Infraestructura limitada para grupos"]}, "potencial": [0, 0, 0, 2, 3, 3], "potencial_labels": ["Constitución", "Tradición", "Autenticidad", "Infraestructura", "Experiencia", "Representatividad"], "estrategia": "Fortalecer cocina y menú de temporada; articular con ruta del café; definir 5 platos según cosecha.", "experiencia": "Recorridos de naturaleza mínimo 8 horas con acercamiento a casas campesinas.", "costo": "Aprox. $150.000/persona (transporte, alimentación, guía, seguro)", "potencial_total": 8, "pdf_extracto": "CAPAGUAS ................................ ................................ ................................ ................................ ................................ .. 82 "}}, {"id": "lacteos-susy", "nombre": "Lácteos Susy", "contacto": "Santiago Carreño- gerente", "email": "santicarre@gmail.com", "municipio": "San Pedro de los Milagros", "etapa": "Intermedia", "etapa_ordinal": 3, "scores": {"propuesta_valor": 5.0, "producto_experiencia": 5.0, "capacidad_operativa": 4.17, "demanda_actual": 5.0, "avance_asesoria": 5.0, "articulacion": 5.0, "comercializacion": 5.0, "preparacion_ruta": 3.0}, "maturity_index": 4.65, "coords": [6.4554, -75.57870000000001], "respuestas": {"q1": "Lácteos Susy", "q2": "Santiago Carreño- gerente", "q3": "San pedro", "q4": "Intermedia", "q5": "5", "q6": "Sí", "q7": "Sí", "q8": "Parcial", "q9": "Semanal", "q10": "5", "q11": "5", "q12": "Diseño de experiencia, Marketing digital", "q13": "Sí", "q14": "Sí", "q15": "Sí", "q16": "Positivo", "q17": "5", "q18": "Operadores/agencias, Alcaldía/entidades, Comunidad local", "q19": "Voz a voz", "q20": "5", "q21": "Financiamiento", "q22": "Articulación", "q23": "Necesitan búsqueda y gestión de recursos ya que están extendiendo su planta de producción y expandiendo sus productos.", "q24": "Están terminando de generar autonomía financiera por medio de la subdivisión del predio para poder tener mayor poder de endeudamiento.", "q25": "Principalmente la ejecución del recurso y la articulación con otras entidades."}, "avances": ["Diseño de experiencia", "Marketing digital"], "brechas": {"principal": "Financiamiento", "secundaria": "Articulación"}, "apoyo": "Necesitan búsqueda y gestión de recursos ya que están extendiendo su planta de producción y expandiendo sus productos.", "accion_90": "Están terminando de generar autonomía financiera por medio de la subdivisión del predio para poder tener mayor poder de endeudamiento.", "aprendizaje": "Principalmente la ejecución del recurso y la articulación con otras entidades.", "semaforos": {"experiencia": "Sí", "capacidad": "Sí", "protocolos": "Parcial", "costos": "Sí", "piloto": "Sí"}, "comfama": {"nombre_comfama": "Lácteos Susy (Finca La Ranchera)", "descripcion": "Finca lechera con 35 años de historia, producción tecnificada y experiencia turística educativa. Máxima calificación agro-gastronómica (18/18).", "dofa": {"fortalezas": ["Leche de alta calidad y mejora genética", "Variedad de lácteos artesanales", "Experiencia turística innovadora"], "debilidades": ["Capacidad limitada de procesamiento", "Recursos humanos para producción y turismo"], "oportunidades": ["Turismo rural en crecimiento", "Nuevo punto de venta en finca"], "amenazas": ["Competencia industrial", "Crisis lechera"]}, "potencial": [3, 3, 3, 3, 3, 3], "potencial_labels": ["Constitución", "Tradición", "Autenticidad", "Infraestructura", "Experiencia", "Representatividad"], "estrategia": "Finalizar planta, abrir punto de venta, fan trip para operadores, experiencia de inmersión para grupos.", "experiencia": "Inmersiones: Siembra de propósitos, Conversatorio con las vacas, Transformando con Susy.", "costo": "Completa $84.000–$285.000 | Corta $85.000–$92.000/persona", "potencial_total": 18, "pdf_extracto": ""}}, {"id": "quesadillas-dona-rosy", "nombre": "Quesadillas doña Rosy", "contacto": "Juan Felipe Medina Perez", "email": "Ambientalomegaing@gmail.com", "municipio": "San Pedro de los Milagros", "etapa": "Inicial", "etapa_ordinal": 1, "scores": {"propuesta_valor": 4.0, "producto_experiencia": 1.88, "capacidad_operativa": 1.83, "demanda_actual": 1.0, "avance_asesoria": 3.5, "articulacion": 4.2, "comercializacion": 4.3, "preparacion_ruta": 1.0}, "maturity_index": 2.71, "coords": [6.4674000000000005, -75.57870000000001], "respuestas": {"q1": "Quesadillas doña Rosy", "q2": "Juan Felipe Medina Perez", "q3": "SAN PEDRO", "q4": "Inicial", "q5": "4", "q6": "Parcial", "q7": "No", "q8": "Parcial", "q9": "Aún no recibe", "q10": "3", "q11": "3", "q12": "Diseño de experiencia", "q13": "Sí", "q14": "No", "q15": "No", "q16": "No aplica", "q17": "4", "q18": "Alcaldía/entidades", "q19": "Voz a voz", "q20": "4", "q21": "Infraestructura", "q22": "Financiamiento", "q23": "Tema del diseño de la experiencia de los costos. Diseño para definir los costos de la ruta a los visitantes. ¿Cuánto tendrián que cobrar por la experiencia? (Elaborar un modelo de costos y precios)", "q24": "Infraestructura", "q25": "Tema de comerzialización y la oportunidad de generar una ruta turistica de experiencia gastronomica, intengrandose a la ruta lechera."}, "avances": ["Diseño de experiencia"], "brechas": {"principal": "Infraestructura", "secundaria": "Financiamiento"}, "apoyo": "Tema del diseño de la experiencia de los costos. Diseño para definir los costos de la ruta a los visitantes. ¿Cuánto tendrián que cobrar por la experiencia? (Elaborar un modelo de costos y precios)", "accion_90": "Infraestructura", "aprendizaje": "Tema de comerzialización y la oportunidad de generar una ruta turistica de experiencia gastronomica, intengrandose a la ruta lechera.", "semaforos": {"experiencia": "Parcial", "capacidad": "No", "protocolos": "Parcial", "costos": "No", "piloto": "No"}, "comfama": {"nombre_comfama": "Quesadillas Doña Rosmi", "descripcion": "Producción artesanal de quesadillas en San Pedro. Negocio familiar con potencial de integrarse a la ruta lechera con diseño de experiencia.", "dofa": {"fortalezas": ["Producto tradicional auténtico", "Ubicación en corredor lechero"], "debilidades": ["Sin capacidad instalada para visitantes", "Sin modelo de costos definido"], "oportunidades": ["Ruta lechera y gastronómica", "Articulación con alcaldía"], "amenazas": ["Falta de financiamiento", "Infraestructura insuficiente"]}, "potencial": [2, 2, 2, 1, 1, 2], "potencial_labels": ["Constitución", "Tradición", "Autenticidad", "Infraestructura", "Experiencia", "Representatividad"], "estrategia": "Diseñar experiencia y modelo de costos; habilitar infraestructura básica de recepción.", "experiencia": "En diseño: demostración de elaboración y degustación de quesadillas.", "costo": "Por definir con modelo de costos", "potencial_total": 10, "pdf_extracto": "QUESADILLAS DOÑA ROSMY ................................ ................................ ................................ .........................  41 "}}, {"id": "truchera-las-huertas", "nombre": "Truchera las Huertas", "contacto": "ALVARO ARENAS SERNA", "email": "troutfarmsas@gmail.com", "municipio": "Bello", "etapa": "Consolidada", "etapa_ordinal": 5, "scores": {"propuesta_valor": 5.0, "producto_experiencia": 2.5, "capacidad_operativa": 5.0, "demanda_actual": 5.0, "avance_asesoria": 3.0, "articulacion": 1.2, "comercializacion": 3.3, "preparacion_ruta": 5.0}, "maturity_index": 3.75, "coords": [6.3553, -75.58000000000001], "respuestas": {"q1": "Truchera las Huertas", "q2": "ALVARO ARENAS SERNA", "q3": "BELLO", "q4": "Consolidada", "q5": "5", "q6": "Sí", "q7": "Sí", "q8": "Sí", "q9": "Semanal", "q10": "5", "q11": "3", "q12": "Ninguno aún", "q13": "Sí", "q14": "No", "q15": "No", "q16": "No aplica", "q17": "1", "q18": "Aún sin articulación", "q19": "Voz a voz", "q20": "3", "q21": "Articulación", "q22": "Diseño de experiencia", "q23": "TALENTO HUMANO", "q24": "TRABAJAR", "q25": "NO VIO AVANCE HASTA EL MOMENTO"}, "avances": [], "brechas": {"principal": "Articulación", "secundaria": "Diseño de experiencia"}, "apoyo": "TALENTO HUMANO", "accion_90": "TRABAJAR", "aprendizaje": "NO VIO AVANCE HASTA EL MOMENTO", "semaforos": {"experiencia": "Sí", "capacidad": "Sí", "protocolos": "Sí", "costos": "No", "piloto": "No"}, "comfama": {"nombre_comfama": "Truchera Las Huertas", "descripcion": "Más de 22 años en piscicultura tecnificada. Restaurante, pesca deportiva, granja y experiencia agroturística consolidada en Bello.", "dofa": {"fortalezas": ["Producción de trucha de alta calidad", "Infraestructura diversa", "Experiencia definida"], "debilidades": ["Baja articulación territorial actual", "Talento humano para ruta integrada"], "oportunidades": ["Alianzas con queserías y panaderías de la ruta", "Paquetes combinados"], "amenazas": ["Operación aislada del corredor San Pedro"]}, "potencial": [3, 2, 3, 3, 2, 2], "potencial_labels": ["Constitución", "Tradición", "Autenticidad", "Infraestructura", "Experiencia", "Representatividad"], "estrategia": "Articular con operadores; integrar degustaciones con productos aliados de la ruta.", "experiencia": "Historia + video + degustación + recorrido granja. 2 horas. $25.000/persona.", "costo": "$25.000/persona (degustación y recorrido)", "potencial_total": 15, "pdf_extracto": "TRUCHERA LAS HUERTAS ................................ ................................ ................................ ................................ . 2 "}}, {"id": "hotel-la-fortuna", "nombre": "Hotel La Fortuna", "contacto": "Juan David Rios- gerente", "email": "lafortuna.fincahotel@gmail.com", "municipio": "San Pedro de los Milagros", "etapa": "Consolidada", "etapa_ordinal": 5, "scores": {"propuesta_valor": 4.0, "producto_experiencia": 3.75, "capacidad_operativa": 4.17, "demanda_actual": 5.0, "avance_asesoria": 1.0, "articulacion": 5.0, "comercializacion": 5.0, "preparacion_ruta": 5.0}, "maturity_index": 4.12, "coords": [6.4434000000000005, -75.56370000000001], "respuestas": {"q1": "Hotel La Fortuna", "q2": "Juan David Rios- gerente", "q3": "San pedro", "q4": "Consolidada", "q5": "4", "q6": "Sí", "q7": "Sí", "q8": "Parcial", "q9": "Semanal", "q10": "5", "q11": "1", "q12": "Ninguno aún", "q13": "No", "q14": "Sí", "q15": "Sí", "q16": "Positivo", "q17": "5", "q18": "Otros establecimientos, Alcaldía/entidades, Comunidad local", "q19": "Redes sociales", "q20": "5", "q21": "Infraestructura", "q22": "Comercialización", "q23": "Necesitarían tecnificar el talento humano, conocimiento para pautar y campañas promocionales", "q24": "Ha estado intentando empezar en pautas.", "q25": "Quiere pertenecer a la ruta, le gustaría que tengan claridad con la ruta y que los tengan en cuenta a ellos para poder articularse antes de la entrega final."}, "avances": [], "brechas": {"principal": "Infraestructura", "secundaria": "Comercialización"}, "apoyo": "Necesitarían tecnificar el talento humano, conocimiento para pautar y campañas promocionales", "accion_90": "Ha estado intentando empezar en pautas.", "aprendizaje": "Quiere pertenecer a la ruta, le gustaría que tengan claridad con la ruta y que los tengan en cuenta a ellos para poder articularse antes de la entrega final.", "semaforos": {"experiencia": "Sí", "capacidad": "Sí", "protocolos": "Parcial", "costos": "Sí", "piloto": "Sí"}, "comfama": {"nombre_comfama": "Finca Hotel La Fortuna", "descripcion": "Alojamiento rural con experiencias de ordeño, transformación láctea y caballos criollos. Cocina autóctona en San Pedro.", "dofa": {"fortalezas": ["Hospedaje + experiencias temáticas", "Cocina autóctona diferenciada"], "debilidades": ["Protocolos operativos parciales", "Necesidad de tecnificar marketing digital"], "oportunidades": ["Paquetes con ruta lechera", "Pauta y campañas promocionales"], "amenazas": ["Competencia de hospedajes rurales"]}, "potencial": [3, 2, 2, 3, 3, 2], "potencial_labels": ["Constitución", "Tradición", "Autenticidad", "Infraestructura", "Experiencia", "Representatividad"], "estrategia": "Tecnificar talento humano en marketing; articular antes de entrega final de ruta.", "experiencia": "Experiencia caballos criollos 45 min + hospedaje.", "costo": "Experiencia $10.000 | Hospedaje $230.000/pareja", "potencial_total": 15, "pdf_extracto": "FINCA LA RANCHERA) ................................ ................................ ................................ ... 57 "}}, {"id": "labores", "nombre": "Labores", "contacto": "Kelly Jhoan herrera   Gerente de producción", "email": "laboreslacteas22@gmail.com", "municipio": "Belmira", "etapa": "En desarrollo", "etapa_ordinal": 2, "scores": {"propuesta_valor": 3.0, "producto_experiencia": 0.62, "capacidad_operativa": 0.33, "demanda_actual": 1.0, "avance_asesoria": 2.0, "articulacion": 1.2, "comercializacion": 5.0, "preparacion_ruta": 2.0}, "maturity_index": 1.89, "coords": [6.6007, -75.67370000000001], "respuestas": {"q1": "Labores", "q2": "Kelly Jhoan herrera   Gerente de producción", "q3": "Belmira", "q4": "En desarrollo", "q5": "3", "q6": "No", "q7": "No", "q8": "No", "q9": "Aún no recibe", "q10": "1", "q11": "2", "q12": "Ninguno aún", "q13": "En proceso", "q14": "No", "q15": "No", "q16": "No aplica", "q17": "1", "q18": "Alcaldía/entidades", "q19": "Otro", "q20": "5", "q21": "Financiamiento", "q22": "Articulación", "q23": "Articulación con el tema del transporte", "q24": "Asesoria de diseño de la ruta, construcción de la experiencia y mejora en la estructura para ejecutar el proceso de la ruta", "q25": "A pesar de no manejar temas relacionados con el turismo, crear la idea de participar en pro al diseño de una nueva posibilidad"}, "avances": [], "brechas": {"principal": "Financiamiento", "secundaria": "Articulación"}, "apoyo": "Articulación con el tema del transporte", "accion_90": "Asesoria de diseño de la ruta, construcción de la experiencia y mejora en la estructura para ejecutar el proceso de la ruta", "aprendizaje": "A pesar de no manejar temas relacionados con el turismo, crear la idea de participar en pro al diseño de una nueva posibilidad", "semaforos": {"experiencia": "No", "capacidad": "No", "protocolos": "No", "costos": "No", "piloto": "No"}, "comfama": {"nombre_comfama": "Labores Lácteas Comunitarias (La Quesera)", "descripcion": "Empresa social en Belmira con transformación láctea artesanal y enfoque de inclusión. En desarrollo de oferta turística.", "dofa": {"fortalezas": ["Enfoque social e inclusión de mujeres", "Productos de alto valor agregado"], "debilidades": ["Sin experiencia turística definida", "Logística compleja por lejanía"], "oportunidades": ["Turismo rural y religioso", "Rutas de peregrinación"], "amenazas": ["Aceptación local limitada del producto diferenciado"]}, "potencial": [2, 2, 2, 1, 1, 2], "potencial_labels": ["Constitución", "Tradición", "Autenticidad", "Infraestructura", "Experiencia", "Representatividad"], "estrategia": "Diseño de ruta y experiencia; articulación con transporte; mejora de estructura operativa.", "experiencia": "Visita y degustación en quesera — en construcción.", "costo": "Por definir", "potencial_total": 10, "pdf_extracto": "LABORES LÁCTEAS COMUNITARIAS (“LA QUESERA”) ................................ ................................ ... 62 "}}, {"id": "ricolandia", "nombre": "Ricolandia", "contacto": "Alejandro Diaz- Administración", "email": "admonrestaurantericolandia@gmail.com", "municipio": "San Pedro de los Milagros", "etapa": "Consolidada", "etapa_ordinal": 5, "scores": {"propuesta_valor": 5.0, "producto_experiencia": 1.88, "capacidad_operativa": 4.17, "demanda_actual": 5.0, "avance_asesoria": 5.0, "articulacion": 5.0, "comercializacion": 5.0, "preparacion_ruta": 5.0}, "maturity_index": 4.51, "coords": [6.4674000000000005, -75.56370000000001], "respuestas": {"q1": "Ricolandia", "q2": "Alejandro Diaz- Administración", "q3": "San pedro", "q4": "Consolidada", "q5": "5", "q6": "Sí", "q7": "Sí", "q8": "Parcial", "q9": "Semanal", "q10": "5", "q11": "5", "q12": "Ninguno aún", "q13": "En proceso", "q14": "No", "q15": "No", "q16": "No aplica", "q17": "5", "q18": "Operadores/agencias, Comunidad local", "q19": "Redes sociales", "q20": "5", "q21": "Articulación", "q22": "Diseño de experiencia", "q23": "Necesitan diseño de experiencia, de producto, de ser mas visible al Norte de Antioquia, evolucionar un poco en el tema del turismo.", "q24": "Creen que deberían generar productos y experiencias únicas del restaurante", "q25": "Le gustaría que la ruta los ayudara a articularse, porque no tienen contacto entre sí"}, "avances": [], "brechas": {"principal": "Articulación", "secundaria": "Diseño de experiencia"}, "apoyo": "Necesitan diseño de experiencia, de producto, de ser mas visible al Norte de Antioquia, evolucionar un poco en el tema del turismo.", "accion_90": "Creen que deberían generar productos y experiencias únicas del restaurante", "aprendizaje": "Le gustaría que la ruta los ayudara a articularse, porque no tienen contacto entre sí", "semaforos": {"experiencia": "Sí", "capacidad": "Sí", "protocolos": "Parcial", "costos": "No", "piloto": "No"}, "comfama": {"nombre_comfama": "Ricolandia", "descripcion": "Restaurante campestre emblemático con 41 años. Cocina colombiana, mini granja y capacidad hasta 600 personas en San Pedro.", "dofa": {"fortalezas": ["Trayectoria y reconocimiento local", "Capacidad instalada alta", "Café propio"], "debilidades": ["Poca articulación entre actores", "Producto turístico en proceso"], "oportunidades": ["Almuerzo en ruta + paquetes picnic", "Redes sociales fuertes"], "amenazas": ["Percepción solo como restaurante local"]}, "potencial": [2, 2, 2, 3, 2, 2], "potencial_labels": ["Constitución", "Tradición", "Autenticidad", "Infraestructura", "Experiencia", "Representatividad"], "estrategia": "Diseñar productos y experiencias únicas; articular con otros establecimientos de la ruta.", "experiencia": "Alimentación en ruta (almuerzo); potencial granja y picnic.", "costo": "Según consumo en restaurante", "potencial_total": 13, "pdf_extracto": "RICOLANDIA ................................ ................................ ................................ ................................ ...............................  31 "}}, {"id": "toledales", "nombre": "Toledales", "contacto": "Lina Escobar Directora", "email": "lina.escobar@toledales.com", "municipio": "Bello", "etapa": "Avanzada", "etapa_ordinal": 4, "scores": {"propuesta_valor": 4.0, "producto_experiencia": 5.0, "capacidad_operativa": 4.67, "demanda_actual": 3.0, "avance_asesoria": 3.5, "articulacion": 3.6, "comercializacion": 3.5, "preparacion_ruta": 4.0}, "maturity_index": 3.91, "coords": [6.3553, -75.56500000000001], "respuestas": {"q1": "Toledales", "q2": "Lina Escobar Directora", "q3": "Bello", "q4": "Avanzada", "q5": "4", "q6": "Sí", "q7": "Sí", "q8": "Sí", "q9": "Mensual", "q10": "4", "q11": "3", "q12": "Diseño de experiencia, Ajuste de producto/menú, Alianzas, Capacitación del equipo", "q13": "Sí", "q14": "Sí", "q15": "Sí", "q16": "Positivo", "q17": "3", "q18": "Operadores/agencias, Alcaldía/entidades, Comunidad local", "q19": "Redes sociales", "q20": "3", "q21": "Financiamiento", "q22": "Comercialización", "q23": "Financiación y capacitación", "q24": "comercialización", "q25": "Conocimiento"}, "avances": ["Diseño de experiencia", "Ajuste de producto/menú", "Alianzas", "Capacitación del equipo"], "brechas": {"principal": "Financiamiento", "secundaria": "Comercialización"}, "apoyo": "Financiación y capacitación", "accion_90": "comercialización", "aprendizaje": "Conocimiento", "semaforos": {"experiencia": "Sí", "capacidad": "Sí", "protocolos": "Sí", "costos": "Sí", "piloto": "Sí"}, "comfama": {"nombre_comfama": "Toledales S.A.S. - BIC", "descripcion": "Lácteos artesanales 100% naturales en San Félix (Bello). Experiencias agroturísticas para grupos de 8 a 30 personas.", "dofa": {"fortalezas": ["Quesos innovadores artesanales", "Experiencia agroturística estructurada"], "debilidades": ["Necesidad de financiación para escalar"], "oportunidades": ["Grupos corporativos y turismo de naturaleza", "Alianzas con trucheras"], "amenazas": ["Estacionalidad de demanda"]}, "potencial": [3, 2, 3, 2, 2, 2], "potencial_labels": ["Constitución", "Tradición", "Autenticidad", "Infraestructura", "Experiencia", "Representatividad"], "estrategia": "Comercialización y capacitación; fortalecer alianzas con operadores.", "experiencia": "Bienvenida + recorrido + cata de quesos. 3 horas. $95.000–$130.000/persona.", "costo": "$95.000–$130.000/persona", "potencial_total": 14, "pdf_extracto": "TOLEDALES ................................ ................................ ................................ ................................ ................................ .. 7 "}}, {"id": "ritualic", "nombre": "Ritualic", "contacto": "Paulina Cussó Gerente general", "email": "Gerencia@ritualic.com", "municipio": "Belmira", "etapa": "En desarrollo", "etapa_ordinal": 2, "scores": {"propuesta_valor": 4.0, "producto_experiencia": 1.88, "capacidad_operativa": 3.83, "demanda_actual": 1.0, "avance_asesoria": 3.5, "articulacion": 5.0, "comercializacion": 4.5, "preparacion_ruta": 2.0}, "maturity_index": 3.21, "coords": [6.5887, -75.65870000000001], "respuestas": {"q1": "Ritualic", "q2": "Paulina Cussó Gerente general", "q3": "Belmira Antioquia", "q4": "En desarrollo", "q5": "4", "q6": "No", "q7": "Sí", "q8": "Parcial", "q9": "Aún no recibe", "q10": "4", "q11": "3", "q12": "Mejora de infraestructura, Ajuste de producto/menú, Capacitación del equipo", "q13": "Sí", "q14": "Parcial", "q15": "No", "q16": "No aplica", "q17": "5", "q18": "Otros establecimientos, Operadores/agencias, Alcaldía/entidades, Comunidad local", "q19": "Redes sociales", "q20": "4", "q21": "Comercialización", "q22": "Financiamiento", "q23": "Estructuración del proyecto y conexión con operadores turisticos", "q24": "La parte visual del proyecto, branding y el contenido pre lanzamiento", "q25": "La importancia en la estructura publicitaria y el desarrollo de la ruta tanto en organización como en costos"}, "avances": ["Mejora de infraestructura", "Ajuste de producto/menú", "Capacitación del equipo"], "brechas": {"principal": "Comercialización", "secundaria": "Financiamiento"}, "apoyo": "Estructuración del proyecto y conexión con operadores turisticos", "accion_90": "La parte visual del proyecto, branding y el contenido pre lanzamiento", "aprendizaje": "La importancia en la estructura publicitaria y el desarrollo de la ruta tanto en organización como en costos", "semaforos": {"experiencia": "No", "capacidad": "Sí", "protocolos": "Parcial", "costos": "Parcial", "piloto": "No"}, "comfama": {"nombre_comfama": "Ritualik", "descripcion": "Proyecto en Belmira con enfoque en productos lácteos y cosmética natural. En desarrollo de branding y contenido pre-lanzamiento.", "dofa": {"fortalezas": ["Articulación amplia con actores", "Propuesta diferenciada visual"], "debilidades": ["Sin visitantes aún", "Estructuración de proyecto en curso"], "oportunidades": ["Conexión con operadores turísticos", "Redes sociales"], "amenazas": ["Financiamiento", "Falta de experiencia piloto"]}, "potencial": [2, 2, 2, 2, 2, 2], "potencial_labels": ["Constitución", "Tradición", "Autenticidad", "Infraestructura", "Experiencia", "Representatividad"], "estrategia": "Estructuración del proyecto, branding y conexión con operadores antes del lanzamiento.", "experiencia": "En diseño: experiencia de marca y producto lácteo/cosmético.", "costo": "Por definir", "potencial_total": 12, "pdf_extracto": "RITUALIK ................................ ................................ ................................ ................................ ................................ ....... 22 "}}, {"id": "mesabecafe", "nombre": "Mesabecafe", "contacto": "Rober Angel patiño londoño administrador", "email": "roberpatino565@gmail.com", "municipio": "Belmira", "etapa": "Intermedia", "etapa_ordinal": 3, "scores": {"propuesta_valor": 4.0, "producto_experiencia": 5.0, "capacidad_operativa": 4.33, "demanda_actual": 5.0, "avance_asesoria": 4.5, "articulacion": 4.8, "comercializacion": 3.5, "preparacion_ruta": 3.0}, "maturity_index": 4.27, "coords": [6.6007, -75.65870000000001], "respuestas": {"q1": "Mesabecafe", "q2": "Rober Angel patiño londoño administrador", "q3": "Belmira Antioquia", "q4": "Intermedia", "q5": "4", "q6": "Sí", "q7": "Sí", "q8": "Sí", "q9": "Semanal", "q10": "3", "q11": "4", "q12": "Diseño de experiencia, Mejora de infraestructura, Ajuste de producto/menú, Marketing digital, Capacitación del equipo", "q13": "Sí", "q14": "Sí", "q15": "Sí", "q16": "Positivo", "q17": "4", "q18": "Otros establecimientos, Operadores/agencias, Alcaldía/entidades, Comunidad local", "q19": "Redes sociales", "q20": "3", "q21": "Financiamiento", "q22": "Talento humano", "q23": "Potenciando los factores mas debiles de la propuesta teniendo encuenta lo que ya se tiene", "q24": "Mejora continua de producto y articulación de la ruta, propuesta de valor, productos de cafe con el maridaje", "q25": "Buscar otras opciones de acompañamiento para hacer las juntas con los maridaje, productos de reposteria."}, "avances": ["Diseño de experiencia", "Mejora de infraestructura", "Ajuste de producto/menú", "Marketing digital", "Capacitación del equipo"], "brechas": {"principal": "Financiamiento", "secundaria": "Talento humano"}, "apoyo": "Potenciando los factores mas debiles de la propuesta teniendo encuenta lo que ya se tiene", "accion_90": "Mejora continua de producto y articulación de la ruta, propuesta de valor, productos de cafe con el maridaje", "aprendizaje": "Buscar otras opciones de acompañamiento para hacer las juntas con los maridaje, productos de reposteria.", "semaforos": {"experiencia": "Sí", "capacidad": "Sí", "protocolos": "Sí", "costos": "Sí", "piloto": "Sí"}, "comfama": {"nombre_comfama": "Me Sabe Café (Mesabecafe)", "descripcion": "Café y gastronomía en Belmira con potencial de maridaje y repostería para la ruta turística.", "dofa": {"fortalezas": ["Producto café con identidad local", "Avances en diseño de experiencia"], "debilidades": ["Financiamiento", "Talento humano especializado"], "oportunidades": ["Maridajes con quesos y lácteos de la ruta", "Articulación intermunicipal"], "amenazas": ["Competencia de cafeterías urbanas"]}, "potencial": [2, 2, 2, 2, 2, 3], "potencial_labels": ["Constitución", "Tradición", "Autenticidad", "Infraestructura", "Experiencia", "Representatividad"], "estrategia": "Mejora continua de producto; articulación de ruta con maridajes café-queso.", "experiencia": "Catas y maridajes café-repostería.", "costo": "Según experiencia definida", "potencial_total": 13, "pdf_extracto": "ME DE ASESORÍA "}}, {"id": "gelatina-santa-rosana", "nombre": "Gelatina Santa Rosana", "contacto": "Rosa Angelica areas chaverria fundadora", "email": "rosaangelica2117@gmail.com", "municipio": "Santa Rosa de Osos", "etapa": "Inicial", "etapa_ordinal": 1, "scores": {"propuesta_valor": 4.0, "producto_experiencia": 3.75, "capacidad_operativa": 3.83, "demanda_actual": 2.0, "avance_asesoria": 4.5, "articulacion": 3.4, "comercializacion": 2.3, "preparacion_ruta": 1.0}, "maturity_index": 3.1, "coords": [6.6534, -75.4537], "respuestas": {"q1": "Gelatina Santa Rosana", "q2": "Rosa Angelica areas chaverria fundadora", "q3": "Santa rosa de osos", "q4": "Inicial", "q5": "4", "q6": "Parcial", "q7": "Parcial", "q8": "Sí", "q9": "Esporádico", "q10": "4", "q11": "4", "q12": "Mejora de infraestructura, Capacitación del equipo", "q13": "Sí", "q14": "Parcial", "q15": "Sí", "q16": "Positivo", "q17": "3", "q18": "Alcaldía/entidades, Comunidad local", "q19": "Voz a voz", "q20": "2", "q21": "Financiamiento", "q22": "Diseño de experiencia", "q23": "Orientiación en el diseño de la ruta, capacitación de los parametros de recibimiento de turistas intregrados a la ruta, la visualización del producto acorde a la ruta y a la imagen del establecimiento.", "q24": "Capacitación de habilidades blandas para los empleados de la ruta", "q25": "Satisfacción del apoyo para brindar una buena imagen empresarial y personal"}, "avances": ["Mejora de infraestructura", "Capacitación del equipo"], "brechas": {"principal": "Financiamiento", "secundaria": "Diseño de experiencia"}, "apoyo": "Orientiación en el diseño de la ruta, capacitación de los parametros de recibimiento de turistas intregrados a la ruta, la visualización del producto acorde a la ruta y a la imagen del establecimiento.", "accion_90": "Capacitación de habilidades blandas para los empleados de la ruta", "aprendizaje": "Satisfacción del apoyo para brindar una buena imagen empresarial y personal", "semaforos": {"experiencia": "Parcial", "capacidad": "Parcial", "protocolos": "Sí", "costos": "Parcial", "piloto": "Sí"}, "comfama": {"nombre_comfama": "Gelatina Santarosana", "descripcion": "Gelatina tradicional en Santa Rosa de Osos. Producto icónico con potencial turístico en etapa inicial.", "dofa": {"fortalezas": ["Producto tradicional reconocido", "Capacitación del equipo en curso"], "debilidades": ["Infraestructura parcial", "Baja visibilidad digital"], "oportunidades": ["Integración a ruta turística regional", "Capacitación en habilidades blandas"], "amenazas": ["Financiamiento", "Diseño de experiencia pendiente"]}, "potencial": [2, 3, 2, 1, 2, 2], "potencial_labels": ["Constitución", "Tradición", "Autenticidad", "Infraestructura", "Experiencia", "Representatividad"], "estrategia": "Orientación en diseño de ruta; capacitación en recepción de turistas.", "experiencia": "Degustación de gelatina tradicional — en diseño.", "costo": "Por definir", "potencial_total": 12, "pdf_extracto": "GELATINA SANTARROSANA ................................ ................................ ................................ ............................  77 "}}, {"id": "salinero", "nombre": "Salinero", "contacto": "Laura arenas", "email": "Cristina.londono@salinero.co", "municipio": "Medellín", "etapa": "En desarrollo", "etapa_ordinal": 2, "scores": {"propuesta_valor": 5.0, "producto_experiencia": 4.38, "capacidad_operativa": 3.0, "demanda_actual": 3.0, "avance_asesoria": 3.5, "articulacion": 5.0, "comercializacion": 4.6, "preparacion_ruta": 2.0}, "maturity_index": 3.81, "coords": [6.2622, -75.5732], "respuestas": {"q1": "Salinero", "q2": "Laura arenas", "q3": "MEDELLIN", "q4": "En desarrollo", "q5": "5", "q6": "Parcial", "q7": "Sí", "q8": "No", "q9": "Mensual", "q10": "4", "q11": "3", "q12": "Marketing digital, Capacitación del equipo", "q13": "Sí", "q14": "Sí", "q15": "Sí", "q16": "Positivo", "q17": "5", "q18": "Otros establecimientos, Operadores/agencias, Alcaldía/entidades", "q19": "Aliados", "q20": "4", "q21": "Talento humano", "q22": "Talento humano", "q23": "COMERCIALIZACIÓN Y CAPACITACIÓN", "q24": "TURS Y CATAS DE QUESO AGENDADOS", "q25": "IMPORTANCIA DE ARTICULARNOS Y TENER RUTA CON DIFERENTE RECORRIDOS."}, "avances": ["Marketing digital", "Capacitación del equipo"], "brechas": {"principal": "Talento humano", "secundaria": "Talento humano"}, "apoyo": "COMERCIALIZACIÓN Y CAPACITACIÓN", "accion_90": "TURS Y CATAS DE QUESO AGENDADOS", "aprendizaje": "IMPORTANCIA DE ARTICULARNOS Y TENER RUTA CON DIFERENTE RECORRIDOS.", "semaforos": {"experiencia": "Parcial", "capacidad": "Sí", "protocolos": "No", "costos": "Sí", "piloto": "Sí"}, "comfama": {"nombre_comfama": "Salinero", "descripcion": "Quesería artesanal de pasta hilada en San Pedro. Experiencias de cata con enfoque sostenible (biodigestores).", "dofa": {"fortalezas": ["Productos artesanales diferenciados", "Sostenibilidad ambiental", "Alta articulación territorial"], "debilidades": ["Talento humano", "Empresa joven (1 año)"], "oportunidades": ["Tours y catas agendados", "Rutas con recorridos diferenciados"], "amenazas": ["Capacidad limitada de producción"]}, "potencial": [2, 2, 2, 2, 2, 1], "potencial_labels": ["Constitución", "Tradición", "Autenticidad", "Infraestructura", "Experiencia", "Representatividad"], "estrategia": "Comercialización y capacitación; tours y catas de queso agendados.", "experiencia": "Cata de quesos + recorrido planta. 1.5 horas. $30.000/persona.", "costo": "$30.000/persona", "potencial_total": 11, "pdf_extracto": "SALINERO ................................ ................................ ................................ ................................ ................................ .... 12 "}}]};
+    const INTERVENCIONES = {"meta": {"titulo": "Diagnóstico de Intervenciones — Empresas Norte", "fecha": "2026-05", "total": 8, "realizadas": 6, "pendientes": 2, "total_acuerdos": 12, "resumen_territorial": "las empresas aún están en una etapa muy temprana para desarrollar proyectos turísticos, porque la capacidad instalada que tienen o la capacidad de demanda son seis. Algunas se encuentran en el sector alimenticio, donde hacer una muestra dentro de las fábricas no les permite por el INVIMA, entonces tienen que adaptar unas nuevas condiciones. Los únicos que están ya habilitados serían los hoteles."}, "etiquetas": {"restriccion_invima": "Restricción INVIMA", "capacidad_baja": "Baja capacidad instalada", "experiencia_externa": "Experiencia externa recomendada", "turismo_naturaleza": "Turismo de naturaleza", "logistica_compleja": "Logística de acceso compleja", "reunion_pendiente": "Reunión pendiente", "storytelling": "Storytelling / interpretación", "degustacion": "Degustación / cata", "permisos_municipales": "Permisos municipales", "apoyo_academico": "Apoyo académico", "costos_precios": "Costos y precios"}, "empresas": [{"id": "truchera-las-huertas", "establecimiento_id": "truchera-las-huertas", "nombre": "Truchera Las Huertas", "contacto": "Alvaro Arenas Serna", "estado": "no_realizada", "tipo": "agroindustria", "motivo": "Se informa que la reunión de consultoría programada con el equipo de la Truchera Las Huertas el día 15 de mayo del 2026 no se llevó a cabo debido a la inasistencia del equipo convocado, pese a haberles notificado media hora antes de la hora acordada para confirmar la asistencia. El mismo día se comunicó a Truchera Las Huertas para reagendar la reunión, pero no hubo respuesta. Este hecho genera un incumplimiento en la agenda de seguimiento.", "fecha_programada": "15 de mayo del 2026", "secciones": {"contexto": "", "intervencion": "", "analisis": "", "conclusion": ""}, "acuerdos": [], "etiquetas": ["reunion_pendiente"], "estrategia_clave": "Reunión pendiente de reprogramación", "aforo_estimado": null, "precios_mencionados": []}, {"id": "salinero", "establecimiento_id": "salinero", "nombre": "Salinero", "contacto": "Laura Arenas", "estado": "realizada", "tipo": "agroindustria", "secciones": {"contexto": "La reunión evaluó la viabilidad de integrar Salinero como atractivo turístico dentro de la estrategia de fortalecimiento de experiencias gastronómicas y agroindustriales del territorio. Se revisó la trayectoria de la empresa, su proceso productivo, la calidad y diferenciación de sus productos, así como las oportunidades para complementar la oferta turística local mediante experiencias asociadas a la tradición alimentaria, la identidad regional y el consumo de productos artesanales.", "intervencion": "Durante la reunión se identificó que Salinero posee un producto con potencial para convertirse en un atractivo turístico complementario gracias a su reconocimiento local y a los procesos artesanales asociados a su producción. Sin embargo, se evidenció que las instalaciones actuales fueron diseñadas para actividades productivas y no para la recepción de grupos turísticos numerosos. Adicionalmente, las restricciones sanitarias y normativas limitan el acceso de visitantes a las áreas de producción, por lo que la experiencia debe construirse mediante espacios externos de interpretación, degustación y comercialización. Se planteó la posibilidad de desarrollar actividades de storytelling alrededor de la historia de la empresa, demostraciones controladas, muestras gastronómicas y experiencias de degustación. Asimismo, se propuso la creación de una tienda o punto de experiencia fuera de la planta productiva que permita recibir visitantes, comercializar productos y desarrollar actividades turísticas sin afectar la operación ni incumplir los requisitos sanitarios.", "analisis": "Se concluyó que Salinero cuenta con elementos diferenciadores que pueden aportar valor a una ruta turística gastronómica del Norte de Antioquia. No obstante, la principal limitación identificada corresponde a la baja capacidad instalada para atender grupos de visitantes, así como las restricciones normativas que impiden el acceso a las zonas de producción. Se destacó que el INVIMA exige mantener condiciones de inocuidad y control sanitario incompatibles con el ingreso permanente de turistas a las áreas productivas, por lo que la experiencia debe diseñarse alrededor de espacios alternativos. En este sentido, la estrategia más viable consiste en fortalecer un punto de venta o centro de experiencia externo donde los visitantes puedan conocer la historia de la empresa, participar en degustaciones y adquirir productos. Igualmente, se recomendó integrar la visita dentro de rutas más amplias que incluyan otros atractivos del territorio, permitiendo distribuir mejor los tiempos de permanencia y generar una experiencia más completa para los visitantes.", "conclusion": "Salinero posee potencial para integrarse a una oferta turística gastronómica basada en la identidad y tradición productiva del territorio. Sin embargo, la limitada capacidad instalada y las restricciones sanitarias asociadas a la producción hacen inviable la recepción de grupos numerosos dentro de la planta. Por ello, la estrategia más adecuada consiste en desarrollar experiencias externas de interpretación, degustación y venta de productos, apoyadas en la creación de un punto de experiencia independiente que permita recibir visitantes de manera segura y sostenible. Como siguiente paso, la empresa deberá avanzar en el diseño de dicha experiencia y en la articulación con operadores turísticos y aliados comerciales."}, "acuerdos": [], "etiquetas": ["restriccion_invima", "capacidad_baja", "experiencia_externa", "logistica_compleja", "storytelling", "degustacion"], "estrategia_clave": "Salinero posee potencial para integrarse a una oferta turística gastronómica basada en la identidad y tradición productiva del territorio.", "aforo_estimado": null, "precios_mencionados": []}, {"id": "lacteos-susy", "establecimiento_id": "lacteos-susy", "nombre": "Lácteos Susy", "contacto": "Santiago Carreño Gutierrez", "estado": "realizada", "tipo": "agroindustria", "secciones": {"contexto": "La reunión tuvo como objetivo evaluar el potencial de Lácteos Susy para integrarse a una estrategia de turismo gastronómico y agroindustrial en el Norte de Antioquia. Se revisó la trayectoria de la empresa, la elaboración de derivados lácteos y las posibilidades de transformar parte de su conocimiento productivo en una experiencia turística complementaria que fortalezca la comercialización de sus productos y visibilice la tradición lechera de la región.", "intervencion": "Durante la sesión se identificó que Lácteos Susy cuenta con reconocimiento local y una oferta de productos que podría complementar rutas gastronómicas y rurales del territorio. Se discutió el interés que generan los procesos artesanales de transformación de la leche y la posibilidad de construir experiencias basadas en la historia de la empresa, degustaciones guiadas y demostraciones controladas sobre la elaboración de sus productos. Sin embargo, se evidenció que las instalaciones actuales fueron diseñadas exclusivamente para la producción y no cuentan con la capacidad física necesaria para recibir grupos turísticos numerosos. Adicionalmente, las normas sanitarias y los requerimientos del INVIMA restringen el ingreso de visitantes a las áreas donde se realizan procesos de transformación y manipulación de alimentos. Como alternativa, se planteó la creación de una tienda o centro de experiencia fuera de la planta productiva que permita recibir visitantes, realizar degustaciones, comercializar productos y desarrollar actividades de interpretación sin afectar las condiciones de inocuidad requeridas.", "analisis": "Se concluyó que Lácteos Susy tiene potencial para convertirse en un atractivo complementario dentro de una oferta de turismo gastronómico regional. No obstante, la principal limitación identificada corresponde a la reducida capacidad instalada para atender visitantes en volumen y a las restricciones sanitarias que impiden el acceso a las zonas de producción. Se destacó que cualquier estrategia turística debe desarrollarse en espacios independientes de la planta, priorizando actividades como degustaciones, narrativas sobre la tradición lechera, exhibición de productos y experiencias educativas relacionadas con la producción láctea. La implementación de un punto de experiencia externo permitiría cumplir con los requerimientos normativos y generar nuevas oportunidades de comercialización. Asimismo, se recomendó integrar la experiencia dentro de rutas turísticas más amplias que incluyan otros atractivos gastronómicos, culturales y naturales del territorio, aumentando así su atractivo comercial y su capacidad de recepción de visitantes.", "conclusion": "La incorporación de Lácteos Susy a una estrategia de turismo gastronómico es viable siempre que las experiencias se desarrollen por fuera de las áreas productivas. La limitada capacidad instalada y las restricciones sanitarias impiden la recepción de grupos turísticos dentro de la planta, por lo que se recomienda fortalecer actividades externas de degustación, interpretación y comercialización mediante la creación de un punto de experiencia independiente. Esta estrategia permitirá generar valor turístico y comercial sin afectar la operación productiva ni el cumplimiento de los estándares exigidos por el INVIMA."}, "acuerdos": [], "etiquetas": ["restriccion_invima", "capacidad_baja", "experiencia_externa", "logistica_compleja", "storytelling", "degustacion"], "estrategia_clave": "La incorporación de Lácteos Susy a una estrategia de turismo gastronómico es viable siempre que las experiencias se desarrollen por fuera de las áreas productivas.", "aforo_estimado": null, "precios_mencionados": []}, {"id": "capaguas", "establecimiento_id": "capaguas", "nombre": "Fundación Capaguas", "contacto": "Wilfer Norvey Martinez Garcia", "estado": "realizada", "tipo": "turismo_naturaleza", "secciones": {"contexto": "La reunión tuvo como objetivo avanzar en la estructuración y validación comercial de la propuesta turística de la Fundación Capaguas en Santa Rosa de Osos, orientada al turismo de naturaleza, comunitario y experiencial. Se revisó la oferta existente basada en conservación ambiental, avistamiento de aves, experiencia cafetera, piscicultura, gastronomía campesina y recorridos por el territorio, así como el diseño de un producto turístico piloto enfocado en la conexión con la naturaleza, la gastronomía local y una “aventura con propósito”. Adicionalmente, se analizaron aspectos relacionados con logística, costos, precios, rentabilidad, público objetivo y viabilidad comercial, con el propósito de consolidar una oferta atractiva para agencias de viaje, operadores turísticos y visitantes nacionales interesados en experiencias auténticas de inmersión rural.", "intervencion": "Los representantes de Fundación Capaguas expusieron la diversidad de experiencias disponibles dentro de las 36 hectáreas de bosque nativo administradas por la organización, destacando actividades de senderismo, observación de fauna y aves, fotografía de naturaleza, producción de café, cultivo de alimentos, piscicultura de trucha y gastronomía tradicional. Asimismo, presentaron los avances en turismo comunitario mediante la articulación con familias campesinas, la proyección de nuevos espacios de alojamiento y restaurante, y programas educativos dirigidos a niños, jóvenes y grupos familiares. Wilfer presentó la propuesta piloto de recorrido turístico, que contempla transporte en vehículos 4x4, un trayecto aproximado de 8 kilómetros con predominio de descenso, estaciones de interpretación del territorio, degustaciones de productos locales y actividades complementarias de observación de aves y fotografía. Durante la exposición se compartieron datos preliminares de costos y precios, incluyendo un valor de transporte de $360.000 COP por vehículo, un precio base de referencia de $220.000 COP por persona y un costo interno estimado de $123.500 COP por participante. Por su parte, José Mario orientó la discusión hacia la necesidad de consolidar una propuesta comercial clara y rentable. Recomendó estructurar productos turísticos diferenciados por segmentos de mercado, establecer tarifas basadas en costos reales y fortalecer la narrativa de la experiencia. También enfatizó la importancia de definir con mayor precisión el concepto de “aventura con propósito”, evitando mensajes ambiguos y asegurando que la propuesta comunique claramente el valor agregado asociado a la conservación ambiental, la cultura campesina y la conexión con el territorio.", "analisis": "Durante la sesión se confirmó que Fundación Capaguas cuenta con una oferta turística altamente diferenciada gracias a la combinación de recursos naturales, producción agropecuaria, gastronomía local y participación comunitaria. Se identificó un potencial importante para atraer segmentos interesados en turismo de naturaleza, observación de aves, fotografía especializada y experiencias rurales auténticas. Se definió como público objetivo principal a personas entre los 23 y 45 años interesadas en actividades al aire libre y experiencias inmersivas. Paralelamente, se consideró desarrollar una línea de productos para grupos familiares e instituciones educativas, incorporando componentes pedagógicos relacionados con el café, la producción lechera, la biodiversidad y la cultura campesina. En materia comercial se evidenció la necesidad de fortalecer la estructura de costos. Se concluyó que los valores inicialmente planteados deben revisarse considerando transporte, alimentación, seguros, operación, guianza y márgenes de rentabilidad sostenibles. Durante el ejercicio se analizaron escenarios con márgenes entre el 20% y el 30%, proponiéndose valores aproximados de $160.000 COP por persona para grupos con economías de escala y hasta $265.000 COP para modalidades con menor ocupación o transporte individualizado. También se resaltó la importancia de evitar el uso excesivo de imágenes generadas por inteligencia artificial en materiales promocionales, dado que pueden generar expectativas que no correspondan con la experiencia real del visitante. En su lugar, se recomendó construir una identidad visual basada en fotografías auténticas del territorio y de las actividades desarrolladas por las comunidades. Adicionalmente, se revisaron aspectos logísticos relacionados con la cobertura de seguros para viajeros, la capacidad de alojamiento disponible y la necesidad de ajustar la nomenclatura comercial de algunos servicios, acordando evitar el uso del término “glamping” y reemplazarlo por una denominación más acorde con las características reales de la infraestructura proyectada.", "conclusion": "Fundación Capaguas continúa consolidando una propuesta con alto potencial para posicionarse como referente de turismo comunitario y de naturaleza en Santa Rosa de Osos. La combinación de conservación ambiental, avistamiento de aves, experiencias cafeteras, piscicultura, gastronomía local y participación campesina constituye una oferta diferenciada con amplias posibilidades de comercialización. No obstante, para garantizar su sostenibilidad y competitividad será fundamental fortalecer la estructuración empresarial del producto, ajustar los costos reales de operación, definir una estrategia comercial clara y consolidar alianzas que complementen la capacidad instalada actual. Como siguiente paso, la organización avanzará en la validación de campo, la actualización de costos y la construcción de paquetes turísticos claramente definidos que permitan su presentación ante agencias de viaje, operadores especializados y potenciales aliados del sector turístico."}, "acuerdos": [{"texto": "Fundación Capaguas realizará una revisión integral de los costos de cada experiencia turística, incluyendo transporte, alimentación, seguros, guianza, operación y margen de utilidad.", "responsable": "Fundación Capaguas"}, {"texto": "Se actualizarán y corregirán los archivos de costeo compartidos para validar la rentabilidad real de cada producto.", "responsable": ""}, {"texto": "Se estructurarán paquetes turísticos segmentados por público objetivo, especificando actividades, tiempos, capacidad máxima, servicios incluidos y precios finales.", "responsable": ""}, {"texto": "Se fortalecerá la propuesta comercial del producto “Aventura con propósito”, definiendo con mayor claridad su narrativa y elementos diferenciadores.", "responsable": ""}, {"texto": "Carolina Martínez continuará la gestión de aliados estratégicos, especialmente hoteles y opciones de alojamiento complementarias en Santa Rosa de Osos y municipios cercanos.", "responsable": "Carolina Martínez"}, {"texto": "Se ajustará el material comercial actual para convertirlo en un portafolio más atractivo y orientado a agencias de viaje y operadores turísticos.", "responsable": ""}, {"texto": "Se investigará y confirmará el alcance de la póliza de seguro para viajeros, verificando coberturas y requisitos operativos.", "responsable": ""}, {"texto": "Juli apoyará la actualización de los costos gastronómicos y la validación de precios por plato.", "responsable": "Juli"}, {"texto": "Se realizará una visita de campo los días 22 y 23 de junio para validar recorridos, puntos estratégicos de interpretación, logística operativa y articulación con las comunidades vinculadas al proyecto.", "responsable": ""}, {"texto": "Se programará una nueva reunión para revisar los ajustes realizados y validar la versión final de la propuesta turística.", "responsable": ""}], "etiquetas": ["capacidad_baja", "turismo_naturaleza", "logistica_compleja", "storytelling", "degustacion", "costos_precios"], "estrategia_clave": "Fundación Capaguas continúa consolidando una propuesta con alto potencial para posicionarse como referente de turismo comunitario y de naturaleza en Santa Rosa de Osos.", "aforo_estimado": null, "precios_mencionados": ["$123.500 COP", "$160.000 COP", "$220.000 COP", "$265.000 COP", "$360.000 COP"]}, {"id": "quesadillas-dona-rosy", "establecimiento_id": "quesadillas-dona-rosy", "nombre": "Quesadillas Doña Rosmi", "contacto": "Juan Felipe Medina Perez", "estado": "realizada", "tipo": "agroindustria", "secciones": {"contexto": "La reunión tuvo como propósito analizar el potencial de Quesadillas Doña Rosmi para vincularse a una oferta de turismo gastronómico basada en la tradición culinaria y los productos representativos del Norte de Antioquia. Se revisó la historia del emprendimiento, sus procesos de elaboración y las oportunidades para convertir su reconocimiento local en una experiencia atractiva para visitantes interesados en la cultura gastronómica regional.", "intervencion": "Durante la conversación se identificó que las quesadillas constituyen un producto con fuerte identidad territorial y alto potencial para complementar recorridos gastronómicos y experiencias culturales. Se discutieron posibles actividades como degustaciones, demostraciones de preparación, relatos sobre la tradición familiar y espacios de interacción con visitantes interesados en conocer la historia y evolución del producto. No obstante, se evidenció que la infraestructura actual presenta limitaciones para recibir grupos numerosos de turistas, ya que fue concebida para procesos productivos y comerciales de pequeña escala. Asimismo, se recordó que las disposiciones sanitarias establecidas por el INVIMA limitan el acceso de personas externas a las zonas donde se manipulan alimentos, lo que restringe la posibilidad de realizar recorridos dentro de los espacios de producción. Frente a esta situación, se propuso desarrollar una estrategia basada en experiencias externas, complementadas con una tienda especializada o punto de atención para visitantes donde puedan realizarse degustaciones, actividades demostrativas y venta de productos.", "analisis": "Se concluyó que Quesadillas Doña Rosmi posee un importante valor cultural y gastronómico que puede convertirse en un atractivo turístico diferencial dentro del territorio. Sin embargo, las condiciones actuales de infraestructura y las restricciones sanitarias limitan significativamente la posibilidad de atender visitantes en volumen dentro de las instalaciones productivas. Se identificó que la alternativa más viable consiste en construir una experiencia centrada en la historia de la marca, la tradición gastronómica local y la degustación de productos, aprovechando espacios independientes de las áreas de elaboración. Esto permitiría generar una experiencia auténtica para el visitante sin comprometer las condiciones de inocuidad exigidas por la normatividad. Igualmente, se recomendó integrar la oferta dentro de circuitos turísticos gastronómicos más amplios que incluyan otros productores locales, experiencias rurales y atractivos culturales de la región.", "conclusion": "Quesadillas Doña Rosmi cuenta con condiciones favorables para integrarse a una estrategia de turismo gastronómico gracias al valor cultural y tradicional de sus productos. Sin embargo, la capacidad instalada actual y las restricciones sanitarias asociadas a la producción de alimentos impiden la recepción de grupos turísticos dentro de las instalaciones. En consecuencia, se recomienda desarrollar experiencias externas de degustación, interpretación y comercialización, apoyadas en la creación de un punto de experiencia especializado que permita fortalecer tanto el atractivo turístico como las oportunidades de venta del emprendimiento."}, "acuerdos": [], "etiquetas": ["restriccion_invima", "capacidad_baja", "experiencia_externa", "storytelling", "degustacion"], "estrategia_clave": "Quesadillas Doña Rosmi cuenta con condiciones favorables para integrarse a una estrategia de turismo gastronómico gracias al valor cultural y tradicional de sus productos.", "aforo_estimado": null, "precios_mencionados": []}, {"id": "mesabecafe", "establecimiento_id": "mesabecafe", "nombre": "Operadora Turantioquia · Mesabecafé", "contacto": "Robert", "estado": "no_realizada", "tipo": "agroindustria", "motivo": "Se informa que la reunión de consultoría programada con el equipo de la Operadora Mesabecafé no se llevó a cabo debido a la inasistencia del equipo convocado. Se esperó hasta las 2:15 p.m., pese a haberles notificado media hora antes de la hora acordada para confirmar la asistencia. Este hecho genera un incumplimiento en la agenda de seguimiento y requiere reprogramación inmediata.", "fecha_programada": null, "secciones": {"contexto": "", "intervencion": "", "analisis": "", "conclusion": ""}, "acuerdos": [], "etiquetas": ["reunion_pendiente"], "estrategia_clave": "Reunión pendiente de reprogramación", "aforo_estimado": null, "precios_mencionados": []}, {"id": "gelatina-santa-rosana", "establecimiento_id": "gelatina-santa-rosana", "nombre": "Gelatina Santarrosana", "contacto": "Rosa Angelica Arias chavarria", "estado": "realizada", "tipo": "agroindustria", "secciones": {"contexto": "La reunión trató la creación de una oferta turística y comercial alrededor de la gelatina de pata de Rosangelica Arias en Santa Rosa de Osos, con énfasis en protocolos sanitarios, logística de visitas y articulación territorial.", "intervencion": "Situación productiva: La planta estuvo intervenida por INVIMA y fue reorganizada para cumplir buenas prácticas; opera con personal reducido y aforo limitado, produciendo actualmente gelatina blanca y negra mientras planean derivados futuros. Se destacaron restricciones sanitarias y riesgos de recibir visitantes dentro de la planta que pueden afectar producción y cumplimiento regulatorio.", "analisis": "Propuesta de experiencia: Se plantearon dos modelos; integrar la oferta como aliado en rutas existentes o recibir grupos reducidos en la planta y realizar actividades en un espacio público cercano (parque de San Antonio). Se mostró preferencia por un punto de venta/experiencia externo y controlado para permitir storytelling sobre colágeno y beneficios, con capacidad estimada de 15–20 personas. Apoyos y recursos: El Colegio Mayor de Antioquia ofreció apoyo académico y estudiantes de biotecnología para identificar subproductos derivados de la pata. Se mencionó la existencia de productos naturales listos para promover y un espacio comunitario disponible para demostraciones.", "conclusion": "Ante las normativas sanitarias del INVIMA que restringen las visitas a la planta de producción, la viabilidad turística de la Gelatina Santarrosana depende de crear una experiencia externa y controlada (punto de venta o espacio público cercano). Para materializar esta oferta, el proyecto se enfocará en tres pilares inmediatos: gestionar los permisos municipales correspondientes, definir la logística y costos con aliados locales, y aprovechar el apoyo académico para desarrollar nuevos subproductos derivados."}, "acuerdos": [{"texto": "Permisos y logística: Se identificó la necesidad de gestionar permisos municipales y coordinar con alcaldía y oficina de turismo para uso de espacio público y orden público. Se acordó que Rosa organizara aliados, solicitara el permiso y preparara dos escenarios: (1) aliados, ubicación y tiempos; (2) experiencia detallada y estimado de costos. Tomás copiaría a Rosa sobre la gestión del permiso.", "responsable": "Permisos y logística"}], "etiquetas": ["restriccion_invima", "capacidad_baja", "experiencia_externa", "logistica_compleja", "storytelling", "permisos_municipales", "apoyo_academico"], "estrategia_clave": "Ante las normativas sanitarias del INVIMA que restringen las visitas a la planta de producción, la viabilidad turística de la Gelatina Santarrosana depende de crear una experiencia externa y controlada (punto de venta o ", "aforo_estimado": "15–20", "precios_mencionados": []}, {"id": "labores", "establecimiento_id": "labores", "nombre": "Labores Lácteas", "contacto": "Kelly Johana Herrera Arango", "estado": "realizada", "tipo": "agroindustria", "secciones": {"contexto": "La reunión evaluó la viabilidad de integrar Labores Lácteas, una microempresa de derivados lácteos de Belmira, en un producto turístico gastronómico apoyado por el proyecto Bananíos. Se describió el portafolio actual (quesos hilados, doble crema, yogur griego, ricota, próximos mantequilla y productos derivados del queso mompocino y arepas rellenas) y la estructura de la planta.", "intervencion": "Se discutieron formatos de experiencia: visitas externas a la quesera por restricciones sanitarias que impiden el ingreso a zonas productivas, storytelling sobre el proceso, talleres y degustaciones, y la posibilidad de una tienda en el pueblo próxima a la iglesia para ventas directas, desayunos y paquetes de suvenires. La planta es muy pequeña y física solo admite unos cinco o seis visitantes simultáneos; sin embargo, la marca ya recibe grupos mayores que podrían articularse con una oferta turística más amplia.", "analisis": "Se analizaron aspectos logísticos y de ruta: el trayecto hasta Belmira toma aproximadamente 1,5 horas, el bus deja en la troncal y el transporte privado resulta mucho más caro, por lo que es necesario incluir paradas y actividades en el recorrido (avistamiento, fotos, paradas gastronómicas) para preservar valor durante el traslado. Se propuso mapear aliados estratégicos (transportistas, guías, agencias) y estructurar un itinerario detallado y monetizable.", "conclusion": "La integración de Labores Lácteas como atractivo turístico gastronómico es viable, pero exige adaptar la experiencia mediante actividades externas (storytelling, degustaciones y una futura tienda) debido al tamaño reducido de la planta y las restricciones sanitarias. Para asegurar la rentabilidad y el atractivo del recorrido hacia Belmira, es indispensable superar los retos logísticos estructurando un itinerario enriquecido con paradas estratégicas. Como próximo paso, se acordó diseñar propuestas comerciales y mapear aliados clave, tareas que serán lideradas por Kelly y evaluadas en la siguiente sesión."}, "acuerdos": [{"texto": "Se acordaron responsabilidades y compromisos operativos: Kelly confirmó disponibilidad para elaborar un mapeo de aliados y propuestas de planes comerciales (desayunos, talleres, paquetes, tienda) pese a su carga laboral, y se dejó pendiente la revisión de esas propuestas en una próxima reunión. Quedaron identificadas como principales restricciones la limitación física de la planta y las normas sanitarias que impiden el acceso a áreas de producción.", "responsable": ""}], "etiquetas": ["restriccion_invima", "capacidad_baja", "turismo_naturaleza", "logistica_compleja", "storytelling", "degustacion", "costos_precios"], "estrategia_clave": "La integración de Labores Lácteas como atractivo turístico gastronómico es viable, pero exige adaptar la experiencia mediante actividades externas (storytelling, degustaciones y una futura tienda) debido al tamaño reduci", "aforo_estimado": null, "precios_mencionados": []}]};
+    (function() {
+        let globalEtapaFilter = '';
+        let mapInstance = null;
+        let markersLayer = null;
+
+        const $ = (s, ctx) => (ctx || document).querySelector(s);
+        const $$ = (s, ctx) => Array.from((ctx || document).querySelectorAll(s));
+        const esc = (s) => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+        function filtered() {
+            return DATA.establecimientos.filter(e => !globalEtapaFilter || e.etapa === globalEtapaFilter);
+        }
+
+        function etapaColor(etapa) { return DATA.etapas_colores[etapa] || '#006562'; }
+        function dimLabels() { return DATA.dimensiones.map(d => DATA.dimension_labels[d]); }
+
+        
+        function initHeaderMeta() {
+            $('#hdr-titulo').textContent = DATA.meta.titulo;
+            $('#hdr-sub').textContent = DATA.meta.subtitulo;
+            $('#hdr-meta').textContent = DATA.meta.aliados.join(' · ') + ' | ' + DATA.meta.fecha_generacion;
+        }
+
+        function pct(items, pred) {
+            if (!items.length) return 0;
+            return Math.round(items.filter(pred).length / items.length * 100);
+        }
+
+        function dimLabelsShort() {
+            const short = {
+                propuesta_valor: 'Prop. valor',
+                producto_experiencia: 'Producto',
+                capacidad_operativa: 'Capacidad',
+                demanda_actual: 'Demanda',
+                avance_asesoria: 'Avance',
+                articulacion: 'Articulación',
+                comercializacion: 'Comercializ.',
+                preparacion_ruta: 'Preparación'
+            };
+            return DATA.dimensiones.map(d => short[d] || DATA.dimension_labels[d]);
+        }
+
+        function plotMiniPolar(elId, r, theta, maxR, lineColor, fillColor) {
+            const el = document.getElementById(elId);
+            if (!el) return;
+            const w = Math.max(el.clientWidth, 200);
+            const h = Math.max(el.clientHeight, 200);
+            Plotly.newPlot(elId, [{
+                type: 'scatterpolar',
+                r, theta,
+                fill: 'toself',
+                fillcolor: fillColor,
+                line: { color: lineColor, width: 2 },
+                hovertemplate: '%{theta}: %{r}<extra></extra>'
+            }], {
+                width: w,
+                height: h,
+                autosize: false,
+                margin: { t: 8, b: 8, l: 8, r: 8 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                showlegend: false,
+                polar: {
+                    bgcolor: 'rgba(0,0,0,0)',
+                    domain: { x: [0.22, 0.78], y: [0.22, 0.78] },
+                    radialaxis: { range: [0, maxR], visible: false, showticklabels: false, showline: false },
+                    angularaxis: {
+                        tickfont: { size: 8, family: 'Inter, sans-serif' },
+                        rotation: 90,
+                        direction: 'clockwise'
+                    }
+                }
+            }, { responsive: false, displayModeBar: false, displaylogo: false });
+        }
+
+        function initHeader() {
+            const sel = $('#filtro-global');
+            const etapas = [...new Set(DATA.establecimientos.map(e => e.etapa))].sort();
+            etapas.forEach(et => {
+                const o = document.createElement('option');
+                o.value = et; o.textContent = et;
+                sel.appendChild(o);
+            });
+            sel.addEventListener('change', () => { globalEtapaFilter = sel.value; refreshAll(); });
+            $('#btn-limpiar-filtro').addEventListener('click', () => { globalEtapaFilter = ''; sel.value = ''; refreshAll(); });
+        }
+
+        
+        let selectedIntEmpresa = null;
+
+        function intTagLabel(tagId) {
+            return (INTERVENCIONES.etiquetas && INTERVENCIONES.etiquetas[tagId]) || tagId;
+        }
+
+        function intEstadoBadge(estado) {
+            if (estado === 'realizada') return 'bg-primary/10 text-primary';
+            return 'bg-error/10 text-error';
+        }
+
+        function goToMadurezFicha(establecimientoId) {
+            const nav = document.querySelector('[data-target="directorio"]');
+            if (nav) nav.click();
+            setTimeout(() => {
+                const el = document.getElementById('card-' + establecimientoId);
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 350);
+        }
+
+        function selectIntEmpresa(id) {
+            selectedIntEmpresa = id;
+            $$('#int-chips button').forEach(b => {
+                b.classList.toggle('ring-2', b.dataset.id === id);
+                b.classList.toggle('ring-primary', b.dataset.id === id);
+            });
+            renderIntFicha(id);
+        }
+
+        function renderIntKPIs() {
+            if (typeof INTERVENCIONES === 'undefined') return;
+            const m = INTERVENCIONES.meta;
+            const empresas = INTERVENCIONES.empresas || [];
+            const invimaPct = empresas.length
+                ? Math.round(empresas.filter(e => (e.etiquetas || []).includes('restriccion_invima')).length / empresas.length * 100)
+                : 0;
+            $('#int-resumen').textContent = m.resumen_territorial || '';
+            $('#int-kpi-cards').innerHTML = `
+                <div class="col-span-12 md:col-span-3 bg-white p-6 rounded-3xl border border-outline-variant/30 shadow-sm card-hover">
+                    <p class="text-[10px] font-bold text-primary tracking-tight mb-2">Intervenciones realizadas</p>
+                    <div class="text-4xl font-headline font-black text-on-surface">${m.realizadas}<span class="text-lg text-outline">/${m.total}</span></div>
+                </div>
+                <div class="col-span-12 md:col-span-3 bg-white p-6 rounded-3xl border border-outline-variant/30 shadow-sm card-hover">
+                    <p class="text-[10px] font-bold text-error tracking-tight mb-2">Reuniones pendientes</p>
+                    <div class="text-4xl font-headline font-black text-error">${m.pendientes}</div>
+                </div>
+                <div class="col-span-12 md:col-span-3 bg-white p-6 rounded-3xl border border-outline-variant/30 shadow-sm card-hover">
+                    <p class="text-[10px] font-bold text-secondary tracking-tight mb-2">Con restricción INVIMA</p>
+                    <div class="text-4xl font-headline font-black text-secondary">${invimaPct}<span class="text-lg text-outline">%</span></div>
+                </div>
+                <div class="col-span-12 md:col-span-3 bg-primary text-white p-6 rounded-3xl shadow-lg shadow-primary/20 card-hover">
+                    <p class="text-[10px] font-bold text-white/70 tracking-tight mb-2">Acuerdos comprometidos</p>
+                    <div class="text-4xl font-headline font-black">${m.total_acuerdos || 0}</div>
+                </div>`;
+        }
+
+        function renderIntEstadoChart() {
+            if (typeof INTERVENCIONES === 'undefined') return;
+            const empresas = INTERVENCIONES.empresas || [];
+            const realizadas = empresas.filter(e => e.estado === 'realizada').length;
+            const pendientes = empresas.length - realizadas;
+            Plotly.newPlot('chart-int-estado', [{
+                type: 'pie',
+                labels: ['Realizada', 'No realizada'],
+                values: [realizadas, pendientes],
+                hole: 0.55,
+                marker: { colors: ['#006562', '#ba1a1a'] },
+                textinfo: 'label+value',
+                hovertemplate: '%{label}: %{value}<extra></extra>'
+            }], {
+                margin: { t: 20, b: 20, l: 20, r: 20 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                showlegend: true,
+                legend: { orientation: 'h', y: -0.1 }
+            }, { responsive: true, displaylogo: false });
+        }
+
+        function renderIntRestricciones() {
+            if (typeof INTERVENCIONES === 'undefined') return;
+            const empresas = INTERVENCIONES.empresas || [];
+            const tagSet = new Set();
+            empresas.forEach(e => (e.etiquetas || []).forEach(t => {
+                if (t !== 'reunion_pendiente') tagSet.add(t);
+            }));
+            const tags = Array.from(tagSet);
+            const colors = ['#006562', '#fda224', '#875200', '#006a67', '#ba1a1a', '#a85f39', '#76d6d2', '#8a4723'];
+            const traces = tags.map((tag, i) => ({
+                type: 'bar',
+                orientation: 'h',
+                name: intTagLabel(tag),
+                y: empresas.map(e => e.nombre),
+                x: empresas.map(e => (e.etiquetas || []).includes(tag) ? 1 : 0),
+                marker: { color: colors[i % colors.length] },
+                hovertemplate: '%{y}<br>' + intTagLabel(tag) + '<extra></extra>'
+            }));
+            Plotly.newPlot('chart-int-restricciones', traces, {
+                barmode: 'stack',
+                margin: { t: 10, b: 40, l: 140, r: 20 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                xaxis: { showticklabels: false, showgrid: false },
+                yaxis: { automargin: true },
+                legend: { orientation: 'h', y: -0.25, font: { size: 9 } },
+                height: 360
+            }, { responsive: true, displaylogo: false });
+        }
+
+        function renderIntCasosEspeciales() {
+            if (typeof INTERVENCIONES === 'undefined') return;
+            const empresas = INTERVENCIONES.empresas || [];
+            const pendientes = empresas.filter(e => e.estado === 'no_realizada');
+            const capaguas = empresas.find(e => e.id === 'capaguas');
+            let html = '';
+            if (pendientes.length) {
+                html += `<div class="bg-error/5 border border-error/20 p-6 rounded-3xl">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="material-symbols-outlined text-error">event_busy</span>
+                        <h4 class="font-headline font-bold text-error">Reuniones no realizadas</h4>
+                    </div>
+                    <ul class="space-y-2 text-sm text-on-surface-variant">
+                        ${pendientes.map(e => `<li><strong>${esc(e.nombre)}</strong> — ${esc(e.fecha_programada || 'fecha por confirmar')}. Requiere reprogramación.</li>`).join('')}
+                    </ul>
+                </div>`;
+            }
+            if (capaguas && capaguas.precios_mencionados && capaguas.precios_mencionados.length) {
+                const precios = capaguas.precios_mencionados.map(p => p.replace(/\s/g, ''));
+                html += `<div class="bg-primary/5 border border-primary/20 p-6 rounded-3xl">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="material-symbols-outlined text-primary">terrain</span>
+                        <h4 class="font-headline font-bold text-primary">Caso avanzado: Fundación Capaguas</h4>
+                    </div>
+                    <p class="text-sm text-on-surface-variant mb-4">Turismo de naturaleza con escenarios de precio en revisión.</p>
+                    <div class="h-[200px]" id="chart-capaguas-precios"></div>
+                </div>`;
+            } else if (capaguas) {
+                html += `<div class="bg-primary/5 border border-primary/20 p-6 rounded-3xl">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="material-symbols-outlined text-primary">terrain</span>
+                        <h4 class="font-headline font-bold text-primary">Caso avanzado: Fundación Capaguas</h4>
+                    </div>
+                    <p class="text-sm text-on-surface-variant">${esc(capaguas.estrategia_clave || '')}</p>
+                </div>`;
+            }
+            $('#int-casos-especiales').innerHTML = html || '<p class="text-sm text-outline col-span-2">Sin casos especiales.</p>';
+            if (capaguas && capaguas.precios_mencionados && capaguas.precios_mencionados.length) {
+                const nums = capaguas.precios_mencionados
+                    .map(p => parseInt(p.replace(/[^\d]/g, ''), 10))
+                    .filter(n => n > 1000);
+                const uniq = [...new Set(nums)].sort((a, b) => a - b).slice(0, 6);
+                if (uniq.length) {
+                    Plotly.newPlot('chart-capaguas-precios', [{
+                        type: 'bar',
+                        x: uniq.map(n => '$' + n.toLocaleString('es-CO')),
+                        y: uniq,
+                        marker: { color: '#006562' },
+                        hovertemplate: '%{x}<extra></extra>'
+                    }], {
+                        margin: { t: 10, b: 60, l: 40, r: 10 },
+                        paper_bgcolor: 'rgba(0,0,0,0)',
+                        plot_bgcolor: 'rgba(0,0,0,0)',
+                        yaxis: { title: 'COP' },
+                        xaxis: { tickangle: -30 }
+                    }, { responsive: true, displaylogo: false });
+                }
+            }
+        }
+
+        function renderIntChips() {
+            if (typeof INTERVENCIONES === 'undefined') return;
+            const empresas = INTERVENCIONES.empresas || [];
+            $('#int-chips').innerHTML = empresas.map(e => `
+                <button type="button" data-id="${e.id}" class="px-4 py-2 rounded-full text-xs font-bold border transition-all ${e.estado === 'realizada' ? 'bg-primary/5 border-primary/30 text-primary hover:bg-primary/10' : 'bg-error/5 border-error/30 text-error hover:bg-error/10'}">
+                    ${esc(e.nombre)}
+                </button>`).join('');
+            $$('#int-chips button').forEach(b => b.addEventListener('click', () => selectIntEmpresa(b.dataset.id)));
+            if (!selectedIntEmpresa && empresas.length) selectIntEmpresa(empresas[0].id);
+            else if (selectedIntEmpresa) selectIntEmpresa(selectedIntEmpresa);
+        }
+
+        function renderIntFicha(id) {
+            if (typeof INTERVENCIONES === 'undefined') return;
+            const e = (INTERVENCIONES.empresas || []).find(x => x.id === id);
+            if (!e) return;
+            const est = DATA.establecimientos.find(x => x.id === e.establecimiento_id);
+            const steps = [
+                { key: 'contexto', label: 'Contexto', icon: 'info' },
+                { key: 'intervencion', label: 'Intervención', icon: 'handshake' },
+                { key: 'analisis', label: 'Análisis', icon: 'analytics' },
+                { key: 'conclusion', label: 'Conclusión', icon: 'flag' }
+            ];
+            const timeline = e.estado === 'no_realizada'
+                ? `<div class="p-6 rounded-2xl bg-error/5 border border-error/20 text-sm text-on-surface-variant leading-relaxed">${esc(e.motivo || '')}</div>`
+                : steps.map((s, i) => {
+                    const txt = (e.secciones && e.secciones[s.key]) || '';
+                    if (!txt) return '';
+                    return `<details class="int-timeline-item group" ${i === 0 ? 'open' : ''}>
+                        <summary class="flex items-center gap-4 cursor-pointer list-none py-3">
+                            <span class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold shrink-0">${i + 1}</span>
+                            <span class="material-symbols-outlined text-primary text-xl">${s.icon}</span>
+                            <span class="font-headline font-bold text-on-surface">${s.label}</span>
+                        </summary>
+                        <div class="pl-16 pr-4 pb-4 text-sm text-on-surface-variant leading-relaxed border-l-2 border-primary/20 ml-4">${esc(txt)}</div>
+                    </details>`;
+                }).join('');
+            const tags = (e.etiquetas || []).map(t =>
+                `<span class="px-2 py-1 rounded-lg text-[10px] font-bold bg-secondary/10 text-secondary">${esc(intTagLabel(t))}</span>`).join('');
+            const acuerdos = (e.acuerdos || []).length ? `
+                <div class="mt-8 pt-6 border-t border-outline-variant/30">
+                    <h4 class="font-headline font-bold text-primary mb-4 flex items-center gap-2"><span class="material-symbols-outlined">task_alt</span> Acuerdos y responsabilidades</h4>
+                    <ul class="space-y-3">
+                        ${e.acuerdos.map(a => `<li class="flex gap-3 text-sm">
+                            <span class="material-symbols-outlined text-primary text-lg shrink-0">check_circle</span>
+                            <div><p class="text-on-surface-variant">${esc(a.texto)}</p>${a.responsable ? `<p class="text-[10px] font-bold text-outline mt-1">${esc(a.responsable)}</p>` : ''}</div>
+                        </li>`).join('')}
+                    </ul>
+                </div>` : '';
+            const madurez = est ? `
+                <div class="mt-6 p-4 rounded-2xl bg-surface-container-low">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold text-outline">Índice de madurez</span>
+                        <span class="text-2xl font-headline font-black text-primary">${est.maturity_index.toFixed(1)}</span>
+                    </div>
+                    <div class="ficha-chart rounded-xl" id="int-radar-${e.id}"></div>
+                </div>` : '';
+            $('#int-ficha').innerHTML = `
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <div class="flex-1 min-w-0">
+                        <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+                            <div>
+                                <span class="px-3 py-1 rounded-full text-[10px] font-bold ${intEstadoBadge(e.estado)}">${e.estado === 'realizada' ? 'Intervención realizada' : 'Reunión pendiente'}</span>
+                                <h3 class="font-headline text-2xl font-black text-on-surface mt-3">${esc(e.nombre)}</h3>
+                                <p class="text-sm text-outline mt-1">${esc(e.contacto)}</p>
+                            </div>
+                            <button type="button" class="text-xs font-bold text-primary flex items-center gap-1 hover:underline int-link-madurez" data-eid="${e.establecimiento_id}">
+                                Ver ficha de madurez <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                            </button>
+                        </div>
+                        <p class="text-sm font-medium text-on-surface mb-4 italic border-l-4 border-primary pl-4">${esc(e.estrategia_clave || '')}</p>
+                        <div class="flex flex-wrap gap-2 mb-6">${tags}</div>
+                        <div class="space-y-1">${timeline}</div>
+                        ${acuerdos}
+                    </div>
+                    <div class="lg:w-72 shrink-0">${madurez}</div>
+                </div>`;
+            $$('.int-link-madurez').forEach(btn => btn.addEventListener('click', () => goToMadurezFicha(btn.dataset.eid)));
+            if (est) {
+                requestAnimationFrame(() => {
+                    plotMiniPolar(
+                        'int-radar-' + e.id,
+                        DATA.dimensiones.map(d => est.scores[d]),
+                        dimLabelsShort(),
+                        5,
+                        '#006562',
+                        'rgba(0,101,98,0.12)'
+                    );
+                });
+            }
+        }
+
+        function renderIntAcuerdos() {
+            if (typeof INTERVENCIONES === 'undefined') return;
+            const rows = [];
+            (INTERVENCIONES.empresas || []).forEach(e => {
+                (e.acuerdos || []).forEach(a => {
+                    rows.push({ empresa: e.nombre, texto: a.texto, responsable: a.responsable || '—' });
+                });
+            });
+            $('#int-acuerdos-body').innerHTML = rows.length
+                ? rows.map(r => `<tr class="border-b border-outline-variant/20 hover:bg-surface-container-low/50">
+                    <td class="px-6 py-4 text-sm font-bold text-on-surface whitespace-nowrap">${esc(r.empresa)}</td>
+                    <td class="px-6 py-4 text-sm text-on-surface-variant">${esc(r.texto)}</td>
+                    <td class="px-6 py-4 text-xs font-bold text-primary whitespace-nowrap">${esc(r.responsable)}</td>
+                </tr>`).join('')
+                : `<tr><td colspan="3" class="px-6 py-8 text-center text-sm text-outline italic">Sin acuerdos registrados en empresas con intervención completa.</td></tr>`;
+        }
+
+        function renderIntervencionesTab() {
+            if (typeof INTERVENCIONES === 'undefined') return;
+            renderIntKPIs();
+            renderIntEstadoChart();
+            renderIntRestricciones();
+            renderIntCasosEspeciales();
+            renderIntChips();
+            renderIntAcuerdos();
+        }
+
+        function initTabs() {
+            $$('.nav-link, .nav-item').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const target = btn.dataset.target;
+                    $$('.nav-link').forEach(l => {
+                        l.classList.remove('nav-link-active', 'text-primary');
+                        l.classList.add('text-on-surface-variant');
+                        if (l.dataset.target === target) {
+                            l.classList.add('nav-link-active');
+                            l.classList.remove('text-on-surface-variant');
+                        }
+                    });
+                    $$('.nav-item').forEach(i => i.classList.toggle('sidebar-item-active', i.dataset.target === target));
+                    $$('.tab-content').forEach(p => p.classList.remove('active'));
+                    $(`#${target}`).classList.add('active');
+                    if (target === 'mapa') setTimeout(initMap, 200);
+                    if (target === 'radar') setTimeout(renderRadarTab, 200);
+                    if (target === 'intervenciones') setTimeout(renderIntervencionesTab, 200);
+                });
+            });
+        }
+
+        function renderKPIs() {
+            const items = filtered();
+            const avg = items.length ? (items.reduce((a, e) => a + e.maturity_index, 0) / items.length).toFixed(2) : 0;
+            $('#kpi-cards').innerHTML = `
+                <div class="col-span-12 md:col-span-4 bg-white p-8 rounded-3xl border border-outline-variant/30 shadow-sm relative overflow-hidden card-hover">
+                    <div class="absolute -right-4 -top-4 text-primary/5"><span class="material-symbols-outlined text-8xl">store</span></div>
+                    <p class="text-[10px] font-bold text-primary tracking-tight mb-4">Establecimientos</p>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-5xl font-headline font-black text-on-surface">${items.length}</span>
+                        <span class="text-xs text-outline font-body">Nodos evaluados</span>
+                    </div>
+                </div>
+                <div class="col-span-12 md:col-span-4 bg-white p-8 rounded-3xl border border-outline-variant/30 shadow-sm relative overflow-hidden card-hover">
+                    <div class="absolute -right-4 -top-4 text-secondary/5"><span class="material-symbols-outlined text-8xl">star</span></div>
+                    <p class="text-[10px] font-bold text-secondary tracking-tight mb-4">Índice de madurez</p>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-5xl font-headline font-black text-on-surface">${avg}</span>
+                        <span class="text-xs text-outline font-body">Promedio Territorial</span>
+                    </div>
+                </div>
+                <div class="col-span-12 md:col-span-4 bg-primary text-white p-8 rounded-3xl shadow-xl shadow-primary/20 relative overflow-hidden card-hover">
+                    <div class="absolute -right-4 -top-4 text-white/10"><span class="material-symbols-outlined text-8xl">location_on</span></div>
+                    <p class="text-[10px] font-bold text-white/60 tracking-tight mb-4">Presencia territorial</p>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-5xl font-headline font-black">${new Set(items.map(e => e.municipio)).size}</span>
+                        <span class="text-xs text-white/70 font-body">Municipios activos</span>
+                    </div>
+                </div>`;
+            $('#filtro-activo').textContent = globalEtapaFilter ? `Filtrando: ${globalEtapaFilter}` : '';
+        }
+
+        function renderInsights() {
+            const items = filtered();
+            const brechas = {}; items.forEach(e => { const b = e.brechas.principal; if (b) brechas[b] = (brechas[b] || 0) + 1 });
+            const topBrecha = Object.entries(brechas).sort((a, b) => b[1] - a[1])[0];
+            $('#narrativa-intro').textContent = `"Legado de Tierra y Sabor" conecta al visitante con la gente, los sabores y los paisajes del norte antioqueño. Este diagnóstico evalúa la preparación de 12 establecimientos para integrarse a la Ruta Turística.`;
+            const expPct = pct(items, e => /^s/i.test((e.respuestas && e.respuestas.q6) || ''));
+            const pilotoPct = pct(items, e => /^s/i.test((e.respuestas && e.respuestas.q15) || ''));
+            const artPct = pct(items, e => (e.scores && e.scores.articulacion) >= 4);
+            $('#insight-cards').innerHTML = `
+                <div class="bg-white p-6 rounded-2xl border border-outline-variant/30 flex items-center gap-5 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-error/10 flex items-center justify-center text-error"><span class="material-symbols-outlined">warning</span></div>
+                    <div><p class="text-[10px] font-bold text-outline tracking-tight">Brecha principal</p><p class="text-sm font-bold text-on-surface">${topBrecha ? topBrecha[0] + ' (' + topBrecha[1] + ')' : 'Ninguna'}</p></div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-outline-variant/30 flex items-center gap-5 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary"><span class="material-symbols-outlined">verified</span></div>
+                    <div><p class="text-[10px] font-bold text-outline tracking-tight">Experiencia definida</p><p class="text-sm font-bold text-on-surface">${expPct}% de la muestra</p></div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-outline-variant/30 flex items-center gap-5 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary"><span class="material-symbols-outlined">science</span></div>
+                    <div><p class="text-[10px] font-bold text-outline tracking-tight">Pruebas piloto</p><p class="text-sm font-bold text-on-surface">${pilotoPct}% realizadas</p></div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-outline-variant/30 flex items-center gap-5 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary"><span class="material-symbols-outlined">handshake</span></div>
+                    <div><p class="text-[10px] font-bold text-outline tracking-tight">Alta articulación</p><p class="text-sm font-bold text-on-surface">${artPct}% conectados</p></div>
+                </div>`;
+        }
+
+        function renderCharts() {
+            const items = filtered();
+            const counts = {}; items.forEach(e => counts[e.etapa] = (counts[e.etapa] || 0) + 1);
+            const labels = Object.keys(counts);
+            Plotly.newPlot('chart-etapas', [{
+                type: 'pie', labels, values: labels.map(l => counts[l]),
+                marker: { colors: labels.map(etapaColor) },
+                hole: .4, textinfo: 'percent'
+            }], { 
+                margin: { t: 0, b: 0, l: 0, r: 0 },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                legend: { orientation: 'h', y: -0.2 }
+            }, { responsive: true, displaylogo: false });
+            document.getElementById('chart-etapas').on('plotly_click', d => {
+                if (d.points[0]) { globalEtapaFilter = d.points[0].label; $('#filtro-global').value = globalEtapaFilter; refreshAll(); }
+            });
+        }
+
+        function renderRadarTab() {
+            const items = filtered();
+            if (!items.length) return;
+            const dims = DATA.dimensiones;
+            const avg = dims.map(d => items.reduce((s, e) => s + e.scores[d], 0) / items.length);
+            
+            Plotly.newPlot('chart-radar-grupo', [{
+                type: 'scatterpolar', r: avg, theta: dimLabels(), fill: 'toself',
+                fillcolor: 'rgba(0,101,98,0.1)', line: { color: '#006562', width: 3 }
+            }], {
+                polar: { radialaxis: { range: [0, 5], gridcolor: '#e3effc' } },
+                margin: { t: 50, b: 50 }, paper_bgcolor: 'rgba(0,0,0,0)'
+            }, { responsive: true, displaylogo: false });
+
+            const z = items.map(e => dims.map(d => e.scores[d]));
+            Plotly.newPlot('chart-heatmap', [{
+                type: 'heatmap', z, x: dimLabels(), y: items.map(e => e.nombre),
+                colorscale: [[0, '#fef2f2'], [0.5, '#fff7ed'], [1, '#f0fdf4']],
+                zmin: 0, zmax: 5
+            }], { 
+                margin: { l: 150, t: 30, b: 100 }, paper_bgcolor: 'rgba(0,0,0,0)',
+                xaxis: { tickangle: -30, font: { size: 10 } }
+            }, { responsive: true, displaylogo: false });
+
+            const b1 = {}, b2 = {}; items.forEach(e => {
+                if (e.brechas.principal) b1[e.brechas.principal] = (b1[e.brechas.principal] || 0) + 1;
+                if (e.brechas.secundaria) b2[e.brechas.secundaria] = (b2[e.brechas.secundaria] || 0) + 1;
+            });
+            const allB = [...new Set([...Object.keys(b1), ...Object.keys(b2)])];
+            Plotly.newPlot('chart-brechas', [
+                { type: 'bar', name: 'Principal', x: allB, y: allB.map(b => b1[b] || 0), marker: { color: '#ba1a1a' } },
+                { type: 'bar', name: 'Secundaria', x: allB, y: allB.map(b => b2[b] || 0), marker: { color: '#fda224' } }
+            ], { barmode: 'group', paper_bgcolor: 'rgba(0,0,0,0)', margin: { b: 80 } }, { responsive: true, displaylogo: false });
+
+            const av = {}; items.forEach(e => e.avances.forEach(a => av[a] = (av[a] || 0) + 1));
+            const avSorted = Object.entries(av).sort((a, b) => b[1] - a[1]);
+            Plotly.newPlot('chart-avances', [{
+                type: 'bar', orientation: 'h', y: avSorted.map(a => a[0]), x: avSorted.map(a => a[1]),
+                marker: { color: '#006562' }
+            }], { margin: { l: 180, t: 20 }, paper_bgcolor: 'rgba(0,0,0,0)' }, { responsive: true, displaylogo: false });
+        }
+
+        function renderDirectorio() {
+            const items = filtered();
+            const muns = [...new Set(DATA.establecimientos.map(e => e.municipio))].sort();
+            const etapas = [...new Set(DATA.establecimientos.map(e => e.etapa))].sort();
+            const selM = $('#dir-municipio'), selE = $('#dir-etapa');
+            [selM, selE].forEach(s => { while (s.options.length > 1) s.remove(1); });
+            muns.forEach(m => { const o = document.createElement('option'); o.value = m; o.textContent = m; selM.appendChild(o); });
+            etapas.forEach(m => { const o = document.createElement('option'); o.value = m; o.textContent = m; selE.appendChild(o); });
+
+            const apply = () => {
+                const q = $('#dir-buscar').value.toLowerCase();
+                const fm = $('#dir-municipio').value, fe = $('#dir-etapa').value;
+                const rows = items.filter(e => {
+                    if (fm && e.municipio !== fm) return false;
+                    if (fe && e.etapa !== fe) return false;
+                    if (q && !`${e.nombre} ${e.contacto}`.toLowerCase().includes(q)) return false;
+                    return true;
+                });
+                $('#dir-contador').textContent = `${rows.length} establecimientos en lista`;
+                $('#dir-tabla tbody').innerHTML = rows.map(e => `
+                    <tr class="hover:bg-primary/5 transition-colors group cursor-pointer border-b border-outline-variant/10">
+                        <td class="px-8 py-5 font-bold text-primary">${esc(e.nombre)}</td>
+                        <td class="px-8 py-5 text-on-surface-variant font-medium">${esc(e.municipio)}</td>
+                        <td class="px-8 py-5 text-center">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-bold text-white" style="background:${etapaColor(e.etapa)}">${esc(e.etapa)}</span>
+                        </td>
+                        <td class="px-8 py-5 text-center font-headline font-bold text-primary">${e.maturity_index.toFixed(2)}</td>
+                        <td class="px-8 py-5 text-on-surface-variant italic">${esc(e.brechas.principal)}</td>
+                        <td class="px-8 py-5 text-right"><span class="material-symbols-outlined text-primary opacity-0 group-hover:opacity-100 transition-all">chevron_right</span></td>
+                    </tr>`).join('');
+            };
+            $('#dir-buscar').addEventListener('input', apply);
+            $('#dir-municipio').addEventListener('change', apply);
+            $('#dir-etapa').addEventListener('change', apply);
+            apply();
+            $$('#dir-tabla tbody tr').forEach(tr => tr.addEventListener('click', () => {
+                const name = tr.querySelector('td')?.textContent?.trim();
+                const est = items.find(e => e.nombre === name);
+                if (est) { const el = document.getElementById('card-' + est.id); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+            }));
+            renderFichas(items);
+        }
+
+        function semaforoClass(v) {
+            const s = (v || '').toLowerCase();
+            if (/^s/.test(s) || s === 'sí') return 'bg-primary/10 text-primary';
+            if (/parcial|proceso/.test(s)) return 'bg-secondary/10 text-secondary';
+            return 'bg-error/10 text-error';
+        }
+
+        function renderFichas(items) {
+            $('#fichas-container').innerHTML = items.map(e => {
+                const cf = e.comfama || {};
+                const dofa = cf.dofa ? `
+                    <div class="grid grid-cols-2 gap-3 mt-4 text-xs">
+                        <div class="p-3 rounded-xl bg-primary/5"><strong class="text-primary block mb-1">Fortalezas</strong>${(cf.dofa.fortalezas||[]).map(x=>`<div>• ${esc(x)}</div>`).join('')}</div>
+                        <div class="p-3 rounded-xl bg-error/5"><strong class="text-error block mb-1">Debilidades</strong>${(cf.dofa.debilidades||[]).map(x=>`<div>• ${esc(x)}</div>`).join('')}</div>
+                        <div class="p-3 rounded-xl bg-secondary/5"><strong class="text-secondary block mb-1">Oportunidades</strong>${(cf.dofa.oportunidades||[]).map(x=>`<div>• ${esc(x)}</div>`).join('')}</div>
+                        <div class="p-3 rounded-xl bg-outline-variant/20"><strong class="block mb-1">Amenazas</strong>${(cf.dofa.amenazas||[]).map(x=>`<div>• ${esc(x)}</div>`).join('')}</div>
+                    </div>` : '';
+                const sem = Object.entries(e.semaforos || {}).map(([k,v]) =>
+                    `<span class="px-2 py-1 rounded-lg text-[10px] font-bold ${semaforoClass(v)}">${k}: ${esc(v)}</span>`).join('');
+                return `<div class="bg-white p-10 rounded-3xl shadow-xl shadow-primary/5 border border-outline-variant/30 card-hover overflow-hidden" id="card-${e.id}">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <span class="px-3 py-1 text-white text-[10px] font-bold rounded-full mb-3 inline-block" style="background:${etapaColor(e.etapa)}">${esc(e.etapa)}</span>
+                            <h4 class="font-headline text-2xl font-black text-on-surface leading-none">${esc(e.nombre)}</h4>
+                            <p class="text-xs text-outline mt-2">${esc(e.municipio)} · ${esc(e.contacto)}</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-4xl font-headline font-black text-primary">${e.maturity_index.toFixed(1)}</div>
+                            <div class="text-[9px] font-bold text-outline tracking-tight mt-1">Índice de madurez</div>
+                        </div>
+                    </div>
+                    <p class="text-sm font-body text-on-surface-variant mb-4">${esc(cf.descripcion || '')}</p>
+                    <div class="flex flex-wrap gap-2 mb-6">${sem}</div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                        <div class="ficha-chart bg-surface-container-low rounded-2xl p-2" id="radar-mini-${e.id}" title="Radar de madurez"></div>
+                        <div class="ficha-chart bg-surface-container-low rounded-2xl p-2" id="comfama-mini-${e.id}" title="Potencial COMFAMA"></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="p-4 rounded-xl border border-outline-variant/30"><span class="text-[9px] font-bold text-outline mb-1 block">Brecha principal</span><p class="text-xs font-bold text-error">${esc(e.brechas.principal)}</p></div>
+                        <div class="p-4 rounded-xl border border-outline-variant/30"><span class="text-[9px] font-bold text-outline mb-1 block">Acción 90 días</span><p class="text-xs font-bold text-primary">${esc(e.accion_90)}</p></div>
+                    </div>
+                    <p class="text-xs text-on-surface-variant mb-2"><strong>Apoyo:</strong> ${esc(e.apoyo || '')}</p>
+                    <p class="text-xs text-on-surface-variant mb-4"><strong>Aprendizaje:</strong> ${esc(e.aprendizaje || '')}</p>
+                    <details class="rounded-2xl border border-outline-variant/30 p-4">
+                        <summary class="font-headline text-sm font-bold text-primary cursor-pointer">Análisis COMFAMA</summary>
+                        ${dofa}
+                        <p class="text-xs mt-3"><strong>Estrategia:</strong> ${esc(cf.estrategia || '')}</p>
+                        <p class="text-xs mt-2"><strong>Experiencia:</strong> ${esc(cf.experiencia || '')}</p>
+                        <p class="text-xs mt-2"><strong>Costo ref.:</strong> ${esc(cf.costo || '')}</p>
+                    </details>
+                </div>`;
+            }).join('');
+            requestAnimationFrame(() => {
+                items.forEach(e => {
+                    plotMiniPolar(
+                        `radar-mini-${e.id}`,
+                        DATA.dimensiones.map(d => e.scores[d]),
+                        dimLabelsShort(),
+                        5,
+                        '#006562',
+                        'rgba(0,101,98,0.12)'
+                    );
+                    const pot = (e.comfama && e.comfama.potencial) || [];
+                    if (pot.length) {
+                        plotMiniPolar(
+                            `comfama-mini-${e.id}`,
+                            pot,
+                            ['Constitución', 'Tradición', 'Autenticidad', 'Infraestructura', 'Experiencia', 'Representatividad'],
+                            3,
+                            '#006a67',
+                            'rgba(0,106,103,0.12)'
+                        );
+                    }
+                });
+            });
+        }
+
+        function initMap() {
+            if (mapInstance) { mapInstance.invalidateSize(); return; }
+            mapInstance = L.map('mapa-madurez', { zoomControl: false }).setView([6.50, -75.56], 10);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd',
+                maxZoom: 20
+            }).addTo(mapInstance);
+            setTimeout(() => mapInstance.invalidateSize(), 350);
+            L.control.zoom({ position: 'bottomright' }).addTo(mapInstance);
+            markersLayer = L.layerGroup().addTo(mapInstance);
+            renderMapMarkers();
+            renderMapLegend();
+        }
+
+        function renderMapMarkers() {
+            if (!markersLayer) return; markersLayer.clearLayers();
+            filtered().forEach(e => {
+                L.circleMarker(e.coords, { radius: 12, fillColor: etapaColor(e.etapa), color: '#fff', weight: 2, fillOpacity: 1 })
+                    .bindPopup(`<div class="p-2"><strong>${esc(e.nombre)}</strong><br><span class="text-xs opacity-70">${esc(e.municipio)}</span></div>`)
+                    .addTo(markersLayer);
+            });
+        }
+
+        function renderMapLegend() {
+            $('#map-legend').innerHTML = Object.entries(DATA.etapas_colores).map(([et, col]) =>
+                `<div class="flex items-center gap-3 text-xs font-bold text-on-surface-variant">
+                    <span class="w-4 h-4 rounded-full" style="background:${col}"></span><span>${et}</span>
+                </div>`).join('');
+        }
+
+        function renderConclusions() {
+            const items = filtered();
+            const avg = (items.reduce((a, e) => a + e.maturity_index, 0) / items.length).toFixed(2);
+            $('#conclusiones-content').innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="bg-white p-10 rounded-3xl border border-outline-variant/30">
+                        <h3 class="font-headline text-xl text-on-surface font-black mb-6">Situación Territorial</h3>
+                        <p class="text-body text-on-surface-variant leading-relaxed mb-6">El ecosistema presenta un índice de madurez de <strong>${avg}/5.0</strong>. Se observa una correlación directa entre la antigüedad del prestador y su nivel de consolidación.</p>
+                        <div class="bg-primary/5 p-5 rounded-2xl"><span class="text-3xl font-black text-primary">${avg}</span><p class="text-[10px] font-bold text-outline tracking-tight mt-1">Puntaje territorial</p></div>
+                    </div>
+                    <div class="bg-white p-10 rounded-3xl border border-outline-variant/30">
+                        <h3 class="font-headline text-xl text-on-surface font-black mb-6">Roadmap de Gestión</h3>
+                        <ul class="space-y-4 text-sm font-medium text-on-surface">
+                            <li class="flex gap-4"><span class="shrink-0 w-6 h-6 rounded-full bg-primary text-white text-[10px] flex items-center justify-center">01</span>Homologación de narrativa de ruta.</li>
+                            <li class="flex gap-4"><span class="shrink-0 w-6 h-6 rounded-full bg-primary text-white text-[10px] flex items-center justify-center">02</span>Unificación de modelos de costeo.</li>
+                            <li class="flex gap-4"><span class="shrink-0 w-6 h-6 rounded-full bg-primary text-white text-[10px] flex items-center justify-center">03</span>Lanzamiento de plataforma de reservas.</li>
+                        </ul>
+                    </div>
+                </div>`;
+            const cats = ['Comercialización', 'Infraestructura', 'Capacitación', 'Articulación', 'Otros'];
+            const grouped = {}; cats.forEach(c => grouped[c] = []);
+            items.forEach(e => {
+                const text = (e.accion_90).toLowerCase();
+                let cat = 'Otros';
+                if (text.includes('comercial') || text.includes('marketing')) cat = 'Comercialización';
+                else if (text.includes('infra') || text.includes('planta')) cat = 'Infraestructura';
+                else if (text.includes('capacit') || text.includes('talento')) cat = 'Capacitación';
+                else if (text.includes('articul') || text.includes('ruta')) cat = 'Articulación';
+                grouped[cat].push(e);
+            });
+            $('#kanban-acciones').innerHTML = cats.map(c => `
+                <div class="space-y-4">
+                    <h4 class="text-[10px] font-bold text-primary tracking-tight px-2">${c}</h4>
+                    <div class="bg-surface-variant/30 p-4 rounded-2xl flex-1 space-y-3 min-h-[150px]">
+                        ${grouped[c].length ? grouped[c].map(x => `
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-outline-variant/20">
+                                <div class="text-[10px] font-bold text-on-surface mb-2">${esc(x.nombre)}</div>
+                                <div class="text-[10px] text-outline leading-snug">${esc(x.accion_90)}</div>
+                            </div>`).join('') : '<div class="text-[10px] text-outline italic text-center pt-8">Sin acciones</div>'}
+                    </div>
+                </div>`).join('');
+        }
+
+        function refreshAll() {
+            renderKPIs(); renderInsights(); renderCharts();
+            renderDirectorio(); renderMapMarkers();
+            renderConclusions();
+            if ($('.tab-content.active')?.id === 'radar') renderRadarTab();
+            if ($('.tab-content.active')?.id === 'intervenciones') renderIntervencionesTab();
+        }
+
+        function init() {
+            initHeaderMeta(); initHeader(); initTabs(); refreshAll();
+            setTimeout(renderRadarTab, 400);
+            if (typeof INTERVENCIONES !== 'undefined') setTimeout(renderIntervencionesTab, 500);
+        }
+
+        if (typeof DATA !== 'undefined') init(); else document.addEventListener('DOMContentLoaded', init);
+    })();
+</script>
+</body></html>

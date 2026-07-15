@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de georreferenciación - Paisaje Cultural Ganadero</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.Default.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; height: 100%; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        .header {
+            background: linear-gradient(135deg, #172539 0%, #19555B 50%, #B4C42C 100%);
+            color: white;
+            padding: 20px 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .header h1 { font-size: 1.5em; margin-bottom: 6px; }
+        .header p { font-size: 0.95em; opacity: 0.9; }
+        #map-embed-wrapper {
+            position: absolute;
+            top: 80px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            min-height: 500px;
+            background: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🗺️ Mapa de georreferenciación</h1>
+        <p>Paisaje Cultural Ganadero – 27 inscritos (Magdalena Medio)</p>
+    </div>
+    <div id="map-embed-wrapper"></div>
+    <script type="application/json" id="establecimientos-data">[{"lat": 6.52661535998064, "lon": -74.59674982408978, "nombre": "APARTAHOTEL SAN DIEGO", "categoria": "Hoteleria", "direccion": "CRA 4 NRO. 9-28", "nit": "1039448428", "telefono": "3156702180", "email": "williamsotoe@gmail.com", "color": "#19555B"}, {"lat": 6.517862828436608, "lon": -74.58869886942348, "nombre": "DIVAN MACEO S.A.S", "categoria": "Hoteleria", "direccion": "CR 30 29-49", "nit": "900823734", "telefono": "3128872479", "email": "diegovanegas72@hotmail.com", "color": "#19555B"}, {"lat": 6.521246120886305, "lon": -74.60872142448446, "nombre": "RESTAURANTE BAR EL COYOTE EXPRESS (CALLE 1 7-49)", "categoria": "Restaurante / Café", "direccion": "RESTAURANTE BAR EL COYOTE EXPRESS (CALLE 1 7-49)", "nit": "43657960", "telefono": "3168268236", "email": "viviana7960@hotmail.com", "color": "#8E44AD"}, {"lat": 6.527556356870501, "lon": -74.58670854945974, "nombre": "VILLA SALOME", "categoria": "Ganadería", "direccion": "(CALLE 51 N. 3-3)", "nit": "43650984", "telefono": "3154123737", "email": "bachuejo@hotmail.com", "color": "#B4C42C"}, {"lat": 6.508791850696472, "lon": -74.59661682436264, "nombre": "Casa del rio hotel", "categoria": "Hoteleria", "direccion": "CRA. 6 # 3-29", "nit": "43652143", "telefono": "311 2722145", "email": "casadelriohotelboutique@gmail.com", "color": "#19555B"}, {"lat": 6.53465472732335, "lon": -74.60361270797156, "nombre": "BIOCHICOAS TURISMO", "categoria": "Operadores Turísticos", "direccion": "CR 6 N 19 - 56", "nit": "9002111395", "telefono": "3145659269", "email": "asociacion_ambientalista@hotmail.es", "color": "#E67E22"}, {"lat": 6.514668992941424, "lon": -74.57501679340608, "nombre": "LA ALPINA CENTRO TURISTICO", "categoria": "Operadores Turísticos", "direccion": "KILOMETRO 17 VIA MEDELLIN VDA LAS FLORES SECTOR LA ALPINA", "nit": "21651554", "telefono": "3188113940", "email": "balneariolaalpina1987@gmail.com", "color": "#E67E22"}, {"lat": 6.512498189345791, "lon": -74.61503126530253, "nombre": "DESCUBRELO TOURS AGENCIA DE VIAJES", "categoria": "Operadores Turísticos", "direccion": "CL 53 NO 6-36", "nit": "900519253", "telefono": "3137454148", "email": "descubrelotours@gmail.com", "color": "#E67E22"}, {"lat": 6.543042279552283, "lon": -74.59004629533196, "nombre": "HOTEL AGROMACEO", "categoria": "Hoteleria", "direccion": "(CRA 30 N. 29-12 SEGUNDO PISO)", "nit": "71451061", "telefono": "3116260929", "email": "agromaceo@hotmail.com", "color": "#19555B"}, {"lat": 6.508289269804391, "lon": -74.58798632400098, "nombre": "COCOAN S.A.S.", "categoria": "Ganadería", "direccion": "vereda La Unión", "nit": "900462385", "telefono": "3136249266", "email": "cocoansas@gmail.com", "color": "#B4C42C"}, {"lat": 6.5341440945872975, "lon": -74.61698305374618, "nombre": "HACIENDA LA BONITA", "categoria": "Ganadería", "direccion": "estación Malena/  vereda aterrado", "nit": "70320206", "telefono": "3156702180", "email": "williamsotoe@gmail.com", "color": "#B4C42C"}, {"lat": 6.529825353617871, "lon": -74.56986042380522, "nombre": "CAFÉ RIO", "categoria": "Restaurante / Café", "direccion": "CR 54 CON CL 5 ESQ", "nit": "1039452625", "telefono": "300 3320380", "email": "Katerincorreabustamante37@gmail.com", "color": "#8E44AD"}, {"lat": 6.5005042904718735, "lon": -74.60639728690772, "nombre": "HACIENDA EL IMPERIO", "categoria": "Ganadería", "direccion": "vereda Santa Barbara sobre el Cañón del Río Alicante", "nit": "71667890", "telefono": "3137912102", "email": "", "color": "#B4C42C"}, {"lat": 6.548382444341606, "lon": -74.6035687690932, "nombre": "HOTEL CAMPESTRE CANDILEJAS", "categoria": "Hoteleria", "direccion": "vía Medellin", "nit": "1152454685", "telefono": "3235691920", "email": "ago-813@hotmail.com", "color": "#19555B"}, {"lat": 6.508196636915919, "lon": -74.57915582481941, "nombre": "CONECTA NATIVA S.A.S", "categoria": "Operadores Turísticos", "direccion": "Puerto Berrío", "nit": "901961630", "telefono": "3235691920", "email": "ago-813@hotmail.com", "color": "#E67E22"}, {"lat": 6.517111906055246, "lon": -74.62023420033204, "nombre": "SOCIEDAD COMERCIALIZADORA DBF S.A.S", "categoria": "Ganadería", "direccion": "HACIENDA LA TAGUA", "nit": "900606344", "telefono": "3176570470", "email": "comercializadoradbf@gmail.com", "color": "#B4C42C"}, {"lat": 6.54344560873705, "lon": -74.57800685598173, "nombre": "AGROPECUARIA PARA SIEMPRE SAS", "categoria": "Ganadería", "direccion": "Puerto Berrío", "nit": "901482374", "telefono": "310-5032243", "email": "agropecuariaparasiempre1@gmail.com", "color": "#B4C42C"}, {"lat": 6.496310934596592, "lon": -74.59169331089808, "nombre": "LILLER INVERSIONES S.A.S.", "categoria": "Ganadería", "direccion": "Puerto Berrío", "nit": "901353531", "telefono": "3108317438", "email": "lillerinversionessas68@hotmail.com", "color": "#B4C42C"}, {"lat": 6.544476324104959, "lon": -74.61859470618177, "nombre": "INVERSIONES JARALZA S.A.S.", "categoria": "Ganadería", "direccion": "Puerto Berrío", "nit": "900905619", "telefono": "3113188542", "email": "haciendalaconcha@gmail.com", "color": "#B4C42C"}, {"lat": 6.519200779443218, "lon": -74.56452441887188, "nombre": "HACIENDA GUAYACANES", "categoria": "Ganadería", "direccion": "Puerto Berrío", "nit": "42826000", "telefono": "3116341952", "email": "", "color": "#B4C42C"}, {"lat": 6.500835851791416, "lon": -74.6219968746553, "nombre": "INVERSIONES AGROPECUARIAS GANADOS Y GANADOS S.A.S. / SAN JUAN DE BEDOUTH", "categoria": "Ganadería", "direccion": "Puerto Berrío", "nit": "900699049", "telefono": "3206758771", "email": "contadoragyg@gmail.com", "color": "#B4C42C"}, {"lat": 6.557068001995825, "lon": -74.5894770258507, "nombre": "PAMPAS", "categoria": "Ganadería", "direccion": "Kilómetro 6 vía Puerto Berrio-Medellín", "nit": "70566698", "telefono": "3154424803", "email": "", "color": "#B4C42C"}, {"lat": 6.496545352027871, "lon": -74.58022938241422, "nombre": "Hotel Malecón", "categoria": "Hoteleria", "direccion": "CARRERA 4 52 15", "nit": "71192712", "telefono": "3108329297", "email": "marcelopits81@hotmail.com", "color": "#19555B"}, {"lat": 6.527235237734422, "lon": -74.62147278084997, "nombre": "BAR Y COMIDAS RAPIDAS PIWAY", "categoria": "Restaurante / Café", "direccion": "CL 52 NRO. 5-32", "nit": "71188587", "telefono": "3124325556", "email": "piwaypiway4@gmail.com", "color": "#8E44AD"}, {"lat": 6.540019284416413, "lon": -74.56237035841016, "nombre": "AGENCIA DE VIAJES PALM@BEACH", "categoria": "Operadores Turísticos", "direccion": "CRA 7 N 46-02", "nit": "1039702095", "telefono": "3046683314", "email": "sajonero14@gmail.com", "color": "#E67E22"}, {"lat": 6.494439186488957, "lon": -74.60531019739622, "nombre": "Ecorrefugio Alicante", "categoria": "Operadores Turísticos", "direccion": "Santa Barbara / Maceo", "nit": "901582416-5", "telefono": "3004833179", "email": "ecorrefugio@gmail.com", "color": "#E67E22"}, {"lat": 6.549337138573534, "lon": -74.60820842087017, "nombre": "COLBUFALA", "categoria": "Restaurante / Café", "direccion": "Puerto Berrío", "nit": "901982713", "telefono": "3124328260", "email": "", "color": "#8E44AD"}]</script>
+    <script>
+(function() {
+  function escapeHtml(s) {
+    if (!s) return '';
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+  function initMap() {
+    if (typeof L === 'undefined') { setTimeout(initMap, 150); return; }
+    var wrap = document.getElementById('map-embed-wrapper');
+    if (!wrap) { setTimeout(initMap, 100); return; }
+    wrap.innerHTML = '<div id="map-rnt-mini" style="position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;"></div>';
+    var dataEl = document.getElementById('establecimientos-data');
+    if (!dataEl) return;
+    var data = [];
+    try { data = JSON.parse(dataEl.textContent); } catch (e) { }
+    var el = document.getElementById('map-rnt-mini');
+    if (!el) return;
+    try {
+      var map = L.map('map-rnt-mini', { center: [6.5226, -74.5954], zoom: 11, zoomControl: true });
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 19
+      }).addTo(map);
+      var Cluster = (typeof L.markerClusterGroup === 'function') ? L.markerClusterGroup : null;
+      var cluster = Cluster ? L.markerClusterGroup({ maxClusterRadius: 50, spiderfyOnMaxZoom: true }) : null;
+      for (var i = 0; i < data.length; i++) {
+        var e = data[i];
+        var col = e.color || '#7F8C8D';
+        var pop = '<div style="font-family:Arial;max-width:320px;">' +
+          '<div style="background:linear-gradient(135deg,' + col + ',#172539);color:#fff;padding:10px;margin:-10px -15px 8px -15px;border-radius:4px;">' +
+          '<strong>' + escapeHtml(e.nombre) + '</strong><br><small>🏷️ ' + escapeHtml(e.categoria) + '</small></div>' +
+          '<p style="margin:6px 0;"><strong>📍 Dirección:</strong><br>' + escapeHtml(e.direccion || '—') + '</p>' +
+          '<p style="margin:6px 0;"><strong>📄 NIT/Cédula:</strong> ' + escapeHtml(e.nit) + '</p>' +
+          '<p style="margin:6px 0;"><strong>📞 Tel:</strong> ' + escapeHtml(e.telefono || '—') + '</p>' +
+          '<p style="margin:6px 0;"><strong>✉️ Email:</strong> ' + escapeHtml(e.email || '—') + '</p></div>';
+        var m = L.circleMarker([e.lat, e.lon], {
+          radius: 10, fillColor: col, color: '#172539', weight: 1, fillOpacity: 0.85
+        }).bindPopup(pop).bindTooltip(escapeHtml(e.nombre) + ' · ' + escapeHtml(e.categoria), { direction: 'top' });
+        if (cluster) m.addTo(cluster); else m.addTo(map);
+      }
+      if (cluster) cluster.addTo(map);
+      var leg = '<div style="position:absolute;bottom:50px;right:50px;background:#fff;border:2px solid #172539;z-index:9999;padding:12px 16px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.2);font-size:13px;"><strong style="color:#172539;">🗺️ Leyenda por sector</strong><br><span style="display:inline-block;width:14px;height:14px;background:#B4C42C;border-radius:50%;margin-right:6px;"></span>Ganadería: 11<br><span style="display:inline-block;width:14px;height:14px;background:#19555B;border-radius:50%;margin-right:6px;"></span>Hoteleria: 6<br><span style="display:inline-block;width:14px;height:14px;background:#E67E22;border-radius:50%;margin-right:6px;"></span>Operadores Turísticos: 6<br><span style="display:inline-block;width:14px;height:14px;background:#8E44AD;border-radius:50%;margin-right:6px;"></span>Restaurante / Café: 4<br><hr style="margin:8px 0;">Total: 27 inscritos</div>';
+      var legDiv = document.createElement('div');
+      legDiv.innerHTML = leg;
+      var legEl = legDiv.firstElementChild || legDiv;
+      legEl.style.pointerEvents = 'none';
+      wrap.appendChild(legEl);
+      setTimeout(function() { map.invalidateSize(); }, 300);
+      setTimeout(function() { map.invalidateSize(); }, 800);
+      window.addEventListener('resize', function() { map.invalidateSize(); });
+      if (typeof IntersectionObserver !== 'undefined') {
+        var io = new IntersectionObserver(function(entries) {
+          if (entries[0].isIntersecting) map.invalidateSize();
+        }, { threshold: 0.1 });
+        io.observe(wrap);
+      }
+    } catch (err) { wrap.innerHTML = '<p style="padding:20px;color:#c00;">Error al cargar el mapa.</p>'; }
+  }
+  if (document.readyState === 'complete') {
+    setTimeout(initMap, 100);
+  } else {
+    window.addEventListener('load', function() { setTimeout(initMap, 100); });
+  }
+})();
+</script>
+</body>
+</html>

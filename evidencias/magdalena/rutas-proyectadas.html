@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rutas proyectadas para Puerto Berrío y Maceo, Antioquia, Colombia</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <style>
+        :root {
+            --verde-oscuro: #172539;
+            --verde: #19555B;
+            --verde-claro: #B4C42C;
+            --crema: #fdf8f0;
+            --marron: #6b4226;
+            --gris-oscuro: #333;
+            --gris: #666;
+            --blanco: #fff;
+            --naranja: #E67E22;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--crema); color: var(--gris-oscuro); line-height: 1.7; }
+        header {
+            background: linear-gradient(135deg, #172539 0%, #19555B 50%, #B4C42C 100%);
+            color: var(--blanco);
+            padding: 50px 40px;
+            text-align: center;
+        }
+        header h1 { font-size: 2.2em; margin-bottom: 10px; }
+        header h2 { font-size: 1.2em; font-weight: 300; opacity: 0.95; }
+        header .subtitle { margin-top: 12px; font-size: 0.95em; opacity: 0.85; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .tabs-wrapper { max-width: 1200px; margin: 25px auto 30px; padding: 0 20px; background: var(--blanco); border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow: hidden; }
+        .tabs-nav { display: flex; flex-wrap: wrap; gap: 0; background: #e8f0e4; border-bottom: 2px solid var(--verde-claro); padding: 0 10px 0 0; }
+        .tabs-nav .tab-btn { padding: 14px 18px; border: none; background: transparent; color: var(--gris); font-size: 0.95em; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; white-space: nowrap; }
+        .tabs-nav .tab-btn:hover { color: var(--verde-oscuro); background: rgba(255,255,255,0.5); }
+        .tabs-nav .tab-btn.active { color: var(--verde-oscuro); background: var(--blanco); border-bottom-color: var(--verde); }
+        .tabs-content { min-height: 400px; max-height: 78vh; overflow-y: auto; }
+        .tab-panel { display: none; padding: 35px 40px; }
+        .tab-panel.active { display: block; }
+        section h2 { color: var(--verde-oscuro); font-size: 1.7em; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 3px solid var(--verde-claro); }
+        section h3 { color: var(--marron); font-size: 1.25em; margin: 20px 0 10px; }
+        p { margin-bottom: 12px; }
+        .intro-text { font-size: 1.05em; color: var(--gris); font-style: italic; border-left: 4px solid var(--verde-claro); padding-left: 20px; margin: 20px 0; }
+        .stat-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin: 20px 0; }
+        .stat-card { background: var(--blanco); border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.06); border-top: 4px solid var(--verde); }
+        .stat-card .number { font-size: 2.2em; font-weight: 700; color: var(--verde-oscuro); }
+        .stat-card .label { color: var(--gris); font-size: 0.9em; margin-top: 5px; }
+        #mapa-rutas { width: 100%; height: 420px; border-radius: 12px; border: 2px solid var(--verde-claro); margin-bottom: 24px; background: #e8f5e9; }
+        .map-popup { font-size: 13px; line-height: 1.5; text-align: left; }
+        .map-popup .popup-mun { color: var(--gris); font-size: 12px; }
+        .map-popup .popup-desc { margin: 8px 0 6px; color: var(--gris-oscuro); }
+        .map-popup .popup-exp { margin: 6px 0; font-size: 12px; color: var(--verde-oscuro); }
+        .map-popup .popup-costo { margin: 6px 0; font-size: 12px; font-weight: 600; color: var(--marron); }
+        .leaflet-popup-content-wrapper { border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
+        .leaflet-popup-content { margin: 12px 14px; min-width: 240px; }
+        .rutas-selector { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+        .btn-ruta { padding: 12px 20px; border: 2px solid var(--verde-claro); background: var(--blanco); color: var(--verde-oscuro); font-weight: 600; font-size: 0.95em; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+        .btn-ruta:hover { background: #eafaf1; }
+        .btn-ruta.activa { background: var(--verde); color: var(--blanco); border-color: var(--verde); }
+        .ruta-panel { display: none; }
+        .ruta-panel.activa { display: block; }
+        .ruta-panel h3 { color: var(--verde-oscuro); font-size: 1.3em; margin-bottom: 6px; }
+        .ruta-panel .subtitulo { color: var(--gris); margin-bottom: 18px; font-size: 0.95em; }
+        .ruta-panel .ruta-precio { color: var(--marron); font-size: 1.05em; margin: 8px 0 12px; }
+        .ruta-panel .ruta-incluye { color: var(--gris-oscuro); font-size: 0.92em; margin-bottom: 16px; padding-left: 12px; border-left: 3px solid var(--verde-claro); }
+        .ruta-box { background: linear-gradient(135deg, #eafaf1, #d5f5e3); border-radius: 10px; padding: 25px; margin: 20px 0; border: 1px solid #82e0aa; }
+        .ruta-paso { display: flex; align-items: flex-start; margin: 12px 0; padding: 10px 14px; background: rgba(255,255,255,0.6); border-radius: 8px; border-left: 4px solid var(--verde); }
+        .ruta-paso .numero { background: var(--verde); color: var(--blanco); width: 28px; height: 28px; min-width: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85em; flex-shrink: 0; margin-right: 14px; }
+        .ruta-paso .texto { flex: 1; }
+        .empresa-card { background: var(--crema); border-radius: 10px; padding: 25px 30px; margin: 20px 0; border-left: 5px solid var(--verde); }
+        .empresa-card .nombre { font-size: 1.2em; color: var(--verde-oscuro); font-weight: 700; margin-bottom: 5px; }
+        .empresa-card .municipio { display: inline-block; background: var(--verde); color: var(--blanco); padding: 2px 12px; border-radius: 20px; font-size: 0.8em; margin-bottom: 10px; }
+        .empresa-card .contacto { font-size: 0.9em; color: var(--gris); margin-bottom: 8px; }
+        .empresa-card .descripcion { margin-bottom: 10px; }
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600; margin-right: 5px; margin-bottom: 5px; }
+        .badge-hospedaje { background: #d6eaf8; color: #2471a3; }
+        .badge-restaurante { background: #fdebd0; color: #ca6f1e; }
+        .badge-operador { background: #d5f5e3; color: #1e8449; }
+        .badge-ganaderia { background: #e8daef; color: #7d3c98; }
+        .badge-atractivo { background: #e0f7fa; color: #006064; }
+        .cotizacion-section { margin: 28px 0; }
+        .cotizacion-section h3 { color: var(--verde-oscuro); font-size: 1.15em; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid var(--verde-claro); }
+        .tabla-cotizacion { width: 100%; border-collapse: collapse; margin: 12px 0 24px; font-size: 0.9em; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-radius: 8px; overflow: hidden; }
+        .tabla-cotizacion th, .tabla-cotizacion td { border: 1px solid #c5d9c8; padding: 10px 12px; text-align: left; }
+        .tabla-cotizacion th { background: linear-gradient(135deg, var(--verde-oscuro), var(--verde)); color: var(--blanco); font-weight: 600; }
+        .tabla-cotizacion tr:nth-child(even) { background: #f5faf5; }
+        .tabla-cotizacion tr:hover { background: #e8f5e9; }
+        footer { background: var(--verde-oscuro); color: var(--blanco); text-align: center; padding: 28px; margin-top: 40px; }
+        footer p { opacity: 0.85; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Rutas proyectadas para la región de Puerto Berrío y Maceo, Antioquia, Colombia</h1>
+    <h2>Magdalena Medio y paisaje cultural ganadero</h2>
+    <p class="subtitle">Este informe presenta mapas georreferenciados, descriptores por punto, servicios y precios aproximados de la región.</p>
+</header>
+<div class="tabs-wrapper">
+    <nav class="tabs-nav" role="tablist">
+        <button type="button" class="tab-btn active" data-tab="resumen">Resumen</button>
+        <button type="button" class="tab-btn" data-tab="rutas">Rutas mostradas en el mapa</button>
+        <button type="button" class="tab-btn" data-tab="directorio">Puntos de la ruta con descriptores</button>
+        <button type="button" class="tab-btn" data-tab="cotizacion">Cotización por ruta por rubros</button>
+    </nav>
+    <div class="tabs-content">
+        <section id="resumen" class="tab-panel active" data-tab="resumen">
+            <h2>1. Resumen del informe de rutas para Puerto Berrío y Maceo</h2>
+            <p class="intro-text">Este informe presenta las rutas proyectadas desde el archivo <strong>Informacion de las fotos.xlsx</strong>, para la región de <strong>Puerto Berrío y Maceo, Antioquia, Colombia (Magdalena Medio)</strong>. Ruta 1 (hojas 1 a 4): experiencias ganaderas, La Alpina, San Juan de Bedouth, Casa del Río y restaurantes. Ruta 2 (hojas 5 y 6): recorrido urbano, Malecón, Río Magdalena, Iglesia, Cementerio, Hotel Magdalena, Puente Monumental, Ciénaga de Barbacoas, Colbúfala y Finca Las Camelias. Todos los puntos corresponden a la región indicada e incluyen <strong>planes, precios e información</strong> obtenidos de la base de referencia turística y web scraping.</p>
+            <p>Las rutas contemplan <strong>salida desde Medellín</strong>: opción terrestre (bus) u <strong>opción aérea</strong>. El servicio de vuelo a Puerto Berrío (Antioquia, Colombia) lo presta <strong>San Germán Express (Grupo San Germán Express)</strong> desde el aeropuerto Olaya Herrera hasta el aeropuerto Morela; frecuencia 2 vuelos diarios lun–vie y sábados por la mañana; duración ~25 min; precio aproximado ida $280.000–$450.000 por persona (cotizar con operador). <strong>Variante con vuelo:</strong> todas las rutas pueden realizarse con llegada y/o salida en avión.</p>
+            <div class="stat-cards">
+                <div class="stat-card"><div class="number">2</div><div class="label">Rutas definidas</div></div>
+                <div class="stat-card"><div class="number">53</div><div class="label">Actividades totales</div></div>
+                <div class="stat-card"><div class="number">32</div><div class="label">Actividades Ruta 1</div></div>
+                <div class="stat-card"><div class="number">21</div><div class="label">Actividades Ruta 2</div></div>
+                <div class="stat-card"><div class="number">28</div><div class="label">Lugares georreferenciados</div></div>
+                <div class="stat-card"><div class="number">2</div><div class="label">Llegada: bus o vuelo (San Germán Express)</div></div>
+            </div>
+            <h3>Opciones de rutas (precio estimado por persona, COP, aprox.)</h3>
+            <ul>
+                <li><strong>Ruta 1 — Experiencia ganadera (hojas 1 a 4):</strong> $420.000 – $720.000. Ordeño, La Alpina, San Juan de Bedouth, Casa del Río, gastronomía típica y Colbúfala, en Puerto Berrío y Maceo, Antioquia, Colombia.</li>
+                <li><strong>Ruta 2 — Recorrido histórico y naturaleza (hojas 5 y 6):</strong> $380.000 – $650.000. Parque, Malecón, Río Magdalena, Brigada, Puente Monumental, Ciénaga de Barbacoas y Finca Las Camelias, en la región de Puerto Berrío y Maceo, Antioquia, Colombia.</li>
+            </ul>
+        </section>
+        <section id="rutas" class="tab-panel" data-tab="rutas">
+            <h2>2. Las rutas se muestran en el mapa georreferenciado</h2>
+            <p>Seleccione una ruta para ver el recorrido en el mapa. Cada marcador muestra información del punto (planes ofrecidos, precios e información del lugar) en la región de Puerto Berrío y Maceo, Antioquia, Colombia.</p>
+            <div id="mapa-rutas"></div>
+            <div class="rutas-selector">
+                <button type="button" class="btn-ruta" data-ruta="1">Ruta 1: experiencia ganadera (hojas 1 a 4)</button>
+                <button type="button" class="btn-ruta" data-ruta="2">Ruta 2: recorrido histórico y naturaleza (hojas 5 y 6)</button>
+            </div>
+            <div id="ruta-panel-1" class="ruta-panel activa">
+                <h3>Ruta 1: experiencia ganadera (hojas 1 a 4)</h3>
+                <p class="subtitulo">Ganadería, La Alpina, San Juan de Bedouth, Casa del Río y gastronomía bufalina en la región de Puerto Berrío y Maceo.</p>
+                <p class="ruta-precio"><strong>Estimado por persona (aprox.): $420.000 – $720.000 (COP).</strong></p>
+                <p class="ruta-incluye"><strong>Incluye:</strong> Bus ida/vuelta (o vuelo San Germán Express), alojamiento (Apartahotel San Diego / Casa del Río) en Puerto Berrío, traslados, comidas, experiencia ganadera (ordeño, La Alpina balneario, San Juan de Bedouth).</p>
+                <div class="ruta-box">
+                    <div class="ruta-paso"><div class="numero">1</div><div class="texto"><strong>Finca Las Camelias – Liller Inversiones</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">2</div><div class="texto"><strong>LA ALPINA Centro Turístico</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">3</div><div class="texto"><strong>San Juan de Bedouth – Inversiones Agropecuarias Ganados y Ganados S.A.S.</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">4</div><div class="texto"><strong>Casa del Río Hotel</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">5</div><div class="texto"><strong>COLBUFALA</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">6</div><div class="texto"><strong>Hacienda La Tagua – Sociedad Comercializadora DBF S.A.S.</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">7</div><div class="texto"><strong>Instalaciones Tagua</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">8</div><div class="texto"><strong>Quebrada la malena</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">9</div><div class="texto"><strong>Instalaciones Hda la Tagua</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">10</div><div class="texto"><strong>Pto Berrio</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">11</div><div class="texto"><strong>Restaurante del Puerto</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">12</div><div class="texto"><strong>Puerto de Lanchas – Río Magdalena</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">13</div><div class="texto"><strong>Visita shoping</strong></div></div>
+                </div>
+                <h4 style="color:var(--marron);margin:16px 0 8px;">Detalle de actividades (itinerario completo del Excel, región Puerto Berrío y Maceo, Antioquia, Colombia)</h4>
+                <table class="tabla-cotizacion"><thead><tr><th>Horario</th><th>Actividad / Experiencia</th><th>Lugar</th><th>Responsable</th><th>Observaciones</th></tr></thead><tbody>
+                    <tr><td>06:00:00</td><td>ordeño</td><td>las camaleonas</td><td></td><td></td></tr>
+                    <tr><td>07:30:00</td><td>Desayuno tradicional</td><td>las camaleonas</td><td></td><td></td></tr>
+                    <tr><td>08:00:00</td><td>Paseo a caballo contemplar campos y paisajes ganaderos Historia en fincas contexto ganadero</td><td></td><td></td><td></td></tr>
+                    <tr><td>1900-01-12 00:00:00</td><td>Almuerzo ganadero (sancocho trifasico)</td><td></td><td></td><td></td></tr>
+                    <tr><td>14:00:00</td><td>Retorno</td><td></td><td></td><td></td></tr>
+                    <tr><td></td><td>Compras para llevar</td><td></td><td>Pan, queso</td><td></td></tr>
+                    <tr><td>08:00:00</td><td>Desayuno</td><td>la alpina  el portal</td><td>san juan de bedouth</td><td></td></tr>
+                    <tr><td>10:30:00</td><td>caracterización</td><td>san juan de bedouth</td><td>san juan de bedouth</td><td></td></tr>
+                    <tr><td>11:30:00</td><td>Recorrido Instalaciones</td><td>san juan de bedouth</td><td>san juan de bedouth</td><td></td></tr>
+                    <tr><td>13:00:00</td><td>Almuerzo tipico</td><td>san juan de bedouth</td><td>san juan de bedouth</td><td></td></tr>
+                    <tr><td>14:00:00</td><td>Visita establos</td><td>san juan de bedouth</td><td>san juan de bedouth</td><td></td></tr>
+                    <tr><td>15:15:00</td><td>Salida de campo</td><td>san juan de bedouth</td><td>san juan de bedouth</td><td></td></tr>
+                    <tr><td>17:00:00</td><td>refriguerio</td><td></td><td></td><td></td></tr>
+                    <tr><td>17:30:00</td><td>Regreso a puerto berrio</td><td></td><td></td><td></td></tr>
+                    <tr><td>18:30:00</td><td>Instalación hotel</td><td>Casa del rio san diego</td><td>Casa del rio  san diego</td><td></td></tr>
+                    <tr><td>19:30:00</td><td>Cena</td><td>Colbufala  casa vieja El portal  El martina</td><td>Restaurantes</td><td></td></tr>
+                    <tr><td>06:00:00</td><td>Salida finca.</td><td>Hda Tagua</td><td>Hda Tagua</td><td></td></tr>
+                    <tr><td>06:30:00</td><td>llegada finca ordeña</td><td>Corrales Hda Tagua</td><td>Hda Tagua</td><td></td></tr>
+                    <tr><td>07:30:00</td><td>Desayuno</td><td>Hda Tagua</td><td>Hda Tagua</td><td></td></tr>
+                    <tr><td>08:30:00</td><td>Introducción de la empresa</td><td>Hda Tagua</td><td>Hda Tagua</td><td></td></tr>
+                    <tr><td>09:30:00</td><td>Salida a Caballo manejo de campo</td><td>Potreros Hda Tagua</td><td>Hda Tagua</td><td></td></tr>
+                    <tr><td>11:30:00</td><td>Refrigerio Hidratación</td><td>Instalaciones Tagua</td><td>Hda Tagua</td><td></td></tr>
+                    <tr><td>12:30:00</td><td>Desplazamiento a caballo al río</td><td>Quebrada la malena</td><td>Hda Tagua</td><td></td></tr>
+                    <tr><td>01:00:00</td><td>Almuerzo</td><td>Quebrada la malena</td><td>Hda Tagua</td><td></td></tr>
+                    <tr><td>02:30:00</td><td>Desplazamiento a la casa</td><td>Instalaciones Hda la Tagua</td><td>Hda Tagua</td><td></td></tr>
+                    <tr><td>03:00:00</td><td>Salida Pto Berrio</td><td>Pto Berrio</td><td>Operador</td><td></td></tr>
+                    <tr><td>04:00:00</td><td>Tour Pto Berrio</td><td></td><td>operador</td><td></td></tr>
+                    <tr><td>DÍA 3 6:30 am</td><td>Desayuno</td><td>Restaurante</td><td></td><td></td></tr>
+                    <tr><td>08:00:00</td><td>Recorrido río Magdalena</td><td>Puerto lanchas</td><td>Operador turístico lanchas</td><td></td></tr>
+                    <tr><td>12:00:00</td><td>Almuerzo</td><td>Restaurante del puerto</td><td>Operador turístico</td><td></td></tr>
+                    <tr><td>1:00 p.m</td><td>Tarde libre</td><td>Visita shoping</td><td></td><td></td></tr>
+                    <tr><td>15:00:00</td><td>Regreso ciudades</td><td></td><td></td><td></td></tr>
+                </tbody></table>
+            </div>
+            <div id="ruta-panel-2" class="ruta-panel ">
+                <h3>Ruta 2: recorrido histórico y naturaleza (hojas 5 y 6)</h3>
+                <p class="subtitulo">Recorrido histórico, Malecón, Brigada, Puente, Ciénaga de Barbacoas y Finca Las Camelias en Puerto Berrío y Maceo, Antioquia, Colombia.</p>
+                <p class="ruta-precio"><strong>Estimado por persona (aprox.): $380.000 – $650.000 (COP).</strong></p>
+                <p class="ruta-incluye"><strong>Incluye:</strong> Bus ida/vuelta (o vuelo San Germán Express), alojamiento (Apartahotel San Diego / Hotel Malecón) en Puerto Berrío, traslados, comidas, recorrido urbano, tour Ciénaga Barbacoas y visita Finca Las Camelias.</p>
+                <div class="ruta-box">
+                    <div class="ruta-paso"><div class="numero">1</div><div class="texto"><strong>Casa del Río Hotel</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">2</div><div class="texto"><strong>Río Palmar – Río Magdalena</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">3</div><div class="texto"><strong>Malecón – San Diego</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">4</div><div class="texto"><strong>Movilizacion x municipio</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">5</div><div class="texto"><strong>Iglesia Nuestra Señora de los Dolores</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">6</div><div class="texto"><strong>Cementerio Municipal (Puerto Berrío)</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">7</div><div class="texto"><strong>Sala Lechera La Ganadera</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">8</div><div class="texto"><strong>Colbúfala</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">9</div><div class="texto"><strong>Puerto.</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">10</div><div class="texto"><strong>Río Magdalena</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">11</div><div class="texto"><strong>Ranchería Ciénaga</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">12</div><div class="texto"><strong>operador</strong></div></div>
+                    <div class="ruta-paso"><div class="numero">13</div><div class="texto"><strong>Finca Las Camelias – Liller Inversiones</strong></div></div>
+                </div>
+                <h4 style="color:var(--marron);margin:16px 0 8px;">Detalle de actividades (itinerario completo del Excel, región Puerto Berrío y Maceo, Antioquia, Colombia)</h4>
+                <table class="tabla-cotizacion"><thead><tr><th>Horario</th><th>Actividad / Experiencia</th><th>Lugar</th><th>Responsable</th><th>Observaciones</th></tr></thead><tbody>
+                    <tr><td>09:00:00</td><td>Recibimiento. Parque P / Hotel // llegada.</td><td>- casa del Rio.</td><td>Guia historiador</td><td></td></tr>
+                    <tr><td></td><td></td><td>- Rio palmar - magdalena.</td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td>- Malecon - San Diego</td><td></td><td></td></tr>
+                    <tr><td>09:30:00</td><td>Recorrido territorio.</td><td>Movilizacion x municipio</td><td>Guia historico</td><td></td></tr>
+                    <tr><td></td><td>- Infraestructura</td><td>- Iglesia Nostra Señora de los Dolores</td><td></td><td></td></tr>
+                    <tr><td></td><td>- Hotel magdalena.</td><td>- Cementerio</td><td></td><td></td></tr>
+                    <tr><td></td><td>- Puente monumental.</td><td></td><td></td><td></td></tr>
+                    <tr><td></td><td>- historia ferrocarril (Representa)</td><td></td><td></td><td></td></tr>
+                    <tr><td>12: PM</td><td>Almuerzo en Puerto.</td><td></td><td></td><td>Comida típica. Pescado fresco.</td></tr>
+                    <tr><td>13:30:00</td><td>Recorrido lancha Puente a puente</td><td></td><td></td><td>Recorrido el río magdalena entre los dos puentes.</td></tr>
+                    <tr><td>02:30:00</td><td>Visita a sala lechera la ganadera.</td><td>sala lechera la ganadera</td><td></td><td>Apreciar el entorno agropecuario historias.</td></tr>
+                    <tr><td>15:00:00</td><td>Show queso Caliente.</td><td>Colbúfala.</td><td></td><td>Historia queso y proceso.</td></tr>
+                    <tr><td>19:00:00</td><td>Cena Producto Bufala</td><td>Colbúfala</td><td></td><td>Exp. de los derivados</td></tr>
+                    <tr><td>05:10:00</td><td>Avistamiento Amanecer</td><td>Puerto.</td><td></td><td>Vemos como amanece sobre el río magdalena</td></tr>
+                    <tr><td>06:00:00</td><td>Movilizacion Río a Cienaga</td><td>Río Magdalena</td><td></td><td></td></tr>
+                    <tr><td>07:30:00</td><td>Llegada a la Rancheria. Desayuno.</td><td></td><td>Operador</td><td></td></tr>
+                    <tr><td>08:30:00</td><td>Movilizacion a Cienaga</td><td></td><td>Operador lancha</td><td></td></tr>
+                    <tr><td>00:00:00</td><td>Almuerzo en cienaga Musica en vivo</td><td>Rancheria cienaga.</td><td></td><td>Exp gastronomica en el río magdalena</td></tr>
+                    <tr><td>14:00:00</td><td>Retorno al Puerto</td><td>operador</td><td></td><td></td></tr>
+                    <tr><td>17:00:00</td><td>Movilizacion a finca ganadera</td><td>las camelias</td><td></td><td></td></tr>
+                    <tr><td>18:00:00</td><td>Cena Asado / Integracion Fogata</td><td>las camelias</td><td></td><td></td></tr>
+                </tbody></table>
+            </div>
+        </section>
+        <section id="directorio" class="tab-panel" data-tab="directorio">
+            <h2>3. Puntos de la ruta con descriptores (región Puerto Berrío y Maceo, Antioquia, Colombia)</h2>
+            <p>Detalle de cada establecimiento y atractivo de la región: servicios ofrecidos, precios aproximados (tentativos) y contacto. Información complementada con la base de referencia turística de Puerto Berrío y Maceo, Antioquia, Colombia, y web scraping.</p>
+            <div class="empresa-card" id="punto-Cementerio-Municipal-(Puerto-B">
+                <div class="nombre">Cementerio Municipal (Puerto Berrío)</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-atractivo">Atractivo</span>
+                <p class="descripcion">Cementerio municipal. Incluido en el recorrido histórico y urbano. Servicios: Patrimonio, Recorrido Histórico.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Visita libre. Incluido en pasadía histórico desde $59.000 (aprox.).</p>
+                <p class="contacto"><strong>Dirección:</strong> Puerto Berrío, Antioquia, Colombia | <strong>Tel:</strong> —</p>
+            </div>
+            <div class="empresa-card" id="punto-Iglesia-Nuestra-Señora-de-los-">
+                <div class="nombre">Iglesia Nuestra Señora de los Dolores</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-atractivo">Atractivo</span>
+                <p class="descripcion">Infraestructura patrimonial. Parte del recorrido histórico y urbano de Puerto Berrío. Servicios: Patrimonio, Recorrido Urbano, Arquitectura Religiosa.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Visita libre. Incluido en pasadía histórico desde $59.000 (aprox.).</p>
+                <p class="contacto"><strong>Dirección:</strong> Centro Puerto Berrío, Antioquia, Colombia | <strong>Tel:</strong> —</p>
+            </div>
+            <div class="empresa-card" id="punto-Malecón-–-San-Diego">
+                <div class="nombre">Malecón – San Diego</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-atractivo">Atractivo</span>
+                <p class="descripcion">Paseo peatonal junto al Río Magdalena. Contexto cultural, paisaje fluvial. Servicios: Paseo Ribereño, Atractivo Cultural, Recorrido Urbano.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Visita libre: $0. Incluido en recorrido urbano.</p>
+                <p class="contacto"><strong>Dirección:</strong> Puerto Berrío, junto al río, Antioquia, Colombia | <strong>Tel:</strong> —</p>
+            </div>
+            <div class="empresa-card" id="punto-Río-Palmar-–-Río-Magdalena">
+                <div class="nombre">Río Palmar – Río Magdalena</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-atractivo">Atractivo</span>
+                <p class="descripcion">Punto de encuentro con el Río Magdalena. Pesca, navegación, paisaje fluvial. Servicios: Río Magdalena, Pesca, Navegación.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Visita libre: $0. Tours fluviales desde $80.000/persona (aprox.).</p>
+                <p class="contacto"><strong>Dirección:</strong> Puerto Berrío, Antioquia, Colombia | <strong>Tel:</strong> —</p>
+            </div>
+            <div class="empresa-card" id="punto-Casa-del-Río-Hotel">
+                <div class="nombre">Casa del Río Hotel</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-hospedaje">Hoteleria</span>
+                <p class="descripcion">Hotel boutique con experiencia de fauna y flora. CRA. 6 # 3-29. Servicios: Habitaciones Boutique, Desayuno, WiFi, Aire Acondicionado, Vista al Río.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Habitación boutique: $180.000–$250.000/noche (aprox.). Desayuno: $15.000–$22.000.</p>
+                <p class="contacto"><strong>Dirección:</strong> CRA. 6 # 3-29, Antioquia, Colombia | <strong>Tel:</strong> 311 2722145 | <strong>Email:</strong> casadelriohotelboutique@gmail.com</p>
+            </div>
+            <div class="empresa-card" id="punto-COLBUFALA">
+                <div class="nombre">COLBUFALA</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-restaurante">Restaurante / Café</span>
+                <p class="descripcion">Gastronomía bufalina. Productos de búfalo, quesos, leche de búfala, derivados. Show queso caliente. Servicios: Productos de Búfalo, Quesos, Leche de Búfala, Derivados Lácteos.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Menú restaurante: $15.000–$25.000 (aprox.). Productos de búfalo/quesos: según producto.</p>
+                <p class="contacto"><strong>Dirección:</strong> Puerto Berrío, Antioquia, Colombia | <strong>Tel:</strong> 3124328260</p>
+            </div>
+            <div class="empresa-card" id="punto-Colbúfala">
+                <div class="nombre">Colbúfala</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-restaurante">Restaurante / Café</span>
+                <p class="descripcion">Gastronomía bufalina. Productos de búfalo y cocina local. Puerto Berrío. Show queso caliente. Servicios: Productos de Búfalo, Quesos, Leche de Búfala, Derivados Lácteos, Producción Artesanal, Venta Directa.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Productos de búfalo/quesos. Menú restaurante: $15.000–$25.000 (aprox.). Show queso: experiencia gastronómica.</p>
+                <p class="contacto"><strong>Dirección:</strong> Cra. 7 #51-2, Puerto Berrío, Antioquia, Colombia | <strong>Tel:</strong> 3163412071</p>
+            </div>
+            <div class="empresa-card" id="punto-Colbúfala">
+                <div class="nombre">Colbúfala.</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-restaurante">Restaurante / Café</span>
+                <p class="descripcion">Gastronomía bufalina. Productos de búfalo y cocina local. Puerto Berrío. Show queso caliente. Servicios: Productos de Búfalo, Quesos, Leche de Búfala, Derivados Lácteos, Producción Artesanal, Venta Directa.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Productos de búfalo/quesos. Menú restaurante: $15.000–$25.000 (aprox.). Show queso: experiencia gastronómica.</p>
+                <p class="contacto"><strong>Dirección:</strong> Cra. 7 #51-2, Puerto Berrío, Antioquia, Colombia | <strong>Tel:</strong> 3163412071</p>
+            </div>
+            <div class="empresa-card" id="punto-Hacienda-La-Tagua-–-Sociedad-C">
+                <div class="nombre">Hacienda La Tagua – Sociedad Comercializadora DBF S.A.S.</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-ganaderia">Ganadería</span>
+                <p class="descripcion">Hacienda La Tagua. Experiencia ganadera, recorrido por instalaciones, ordeño. Servicios: Comercialización Ganadera, Hacienda La Tagua, Producción Bovina.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Experiencia ganadera: $70.000–$110.000/persona (aprox.).</p>
+                <p class="contacto"><strong>Dirección:</strong> Hacienda La Tagua, Antioquia, Colombia | <strong>Tel:</strong> 3176570470 | <strong>Email:</strong> comercializadoradbf@gmail.com</p>
+            </div>
+            <div class="empresa-card" id="punto-Instalaciones-Hda-la-Tagua">
+                <div class="nombre">Instalaciones Hda la Tagua</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-ganaderia">Ganadería</span>
+                <p class="descripcion">Hacienda La Tagua. Experiencia ganadera. Servicios: Comercialización Ganadera, Hacienda La Tagua, Producción Bovina, Inversiones Agropecuarias.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Hacienda La Tagua. Experiencia ganadera: $70.000–$110.000/persona (aprox.).</p>
+                <p class="contacto"><strong>Dirección:</strong> Hacienda La Tagua, Puerto Berrío, Antioquia, Colombia | <strong>Tel:</strong> 3176570470</p>
+            </div>
+            <div class="empresa-card" id="punto-Instalaciones-Tagua">
+                <div class="nombre">Instalaciones Tagua</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-ganaderia">Ganadería</span>
+                <p class="descripcion">Hacienda La Tagua. Experiencia ganadera. Servicios: Comercialización Ganadera, Hacienda La Tagua, Producción Bovina, Inversiones Agropecuarias.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Hacienda La Tagua. Experiencia ganadera: $70.000–$110.000/persona (aprox.).</p>
+                <p class="contacto"><strong>Dirección:</strong> Hacienda La Tagua, Puerto Berrío, Antioquia, Colombia | <strong>Tel:</strong> 3176570470</p>
+            </div>
+            <div class="empresa-card" id="punto-Movilizacion-x-municipio">
+                <div class="nombre">Movilizacion x municipio</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-atractivo">Punto de interés</span>
+                <p class="descripcion">Punto de la ruta en Puerto Berrío, Maceo, Antioquia - Colombia. Movilizacion x municipio.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Cotizar con establecimiento.</p>
+                <p class="contacto"><strong>Dirección:</strong> Puerto Berrío, Maceo, Antioquia - Colombia | <strong>Tel:</strong> —</p>
+            </div>
+            <div class="empresa-card" id="punto-Pto-Berrio">
+                <div class="nombre">Pto Berrio</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-atractivo">Punto de interés</span>
+                <p class="descripcion">Puerto Ordaz es una localidad venezolana del Municipio Caroní de Ciudad Guayana en el Estado Bolívar, ubicada al sureste de Venezuela.  
+Fue fundada con Ciudad Piar, en 1952 como puerto de exportación minera a orillas del Río Caroní, en el punto donde este desemboca en el Orinoco.
+Puerto Ordaz es sede de empresas mineras, siderúrgicas e hidroeléctricas. Su aeropuerto sirve de enlace entre los pequeños aeropuertos en las zonas selváticas del Estado Bolívar y el resto del país. Junto con los secto</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Cotizar con establecimiento.</p>
+                <p class="contacto"><strong>Dirección:</strong> Puerto Berrío, Maceo, Antioquia - Colombia | <strong>Tel:</strong> —</p>
+            </div>
+            <div class="empresa-card" id="punto-Puerto-de-Lanchas-–-Río-Magdal">
+                <div class="nombre">Puerto de Lanchas – Río Magdalena</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-atractivo">Atractivo</span>
+                <p class="descripcion">Punto de embarque para recorridos fluviales. Tours a Ciénaga de Barbacoas. Servicios: Embarque Fluvial, Tours Ciénaga, Río Magdalena.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Embarque sin costo. Tours a Ciénaga desde $80.000/persona (aprox.).</p>
+                <p class="contacto"><strong>Dirección:</strong> Puerto Berrío, orilla del río, Antioquia, Colombia | <strong>Tel:</strong> —</p>
+            </div>
+            <div class="empresa-card" id="punto-Puerto">
+                <div class="nombre">Puerto.</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-atractivo">Punto de interés</span>
+                <p class="descripcion">Puerto Berrío es un municipio de Colombia, localizado en la subregión del Magdalena Medio del departamento de Antioquia.​ Limita por el norte con los municipios de Yolombó, Remedios y Yondó, por el oriente con el departamento de Santander, por el sur con los municipios de Puerto Nare y Caracolí, y por el occidente con los municipios de Caracolí y Maceo. Su cabecera dista 191 kilómetros de la ciudad de Medellín, capital de Antioquia. El municipio posee una extensión de 1.184 kilómetros cuadrados.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Cotizar con establecimiento.</p>
+                <p class="contacto"><strong>Dirección:</strong> Puerto Berrío, Maceo, Antioquia - Colombia | <strong>Tel:</strong> —</p>
+            </div>
+            <div class="empresa-card" id="punto-Quebrada-la-malena">
+                <div class="nombre">Quebrada la malena</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-atractivo">Punto de interés</span>
+                <p class="descripcion">Puerto Berrío es un municipio de Colombia, localizado en la subregión del Magdalena Medio del departamento de Antioquia.​ Limita por el norte con los municipios de Yolombó, Remedios y Yondó, por el oriente con el departamento de Santander, por el sur con los municipios de Puerto Nare y Caracolí, y por el occidente con los municipios de Caracolí y Maceo. Su cabecera dista 191 kilómetros de la ciudad de Medellín, capital de Antioquia. El municipio posee una extensión de 1.184 kilómetros cuadrados.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Cotizar con establecimiento.</p>
+                <p class="contacto"><strong>Dirección:</strong> Puerto Berrío, Maceo, Antioquia - Colombia | <strong>Tel:</strong> —</p>
+            </div>
+            <div class="empresa-card" id="punto-Ranchería-Ciénaga">
+                <div class="nombre">Ranchería Ciénaga</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-restaurante">Restaurante / Café</span>
+                <p class="descripcion">Experiencia gastronómica en la Ciénaga de Barbacoas. Almuerzo y música en vivo. Servicios: Gastronomía Local, Música en Vivo, Tour Ciénaga.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Incluido en tour Ciénaga Barbacoas: $80.000–$150.000/persona (aprox.).</p>
+                <p class="contacto"><strong>Dirección:</strong> Ciénaga de Barbacoas, Río Magdalena, Antioquia, Colombia | <strong>Tel:</strong> Biochicoas 3145659269</p>
+            </div>
+            <div class="empresa-card" id="punto-Restaurante-del-Puerto">
+                <div class="nombre">Restaurante del Puerto</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-restaurante">Restaurante / Café</span>
+                <p class="descripcion">Restaurante en zona portuaria. Comida típica, pescado fresco del Río Magdalena. Servicios: Comida Típica, Pescado del Río, Menú Local.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Almuerzo/cena típica: $15.000–$28.000 (aprox.).</p>
+                <p class="contacto"><strong>Dirección:</strong> Puerto Berrío, Antioquia, Colombia | <strong>Tel:</strong> —</p>
+            </div>
+            <div class="empresa-card" id="punto-Río-Magdalena">
+                <div class="nombre">Río Magdalena</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-restaurante">Restaurante / Café</span>
+                <p class="descripcion">El río Magdalena, también llamado río Grande de la Magdalena,​es una corriente de agua continua de Colombia que nace en el departamento del Huila y desemboca en el mar Caribe.​ Es navegable desde Honda, Tolima, hasta su desembocadura en Barranquilla, y su principal afluente es el río Cauca. Su cuenca ocupa el 24 % del territorio continental del país. En ella están 11 departamentos de Colombia: Magdalena, Atlántico, Bolívar, Cesar, Antioquia, Santander, Boyacá, Cundinamarca, Caldas, Tolima y Huil</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Cotizar con establecimiento.</p>
+                <p class="contacto"><strong>Dirección:</strong> Puerto Berrío, Maceo, Antioquia - Colombia | <strong>Tel:</strong> —</p>
+            </div>
+            <div class="empresa-card" id="punto-Visita-shoping">
+                <div class="nombre">Visita shoping</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-atractivo">Atractivo</span>
+                <p class="descripcion">Puerto Berrío es un lugar atractivo para conocer, sobre todo en la celebración de las Fiestas del Retorno y el Reinado de la Ecología, que son más tradicionales del municipio, pero también se realiza el Festival de la Cometa, el Festival de Danzas y Música Folclórica, el Festival del Río Magdalena entre muchos otros espacios culturales.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Cotizar con establecimiento.</p>
+                <p class="contacto"><strong>Dirección:</strong> Puerto Berrío, Maceo, Antioquia - Colombia | <strong>Tel:</strong> —</p>
+            </div>
+            <div class="empresa-card" id="punto-LA-ALPINA-Centro-Turístico">
+                <div class="nombre">LA ALPINA Centro Turístico</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-operador">Operadores Turísticos</span>
+                <p class="descripcion">Balneario y centro turístico km 17 vía Medellín, vereda Las Flores. Desayuno, piscina, camping, paseo de olla. Servicios: Balneario, Restaurante, Piscina, Zonas Verdes, Camping, Paseo de Olla.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Entrada balneario: $25.000–$45.000 (aprox.). Desayuno/refrigero: $10.000–$15.000.</p>
+                <p class="contacto"><strong>Dirección:</strong> Km 17 vía Medellín, vereda Las Flores, Antioquia, Colombia | <strong>Tel:</strong> 3188113940 | <strong>Email:</strong> balneariolaalpina1987@gmail.com</p>
+            </div>
+            <div class="empresa-card" id="punto-Finca-Las-Camelias-–-Liller-In">
+                <div class="nombre">Finca Las Camelias – Liller Inversiones</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-ganaderia">Ganadería</span>
+                <p class="descripcion">Hacienda ganadera de tradición en el km 4 vía Puerto Berrío–Cimitarra, más de 100 años de existencia, cuarta generación. Paisaje Cultural Ganadero. Ganadería de ceba y ordeño, lechería, búfala, doble propósito. Propuesta turística para familias, experiencias educativas para niños. Servicios: Inversiones Ganaderas, Producción Pecuaria, Comercialización, Alojamiento en finca, Gastronomía local, Senderismo.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Alojamiento en finca tradicional, gastronomía local, recorridos, actividades ganaderas (ceba, ordeño), senderismo. Cotizar con establecimiento.</p>
+                <p class="contacto"><strong>Dirección:</strong> Km 4 vía Puerto Berrío–Cimitarra, Antioquia, Colombia | <strong>Tel:</strong> 3108317438 | <strong>Email:</strong> lillerinversionessas68@hotmail.com</p>
+            </div>
+            <div class="empresa-card" id="punto-Sala-Lechera-La-Ganadera">
+                <div class="nombre">Sala Lechera La Ganadera</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-ganaderia">Ganadería</span>
+                <p class="descripcion">Sala de ordeño y procesamiento lácteo. Demostración de producción lechera, historia y proceso. Servicios: Producción Lechera, Demostración Ordeño, Historia Ganadera.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Visita incluida en recorrido urbano/ganadero. Cotizar con operador.</p>
+                <p class="contacto"><strong>Dirección:</strong> Puerto Berrío, Antioquia, Colombia | <strong>Tel:</strong> —</p>
+            </div>
+            <div class="empresa-card" id="punto-San-Juan-de-Bedouth-–-Inversio">
+                <div class="nombre">San Juan de Bedouth – Inversiones Agropecuarias Ganados y Ganados S.A.S.</div>
+                <span class="municipio">Puerto Berrío, Antioquia, Colombia</span>
+                <span class="badge badge-ganaderia">Ganadería</span>
+                <p class="descripcion">Finca San Juan de Bedout. Experiencia ganadera: desayuno con productor, recorrido entre Beneficia y Benerol. Servicios: Inversiones Agropecuarias, Ganadería Bovina, Comercialización, Hacienda San Juan de Bedouth.</p>
+                <p class="contacto"><strong>Precios aproximados (tentativos):</strong> Experiencia ganadera: $50.000–$80.000/persona (aprox.).</p>
+                <p class="contacto"><strong>Dirección:</strong> Puerto Berrío, Antioquia, Colombia | <strong>Tel:</strong> 3206758771 | <strong>Email:</strong> contadoragyg@gmail.com</p>
+            </div>
+        </section>
+        <section id="cotizacion" class="tab-panel" data-tab="cotizacion">
+            <h2>4. La cotización por ruta está discriminada por rubros</h2>
+            <p>Precios de referencia en COP para la región de Puerto Berrío y Maceo, Antioquia, Colombia. Confirmar con cada proveedor antes de la visita. Los valores son aproximados (tentativos).</p>
+            <div class="cotizacion-section"><h3>La cotización por rubros generales se detalla a continuación (región Puerto Berrío y Maceo, Antioquia, Colombia)</h3>
+                <h4 style="color:var(--marron);margin:16px 0 8px;">Transporte</h4>
+<table class="tabla-cotizacion"><thead><tr><th>Concepto</th><th>Operador / Opción</th><th>Contacto / Web</th><th>Precio referencia</th><th>Observaciones</th></tr></thead><tbody>
+<tr><td>Bus Medellín–Puerto Berrío</td><td>COONORTE</td><td>coonorte.com.co</td><td>$38.000 aprox.</td><td>Salidas 04:15–19:00</td></tr>
+<tr><td>Bus Medellín–Puerto Berrío</td><td>Rápido Ochoa / Brasilia / Copetran</td><td>Terminal / Pinbus</td><td>$35.000–$51.000</td><td>2h30–3h40</td></tr>
+<tr><td>Vuelo Medellín–Puerto Berrío</td><td>San Germán Express</td><td>Aeropuerto Olaya Herrera</td><td>$280.000–$450.000 ida</td><td>~25 min, 2 vuelos diarios lun–vie</td></tr>
+<tr><td>Traslados locales / mototaxi</td><td>Locales</td><td>Coordinar en destino</td><td>$5.000–$20.000 por tramo</td><td>Zona céntrica Puerto Berrío</td></tr>
+<tr><td>Traslado hotel–La Alpina (km 17)</td><td>Operador / vehículo</td><td>Biochicoas, Descúbrelo</td><td>$25.000–$45.000 ida</td><td>Incluido en paquete balneario</td></tr>
+<tr><td>Tour fluvial Ciénaga Barbacoas</td><td>Biochicoas / Descúbrelo</td><td>3145659269 / 3137454148</td><td>Incluido en tour</td><td>Precio tour: $80.000–$150.000 pp</td></tr>
+</tbody></table>
+                <h4 style="color:var(--marron);margin:16px 0 8px;">Alojamiento</h4>
+<table class="tabla-cotizacion"><thead><tr><th>Establecimiento</th><th>Municipio</th><th>Contacto</th><th>Precio ref. (noche)</th><th>Servicios destacados</th></tr></thead><tbody>
+<tr><td>Apartahotel San Diego</td><td>Puerto Berrío</td><td>3156702180</td><td>$80.000–$120.000</td><td>WiFi, parqueadero, AC, 36 hab.</td></tr>
+<tr><td>Casa del Río Hotel Boutique</td><td>Puerto Berrío</td><td>311 2722145</td><td>$180.000–$250.000</td><td>Vista al río, desayuno, WiFi</td></tr>
+<tr><td>Hotel Malecón</td><td>Puerto Berrío</td><td>3108329297</td><td>$70.000–$95.000</td><td>Vista al río, bar, jacuzzi</td></tr>
+<tr><td>LA ALPINA (camping)</td><td>Puerto Berrío</td><td>3188113940</td><td>$20.000–$40.000</td><td>Camping, piscina, zonas verdes</td></tr>
+</tbody></table>
+                <h4 style="color:var(--marron);margin:16px 0 8px;">Restaurantes y comidas</h4>
+<table class="tabla-cotizacion"><thead><tr><th>Establecimiento</th><th>Contacto</th><th>Servicios</th><th>Precio ref.</th></tr></thead><tbody>
+<tr><td>CAFÉ RIO</td><td>300 3320380</td><td>Desayuno, almuerzo, café, vista al río</td><td>D: $12.000–$18.000 / A: $18.000–$25.000</td></tr>
+<tr><td>RESTAURANTE BAR EL COYOTE EXPRESS</td><td>3168268236</td><td>Comida típica, pescado del río, bar</td><td>$15.000–$28.000</td></tr>
+<tr><td>BAR Y COMIDAS RAPIDAS PIWAY</td><td>3124325556</td><td>Hamburguesas, bar, domicilio</td><td>$12.000–$18.000</td></tr>
+<tr><td>COLBUFALA</td><td>3124328260</td><td>Productos búfalo, quesos, gastronomía</td><td>$15.000–$25.000 menú</td></tr>
+<tr><td>LA ALPINA (desayuno)</td><td>3188113940</td><td>Desayuno, refrigero, paseo de olla</td><td>$10.000–$15.000</td></tr>
+<tr><td>San Juan de Bedouth (almuerzo)</td><td>3206758771</td><td>Almuerzo típico ganadero</td><td>Cotizar con finca</td></tr>
+</tbody></table>
+                <h4 style="color:var(--marron);margin:16px 0 8px;">Operadores turísticos y experiencias</h4>
+<table class="tabla-cotizacion"><thead><tr><th>Operador / Experiencia</th><th>Contacto</th><th>Servicios</th><th>Precio ref.</th></tr></thead><tbody>
+<tr><td>Biochicoas Turismo</td><td>3145659269</td><td>Tour Ciénaga Barbacoas, lancha, guianza</td><td>$80.000–$150.000/pp</td></tr>
+<tr><td>Descúbrelo Tours</td><td>3137454148</td><td>Tour Ciénaga, navegación, paquetes</td><td>$80.000–$150.000/pp</td></tr>
+<tr><td>LA ALPINA Centro Turístico</td><td>3188113940</td><td>Balneario, piscina, camping</td><td>$25.000–$45.000 entrada</td></tr>
+<tr><td>San Juan de Bedouth</td><td>3206758771</td><td>Experiencia ganadera, recorrido finca</td><td>$50.000–$80.000/pp</td></tr>
+<tr><td>Finca Las Camelias (Liller Inv.)</td><td>3108317438</td><td>Ganadería, ordeño, senderismo, alojamiento finca</td><td>Cotizar con establecimiento</td></tr>
+</tbody></table>
+                <h4 style="color:var(--marron);margin:16px 0 8px;">Atractivos y visitas</h4>
+<table class="tabla-cotizacion"><thead><tr><th>Atractivo</th><th>Ubicación</th><th>Contacto</th><th>Precio ref.</th></tr></thead><tbody>
+<tr><td>Parque Principal / Olaya Herrera</td><td>Centro Puerto Berrío</td><td>PIT 315 392 2773</td><td>Visita libre $0 / con guía $20.000–$40.000</td></tr>
+<tr><td>Malecón (Río Magdalena)</td><td>Puerto Berrío</td><td>—</td><td>Visita libre $0</td></tr>
+<tr><td>Puente Monumental</td><td>Puerto Berrío</td><td>—</td><td>Visita libre $0</td></tr>
+<tr><td>Casa Museo / Brigada</td><td>Puerto Berrío</td><td>PIT 315 392 2773</td><td>Incluido en pasadía histórico $59.000–$120.000</td></tr>
+<tr><td>Ciénaga de Barbacoas</td><td>Río Magdalena</td><td>Biochicoas 3145659269</td><td>$80.000–$150.000/pp (tour)</td></tr>
+<tr><td>Puerto de lanchas</td><td>Puerto Berrío</td><td>—</td><td>Embarque sin costo; tour desde $80.000/pp</td></tr>
+</tbody></table>
+            </div>
+            <div class="cotizacion-section"><h3>La cotización por paquete o por ruta se detalla a continuación</h3>
+                <h4 style="color:var(--marron);margin:16px 0 8px;">Ruta 1: experiencia ganadera (hojas 1 a 4)</h4>
+<table class="tabla-cotizacion"><thead><tr><th>Concepto</th><th>Incluye</th><th>Precio ref. (COP)</th></tr></thead><tbody>
+<tr><td>Transporte ida y vuelta</td><td>Bus Medellín – Puerto Berrío – Medellín</td><td>$76.000 – $102.000</td></tr>
+<tr><td>Traslados internos</td><td>Hotel – La Alpina; hotel – San Juan de Bedouth; hotel – Liller Camelias</td><td>$60.000 – $100.000</td></tr>
+<tr><td>Alojamiento</td><td>2–3 noches (Apartahotel San Diego o Casa del Río)</td><td>$160.000 – $360.000</td></tr>
+<tr><td>Comidas</td><td>Desayunos, almuerzos, cenas (La Alpina, San Juan, Café Río, Piway)</td><td>$100.000 – $180.000</td></tr>
+<tr><td>Experiencia ganadera</td><td>Ordeño, recorrido finca, La Alpina balneario, San Juan de Bedouth</td><td>$75.000 – $125.000</td></tr>
+<tr><td>Gastronomía bufalina</td><td>COLBUFALA (quesos, leche búfala)</td><td>$15.000 – $30.000</td></tr>
+<tr><td><strong>TOTAL por persona (ref.)</strong></td><td>—</td><td><strong>$420.000 – $720.000</strong></td></tr>
+</tbody></table>
+                <h4 style="color:var(--marron);margin:16px 0 8px;">Ruta 2: recorrido histórico y naturaleza (hojas 5 y 6)</h4>
+<table class="tabla-cotizacion"><thead><tr><th>Concepto</th><th>Incluye</th><th>Precio ref. (COP)</th></tr></thead><tbody>
+<tr><td>Transporte ida y vuelta</td><td>Bus Medellín – Puerto Berrío – Medellín</td><td>$76.000 – $102.000</td></tr>
+<tr><td>Traslados internos</td><td>Recorrido urbano; hotel – puerto lanchas; hotel – Finca Las Camelias</td><td>$40.000 – $80.000</td></tr>
+<tr><td>Alojamiento</td><td>2 noches (Apartahotel San Diego o Hotel Malecón)</td><td>$140.000 – $240.000</td></tr>
+<tr><td>Comidas</td><td>Desayunos, almuerzos, cenas (Café Río, Coyote, Piway, COLBUFALA)</td><td>$90.000 – $150.000</td></tr>
+<tr><td>Tour Ciénaga Barbacoas</td><td>Lancha, guianza (Biochicoas / Descúbrelo)</td><td>$80.000 – $150.000</td></tr>
+<tr><td>Visita Finca Las Camelias</td><td>Recorrido, actividades ganaderas</td><td>Cotizar con establecimiento</td></tr>
+<tr><td><strong>TOTAL por persona (ref.)</strong></td><td>—</td><td><strong>$380.000 – $650.000</strong></td></tr>
+</tbody></table>
+            </div>
+        </section>
+    </div>
+</div>
+<footer>
+    <p><strong>Rutas proyectadas para la región de Puerto Berrío y Maceo, Antioquia, Colombia</strong> — Magdalena Medio y paisaje cultural ganadero.</p>
+</footer>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+(function() {
+    function esc(s) { return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+    function popupHtml(p) {
+        var d = p.detalle;
+        if (!d) return '<div class="map-popup"><strong>' + esc(p.label) + '</strong></div>';
+        var html = '<div class="map-popup"><strong>' + esc(p.label) + '</strong>';
+        if (d.municipio) html += '<br><span class="popup-mun">' + esc(d.municipio) + '</span>';
+        if (d.descripcion) html += '<p class="popup-desc">' + esc(d.descripcion.replace(/<[^>]*>/g,'').substring(0, 220)) + '</p>';
+        if (d.experiencia) html += '<p class="popup-exp"><strong>En la ruta:</strong> ' + esc(d.experiencia.replace(/<[^>]*>/g,'').substring(0, 160)) + '</p>';
+        if (d.costo) html += '<p class="popup-costo">' + esc(d.costo.replace(/<[^>]*>/g,'').substring(0, 120)) + '</p>';
+        if (d.telefono || d.email) {
+            html += '<p class="popup-contact">';
+            if (d.telefono) html += 'Tel: ' + esc(d.telefono);
+            if (d.telefono && d.email) html += ' · ';
+            if (d.email) html += esc(d.email);
+            html += '</p>';
+        }
+        html += '</div>';
+        return html;
+    }
+    var RUTAS_JS = [{"id": 1, "titulo": "Ruta 1: experiencia ganadera (hojas 1 a 4)", "puntos": [{"lat": 6.47, "lng": -74.48, "label": "Finca Las Camelias – Liller Inversiones", "detalle": {"municipio": "Puerto Berrío", "descripcion": "Hacienda ganadera de tradición en el km 4 vía Puerto Berrío–Cimitarra, más de 100 años de existencia, cuarta generación. Paisaje Cultural Ganadero. Ganadería de ceba y ordeño, lechería, búfala, doble propósito. Propuesta turística para familias, experiencias educativas para niños. Servicios: Inversiones Ganaderas, Producción Pecuaria, Comercialización, Alojamiento en finca, Gastronomía local, Senderismo.", "experiencia": "Alojamiento en finca tradicional, gastronomía local, recorridos, actividades ganaderas (ceba, ordeño), senderismo. Cotizar con establecimiento.", "costo": "Alojamiento en finca tradicional, gastronomía local, recorridos, actividades ganaderas (ceba, ordeño), senderismo. Cotizar con establecimiento.", "telefono": "3108317438", "email": "lillerinversionessas68@hotmail.com"}}, {"lat": 6.52, "lng": -74.48, "label": "LA ALPINA Centro Turístico", "detalle": {"municipio": "Puerto Berrío", "descripcion": "Balneario y centro turístico km 17 vía Medellín, vereda Las Flores. Desayuno, piscina, camping, paseo de olla. Servicios: Balneario, Restaurante, Piscina, Zonas Verdes, Camping, Paseo de Olla.", "experiencia": "Entrada balneario: $25.000–$45.000 (aprox.). Desayuno/refrigero: $10.000–$15.000.", "costo": "Entrada balneario: $25.000–$45.000 (aprox.). Desayuno/refrigero: $10.000–$15.000.", "telefono": "3188113940", "email": "balneariolaalpina1987@gmail.com"}}, {"lat": 6.45, "lng": -74.52, "label": "San Juan de Bedouth – Inversiones Agropecuarias Ganados y Ganados S.A.S.", "detalle": {"municipio": "Puerto Berrío", "descripcion": "Finca San Juan de Bedout. Experiencia ganadera: desayuno con productor, recorrido entre Beneficia y Benerol. Servicios: Inversiones Agropecuarias, Ganadería Bovina, Comercialización, Hacienda San Juan de Bedouth.", "experiencia": "Experiencia ganadera: $50.000–$80.000/persona (aprox.).", "costo": "Experiencia ganadera: $50.000–$80.000/persona (aprox.).", "telefono": "3206758771", "email": "contadoragyg@gmail.com"}}, {"lat": 6.492, "lng": -74.402, "label": "Casa del Río Hotel", "detalle": {"municipio": "Puerto Berrío", "descripcion": "Hotel boutique con experiencia de fauna y flora. CRA. 6 # 3-29. Servicios: Habitaciones Boutique, Desayuno, WiFi, Aire Acondicionado, Vista al Río.", "experiencia": "Habitación boutique: $180.000–$250.000/noche (aprox.). Desayuno: $15.000–$22.000.", "costo": "Habitación boutique: $180.000–$250.000/noche (aprox.). Desayuno: $15.000–$22.000.", "telefono": "311 2722145", "email": "casadelriohotelboutique@gmail.com"}}, {"lat": 6.5, "lng": -74.45, "label": "COLBUFALA", "detalle": {"municipio": "Puerto Berrío", "descripcion": "Gastronomía bufalina. Productos de búfalo, quesos, leche de búfala, derivados. Show queso caliente. Servicios: Productos de Búfalo, Quesos, Leche de Búfala, Derivados Lácteos.", "experiencia": "Menú restaurante: $15.000–$25.000 (aprox.). Productos de búfalo/quesos: según producto.", "costo": "Menú restaurante: $15.000–$25.000 (aprox.). Productos de búfalo/quesos: según producto.", "telefono": "3124328260", "email": ""}}, {"lat": 6.48, "lng": -74.42, "label": "Hacienda La Tagua – Sociedad Comercializadora DBF S.A.S.", "detalle": {"municipio": "Puerto Berrío", "descripcion": "Hacienda La Tagua. Experiencia ganadera, recorrido por instalaciones, ordeño. Servicios: Comercialización Ganadera, Hacienda La Tagua, Producción Bovina.", "experiencia": "Experiencia ganadera: $70.000–$110.000/persona (aprox.).", "costo": "Experiencia ganadera: $70.000–$110.000/persona (aprox.).", "telefono": "3176570470", "email": "comercializadoradbf@gmail.com"}}, {"lat": 6.48, "lng": -74.42, "label": "Hacienda La Tagua – Sociedad Comercializadora DBF S.A.S.", "detalle": {"municipio": "Puerto Berrío", "descripcion": "Hacienda La Tagua. Experiencia ganadera, recorrido por instalaciones, ordeño. Servicios: Comercialización Ganadera, Hacienda La Tagua, Producción Bovina.", "experiencia": "Experiencia ganadera: $70.000–$110.000/persona (aprox.).", "costo": "Experiencia ganadera: $70.000–$110.000/persona (aprox.).", "telefono": "3176570470", "email": "comercializadoradbf@gmail.com"}}, {"lat": 6.48, "lng": -74.42, "label": "Hacienda La Tagua – Sociedad Comercializadora DBF S.A.S.", "detalle": {"municipio": "Puerto Berrío", "descripcion": "Hacienda La Tagua. Experiencia ganadera, recorrido por instalaciones, ordeño. Servicios: Comercialización Ganadera, Hacienda La Tagua, Producción Bovina.", "experiencia": "Experiencia ganadera: $70.000–$110.000/persona (aprox.).", "costo": "Experiencia ganadera: $70.000–$110.000/persona (aprox.).", "telefono": "3176570470", "email": "comercializadoradbf@gmail.com"}}, {"lat": 6.4915, "lng": -74.403, "label": "Instalaciones Tagua", "detalle": {"municipio": "Puerto Berrío, Antioquia, Colombia", "descripcion": "Hacienda La Tagua. Experiencia ganadera. Servicios: Comercialización Ganadera, Hacienda La Tagua, Producción Bovina, Inversiones Agropecuarias.", "experiencia": "Hacienda La Tagua. Experiencia ganadera: $70.000–$110.000/persona (aprox.).", "costo": "Hacienda La Tagua. Experiencia ganadera: $70.000–$110.000/persona (aprox.).", "telefono": "3176570470", "email": ""}}, {"lat": 6.4915, "lng": -74.403, "label": "Quebrada la malena", "detalle": {"municipio": "Puerto Berrío, Antioquia, Colombia", "descripcion": "Puerto Berrío es un municipio de Colombia, localizado en la subregión del Magdalena Medio del departamento de Antioquia.​ Limita por el norte con los municipios de Yolombó, Remedios y Yondó, por el oriente con el departamento de Santander, por el sur con los municipios de Puerto Nare y Caracolí, y por el occidente con los municipios de Caracolí y Maceo. Su cabecera dista 191 kilómetros de la ciudad de Medellín, capital de Antioquia. El municipio posee una extensión de 1.184 kilómetros cuadrados.", "experiencia": "Cotizar con establecimiento.", "costo": "Cotizar con establecimiento.", "telefono": "—", "email": ""}}, {"lat": 6.4915, "lng": -74.403, "label": "Instalaciones Hda la Tagua", "detalle": {"municipio": "Puerto Berrío, Antioquia, Colombia", "descripcion": "Hacienda La Tagua. Experiencia ganadera. Servicios: Comercialización Ganadera, Hacienda La Tagua, Producción Bovina, Inversiones Agropecuarias.", "experiencia": "Hacienda La Tagua. Experiencia ganadera: $70.000–$110.000/persona (aprox.).", "costo": "Hacienda La Tagua. Experiencia ganadera: $70.000–$110.000/persona (aprox.).", "telefono": "3176570470", "email": ""}}, {"lat": 6.4915, "lng": -74.403, "label": "Pto Berrio", "detalle": {"municipio": "Puerto Berrío, Antioquia, Colombia", "descripcion": "Puerto Ordaz es una localidad venezolana del Municipio Caroní de Ciudad Guayana en el Estado Bolívar, ubicada al sureste de Venezuela.  \nFue fundada con Ciudad Piar, en 1952 como puerto de exportación minera a orillas del Río Caroní, en el punto donde este desemboca en el Orinoco.\nPuerto Ordaz es sede de empresas mineras, siderúrgicas e hidroeléctricas. Su aeropuerto sirve de enlace entre los pequeños aeropuertos en las zonas selváticas del Estado Bolívar y el resto del país. Junto con los secto", "experiencia": "Cotizar con establecimiento.", "costo": "Cotizar con establecimiento.", "telefono": "—", "email": ""}}, {"lat": 6.4915, "lng": -74.403, "label": "Restaurante del Puerto", "detalle": {"municipio": "Puerto Berrío", "descripcion": "Restaurante en zona portuaria. Comida típica, pescado fresco del Río Magdalena. Servicios: Comida Típica, Pescado del Río, Menú Local.", "experiencia": "Almuerzo/cena típica: $15.000–$28.000 (aprox.).", "costo": "Almuerzo/cena típica: $15.000–$28.000 (aprox.).", "telefono": "—", "email": ""}}, {"lat": 6.492, "lng": -74.4035, "label": "Puerto de Lanchas – Río Magdalena", "detalle": {"municipio": "Puerto Berrío", "descripcion": "Punto de embarque para recorridos fluviales. Tours a Ciénaga de Barbacoas. Servicios: Embarque Fluvial, Tours Ciénaga, Río Magdalena.", "experiencia": "Embarque sin costo. Tours a Ciénaga desde $80.000/persona (aprox.).", "costo": "Embarque sin costo. Tours a Ciénaga desde $80.000/persona (aprox.).", "telefono": "—", "email": ""}}, {"lat": 6.4915, "lng": -74.403, "label": "Restaurante del Puerto", "detalle": {"municipio": "Puerto Berrío", "descripcion": "Restaurante en zona portuaria. Comida típica, pescado fresco del Río Magdalena. Servicios: Comida Típica, Pescado del Río, Menú Local.", "experiencia": "Almuerzo/cena típica: $15.000–$28.000 (aprox.).", "costo": "Almuerzo/cena típica: $15.000–$28.000 (aprox.).", "telefono": "—", "email": ""}}, {"lat": 6.4915, "lng": -74.403, "label": "Visita shoping", "detalle": {"municipio": "Puerto Berrío, Antioquia, Colombia", "descripcion": "Puerto Berrío es un lugar atractivo para conocer, sobre todo en la celebración de las Fiestas del Retorno y el Reinado de la Ecología, que son más tradicionales del municipio, pero también se realiza el Festival de la Cometa, el Festival de Danzas y Música Folclórica, el Festival del Río Magdalena entre muchos otros espacios culturales.", "experiencia": "Cotizar con establecimiento.", "costo": "Cotizar con establecimiento.", "telefono": "—", "email": ""}}]}, {"id": 2, "titulo": "Ruta 2: recorrido histórico y naturaleza (hojas 5 y 6)", "puntos": [{"lat": 6.492, "lng": -74.402, "label": "Casa del Río Hotel", "detalle": {"municipio": "Puerto Berrío", "descripcion": "Hotel boutique con experiencia de fauna y flora. CRA. 6 # 3-29. Servicios: Habitaciones Boutique, Desayuno, WiFi, Aire Acondicionado, Vista al Río.", "experiencia": "Habitación boutique: $180.000–$250.000/noche (aprox.). Desayuno: $15.000–$22.000.", "costo": "Habitación boutique: $180.000–$250.000/noche (aprox.). Desayuno: $15.000–$22.000.", "telefono": "311 2722145", "email": "casadelriohotelboutique@gmail.com"}}, {"lat": 6.4915, "lng": -74.403, "label": "Río Palmar – Río Magdalena", "detalle": {"municipio": "Puerto Berrío", "descripcion": "Punto de encuentro con el Río Magdalena. Pesca, navegación, paisaje fluvial. Servicios: Río Magdalena, Pesca, Navegación.", "experiencia": "Visita libre: $0. Tours fluviales desde $80.000/persona (aprox.).", "costo": "Visita libre: $0. Tours fluviales desde $80.000/persona (aprox.).", "telefono": "—", "email": ""}}, {"lat": 6.492, "lng": -74.4015, "label": "Malecón – San Diego", "detalle": {"municipio": "Puerto Berrío", "descripcion": "Paseo peatonal junto al Río Magdalena. Contexto cultural, paisaje fluvial. Servicios: Paseo Ribereño, Atractivo Cultural, Recorrido Urbano.", "experiencia": "Visita libre: $0. Incluido en recorrido urbano.", "costo": "Visita libre: $0. Incluido en recorrido urbano.", "telefono": "—", "email": ""}}, {"lat": 6.4915, "lng": -74.403, "label": "Movilizacion x municipio", "detalle": {"municipio": "Puerto Berrío, Antioquia, Colombia", "descripcion": "Punto de la ruta en Puerto Berrío, Maceo, Antioquia - Colombia. Movilizacion x municipio.", "experiencia": "Cotizar con establecimiento.", "costo": "Cotizar con establecimiento.", "telefono": "—", "email": ""}}, {"lat": 6.4915, "lng": -74.403, "label": "Iglesia Nuestra Señora de los Dolores", "detalle": {"municipio": "Puerto Berrío", "descripcion": "Infraestructura patrimonial. Parte del recorrido histórico y urbano de Puerto Berrío. Servicios: Patrimonio, Recorrido Urbano, Arquitectura Religiosa.", "experiencia": "Visita libre. Incluido en pasadía histórico desde $59.000 (aprox.).", "costo": "Visita libre. Incluido en pasadía histórico desde $59.000 (aprox.).", "telefono": "—", "email": ""}}, {"lat": 6.4935, "lng": -74.4045, "label": "Cementerio Municipal (Puerto Berrío)", "detalle": {"municipio": "Puerto Berrío", "descripcion": "Cementerio municipal. Incluido en el recorrido histórico y urbano. Servicios: Patrimonio, Recorrido Histórico.", "experiencia": "Visita libre. Incluido en pasadía histórico desde $59.000 (aprox.).", "costo": "Visita libre. Incluido en pasadía histórico desde $59.000 (aprox.).", "telefono": "—", "email": ""}}, {"lat": 6.49, "lng": -74.4, "label": "Sala Lechera La Ganadera", "detalle": {"municipio": "Puerto Berrío", "descripcion": "Sala de ordeño y procesamiento lácteo. Demostración de producción lechera, historia y proceso. Servicios: Producción Lechera, Demostración Ordeño, Historia Ganadera.", "experiencia": "Visita incluida en recorrido urbano/ganadero. Cotizar con operador.", "costo": "Visita incluida en recorrido urbano/ganadero. Cotizar con operador.", "telefono": "—", "email": ""}}, {"lat": 6.49, "lng": -74.41, "label": "Colbúfala", "detalle": {"municipio": "Puerto Berrío, Antioquia, Colombia", "descripcion": "Gastronomía bufalina. Productos de búfalo y cocina local. Puerto Berrío. Show queso caliente. Servicios: Productos de Búfalo, Quesos, Leche de Búfala, Derivados Lácteos, Producción Artesanal, Venta Directa.", "experiencia": "Productos de búfalo/quesos. Menú restaurante: $15.000–$25.000 (aprox.). Show queso: experiencia gastronómica.", "costo": "Productos de búfalo/quesos. Menú restaurante: $15.000–$25.000 (aprox.). Show queso: experiencia gastronómica.", "telefono": "3163412071", "email": ""}}, {"lat": 6.49, "lng": -74.41, "label": "Colbúfala", "detalle": {"municipio": "Puerto Berrío, Antioquia, Colombia", "descripcion": "Gastronomía bufalina. Productos de búfalo y cocina local. Puerto Berrío. Show queso caliente. Servicios: Productos de Búfalo, Quesos, Leche de Búfala, Derivados Lácteos, Producción Artesanal, Venta Directa.", "experiencia": "Productos de búfalo/quesos. Menú restaurante: $15.000–$25.000 (aprox.). Show queso: experiencia gastronómica.", "costo": "Productos de búfalo/quesos. Menú restaurante: $15.000–$25.000 (aprox.). Show queso: experiencia gastronómica.", "telefono": "3163412071", "email": ""}}, {"lat": 6.4915, "lng": -74.403, "label": "Puerto.", "detalle": {"municipio": "Puerto Berrío, Antioquia, Colombia", "descripcion": "Puerto Berrío es un municipio de Colombia, localizado en la subregión del Magdalena Medio del departamento de Antioquia.​ Limita por el norte con los municipios de Yolombó, Remedios y Yondó, por el oriente con el departamento de Santander, por el sur con los municipios de Puerto Nare y Caracolí, y por el occidente con los municipios de Caracolí y Maceo. Su cabecera dista 191 kilómetros de la ciudad de Medellín, capital de Antioquia. El municipio posee una extensión de 1.184 kilómetros cuadrados.", "experiencia": "Cotizar con establecimiento.", "costo": "Cotizar con establecimiento.", "telefono": "—", "email": ""}}, {"lat": 6.49, "lng": -74.4, "label": "Río Magdalena", "detalle": {"municipio": "Puerto Berrío, Antioquia, Colombia", "descripcion": "El río Magdalena, también llamado río Grande de la Magdalena,​es una corriente de agua continua de Colombia que nace en el departamento del Huila y desemboca en el mar Caribe.​ Es navegable desde Honda, Tolima, hasta su desembocadura en Barranquilla, y su principal afluente es el río Cauca. Su cuenca ocupa el 24 % del territorio continental del país. En ella están 11 departamentos de Colombia: Magdalena, Atlántico, Bolívar, Cesar, Antioquia, Santander, Boyacá, Cundinamarca, Caldas, Tolima y Huil", "experiencia": "Cotizar con establecimiento.", "costo": "Cotizar con establecimiento.", "telefono": "—", "email": ""}}, {"lat": 6.52, "lng": -74.55, "label": "Ranchería Ciénaga", "detalle": {"municipio": "Puerto Berrío", "descripcion": "Experiencia gastronómica en la Ciénaga de Barbacoas. Almuerzo y música en vivo. Servicios: Gastronomía Local, Música en Vivo, Tour Ciénaga.", "experiencia": "Incluido en tour Ciénaga Barbacoas: $80.000–$150.000/persona (aprox.).", "costo": "Incluido en tour Ciénaga Barbacoas: $80.000–$150.000/persona (aprox.).", "telefono": "Biochicoas 3145659269", "email": ""}}, {"lat": 6.4915, "lng": -74.403, "label": "operador", "detalle": {"municipio": "Puerto Berrío, Antioquia, Colombia", "descripcion": "Punto de la ruta en Puerto Berrío, Maceo, Antioquia - Colombia: operador.", "experiencia": "Cotizar con establecimiento.", "costo": "Cotizar con establecimiento.", "telefono": "—", "email": ""}}, {"lat": 6.47, "lng": -74.48, "label": "Finca Las Camelias – Liller Inversiones", "detalle": {"municipio": "Puerto Berrío", "descripcion": "Hacienda ganadera de tradición en el km 4 vía Puerto Berrío–Cimitarra, más de 100 años de existencia, cuarta generación. Paisaje Cultural Ganadero. Ganadería de ceba y ordeño, lechería, búfala, doble propósito. Propuesta turística para familias, experiencias educativas para niños. Servicios: Inversiones Ganaderas, Producción Pecuaria, Comercialización, Alojamiento en finca, Gastronomía local, Senderismo.", "experiencia": "Alojamiento en finca tradicional, gastronomía local, recorridos, actividades ganaderas (ceba, ordeño), senderismo. Cotizar con establecimiento.", "costo": "Alojamiento en finca tradicional, gastronomía local, recorridos, actividades ganaderas (ceba, ordeño), senderismo. Cotizar con establecimiento.", "telefono": "3108317438", "email": "lillerinversionessas68@hotmail.com"}}]}];
+    var mapContainer = document.getElementById('mapa-rutas');
+    if (!mapContainer) return;
+    var map = null;
+    var layers = [];
+    function addRouteToLayer(points, color) {
+        var group = L.layerGroup();
+        if (points.length) {
+            var latlngs = points.map(function(p) { return [p.lat, p.lng]; });
+            var line = L.polyline(latlngs, { color: color || '#19555B', weight: 4, opacity: 0.85 });
+            group.addLayer(line);
+        }
+        points.forEach(function(p) {
+            var marker = L.marker([p.lat, p.lng]);
+            marker.bindPopup(popupHtml(p), { maxWidth: 340, minWidth: 260 });
+            group.addLayer(marker);
+        });
+        return group;
+    }
+    function initMap() {
+        if (map) return;
+        map = L.map('mapa-rutas').setView([6.49, -74.40], 10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+        var colors = ['#19555B', '#2980b9', '#8E44AD', '#E67E22', '#27ae60'];
+        RUTAS_JS.forEach(function(r, i) {
+            var layer = addRouteToLayer(r.puntos, colors[i % colors.length]);
+            layers.push({ id: r.id, layer: layer });
+        });
+        showRouteOnMap(1);
+    }
+    function showRouteOnMap(num) {
+        if (!map || !layers.length) return;
+        layers.forEach(function(obj) { map.removeLayer(obj.layer); });
+        var sel = layers.find(function(o) { return o.id === num; });
+        if (sel) {
+            map.addLayer(sel.layer);
+            var pts = RUTAS_JS.find(function(r) { return r.id === num; });
+            if (pts && pts.puntos.length) {
+                var b = L.latLngBounds(pts.puntos.map(function(p) { return [p.lat, p.lng]; }));
+                map.fitBounds(b, { padding: [40, 40] });
+            } else {
+                map.setView([6.49, -74.40], 10);
+            }
+        }
+    }
+    document.querySelectorAll('.tab-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var tabId = btn.getAttribute('data-tab');
+            document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            document.querySelectorAll('.tab-panel').forEach(function(p) {
+                p.classList.toggle('active', p.getAttribute('data-tab') === tabId);
+            });
+            if (tabId === 'rutas') initMap();
+        });
+    });
+    document.querySelectorAll('.btn-ruta').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var rutaId = parseInt(btn.getAttribute('data-ruta'), 10);
+            document.querySelectorAll('.btn-ruta').forEach(function(b) { b.classList.remove('activa'); });
+            btn.classList.add('activa');
+            document.querySelectorAll('.ruta-panel').forEach(function(p) { p.classList.remove('activa'); });
+            var panel = document.getElementById('ruta-panel-' + rutaId);
+            if (panel) panel.classList.add('activa');
+            initMap();
+            showRouteOnMap(rutaId);
+        });
+    });
+    if (window.location.hash === '#rutas') {
+        setTimeout(function() {
+            var btn = document.querySelector('.tab-btn[data-tab="rutas"]');
+            if (btn) btn.click();
+        }, 100);
+    }
+})();
+</script>
+</body>
+</html>

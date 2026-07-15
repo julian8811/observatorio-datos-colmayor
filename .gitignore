@@ -1,0 +1,16 @@
+# Temp / local
+__pycache__/
+*.pyc
+.env
+.env.*
+.vercel
+_*.txt
+_*.py
+_run_extract.py
+_pptx_text.json
+*.pptx
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
