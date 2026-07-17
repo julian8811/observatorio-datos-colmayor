@@ -260,6 +260,10 @@ CAPACIDADES = [
     {"t": "Red Secopind", "d": "Propiedad intelectual · ICIPC."},
 ]
 
+# Dedicación del equipo: 1 ago – 15 dic = 4 meses + 15 días ≈ 4,5 meses
+MESES_TALENTO = 4.5
+PERIODO_TALENTO = "ago – 15 dic"
+
 TALENTO = [
     {
         "ini": "JM", "nombre": "José Mario Gómez López",
@@ -836,6 +840,27 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 .persona .dedica{{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--teal-deep);background:rgba(0,179,175,.12);padding:.3rem .6rem;border-radius:999px;margin-bottom:.75rem}}
 .persona .cop{{font-family:var(--display);font-size:1.5rem;font-weight:800;color:var(--primary)}}
 .persona .cop small{{display:block;font-family:var(--font);font-size:.75rem;font-weight:500;color:var(--mute);margin-top:.15rem}}
+.persona .total{{
+  margin-top:.85rem;padding-top:.85rem;border-top:1px dashed var(--line);
+  font-family:var(--display);font-size:1.25rem;font-weight:800;color:var(--teal-deep);
+}}
+.persona .total small{{display:block;font-family:var(--font);font-size:.72rem;font-weight:500;color:var(--mute);margin-top:.15rem}}
+.talento-totals{{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-top:1rem;
+}}
+.talento-tot{{
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem 1.1rem;
+  box-shadow:var(--shadow);border-top:3px solid var(--orange);
+}}
+.talento-tot.team{{border-top-color:var(--teal);background:linear-gradient(145deg,var(--charcoal),#163d3c);color:#fff}}
+.talento-tot .lab{{font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mute);margin-bottom:.35rem}}
+.talento-tot.team .lab{{color:rgba(255,255,255,.7)}}
+.talento-tot .val{{font-family:var(--display);font-size:1.2rem;font-weight:800;color:var(--primary)}}
+.talento-tot.team .val{{color:var(--orange)}}
+.talento-tot .hint{{font-size:.75rem;color:var(--mute);margin-top:.25rem}}
+.talento-tot.team .hint{{color:rgba(255,255,255,.65)}}
+@media(max-width:1000px){{.talento-totals{{grid-template-columns:1fr 1fr}}}}
+@media(max-width:700px){{.talento-totals{{grid-template-columns:1fr}}}}
 .talento-note{{
   margin-top:1rem;background:var(--alt);border:1px solid var(--line);border-left:4px solid var(--teal);
   border-radius:12px;padding:1rem 1.2rem;font-size:.95rem;color:var(--mute);
@@ -1418,11 +1443,24 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
         <p class="rol">{p['rol']}</p>
         <span class="dedica">{p['dedica']}</span>
         <div class="cop">{fmt_cop(p['cop'])}<small>dedicación mensual</small></div>
+        <div class="total">{fmt_cop(int(p['cop'] * MESES_TALENTO))}<small>total {PERIODO_TALENTO} ({MESES_TALENTO:g} meses)</small></div>
       </article>''' for p in TALENTO)}
     </div>
+    <div class="talento-totals">
+      {''.join(f'''<div class="talento-tot">
+        <div class="lab">{p['ini']} · {p['nombre'].split()[0]}</div>
+        <div class="val">{fmt_cop(int(p['cop'] * MESES_TALENTO))}</div>
+        <div class="hint">{fmt_cop(p['cop'])}/mes × {MESES_TALENTO:g}</div>
+      </div>''' for p in TALENTO)}
+      <div class="talento-tot team">
+        <div class="lab">Total equipo</div>
+        <div class="val">{fmt_cop(int(sum(p['cop'] for p in TALENTO) * MESES_TALENTO))}</div>
+        <div class="hint">{PERIODO_TALENTO} · {MESES_TALENTO:g} meses</div>
+      </div>
+    </div>
     <div class="talento-note">
-      <strong>Costo mensual del equipo: {fmt_cop(sum(p['cop'] for p in TALENTO))}.</strong>
-      Dedicación combinada de coordinación, análisis de datos y apoyo junior para escalar, probar y sostener la plataforma dentro de la institución.
+      <strong>Período de dedicación: 1 de agosto al 15 de diciembre ({MESES_TALENTO:g} meses).</strong>
+      Mensual del equipo: {fmt_cop(sum(p['cop'] for p in TALENTO))}. Total del período: {fmt_cop(int(sum(p['cop'] for p in TALENTO) * MESES_TALENTO))}.
     </div>
     <div class="talento-plat">
       <a href="https://github.com/julian8811/ConvocaRadar-IA" target="_blank" rel="noopener">ConvocaRadar-IA en GitHub</a>

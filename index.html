@@ -287,6 +287,27 @@ h2{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spacin
 .persona .dedica{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--teal-deep);background:rgba(0,179,175,.12);padding:.3rem .6rem;border-radius:999px;margin-bottom:.75rem}
 .persona .cop{font-family:var(--display);font-size:1.5rem;font-weight:800;color:var(--primary)}
 .persona .cop small{display:block;font-family:var(--font);font-size:.75rem;font-weight:500;color:var(--mute);margin-top:.15rem}
+.persona .total{
+  margin-top:.85rem;padding-top:.85rem;border-top:1px dashed var(--line);
+  font-family:var(--display);font-size:1.25rem;font-weight:800;color:var(--teal-deep);
+}
+.persona .total small{display:block;font-family:var(--font);font-size:.72rem;font-weight:500;color:var(--mute);margin-top:.15rem}
+.talento-totals{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-top:1rem;
+}
+.talento-tot{
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem 1.1rem;
+  box-shadow:var(--shadow);border-top:3px solid var(--orange);
+}
+.talento-tot.team{border-top-color:var(--teal);background:linear-gradient(145deg,var(--charcoal),#163d3c);color:#fff}
+.talento-tot .lab{font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mute);margin-bottom:.35rem}
+.talento-tot.team .lab{color:rgba(255,255,255,.7)}
+.talento-tot .val{font-family:var(--display);font-size:1.2rem;font-weight:800;color:var(--primary)}
+.talento-tot.team .val{color:var(--orange)}
+.talento-tot .hint{font-size:.75rem;color:var(--mute);margin-top:.25rem}
+.talento-tot.team .hint{color:rgba(255,255,255,.65)}
+@media(max-width:1000px){.talento-totals{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.talento-totals{grid-template-columns:1fr}}
 .talento-note{
   margin-top:1rem;background:var(--alt);border:1px solid var(--line);border-left:4px solid var(--teal);
   border-radius:12px;padding:1rem 1.2rem;font-size:.95rem;color:var(--mute);
@@ -1152,23 +1173,46 @@ h2{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spacin
         <p class="rol">Líder CEITTO · coordinación institucional y articulación con TI</p>
         <span class="dedica">CEITTO · Colmayor</span>
         <div class="cop">$3.750.000<small>dedicación mensual</small></div>
+        <div class="total">$16.875.000<small>total ago – 15 dic (4.5 meses)</small></div>
       </article><article class="persona">
         <div class="avatar">JP</div>
         <h3>Julián Esteban Pineda Montoya</h3>
         <p class="rol">Analista de datos · escalamiento y operación de ConvocaRadar-IA</p>
         <span class="dedica">Medio tiempo · CEITTO</span>
         <div class="cop">$2.200.000<small>dedicación mensual</small></div>
+        <div class="total">$9.900.000<small>total ago – 15 dic (4.5 meses)</small></div>
       </article><article class="persona">
         <div class="avatar">CJ</div>
         <h3>Consultor Junior</h3>
         <p class="rol">Apoyo en pruebas, documentación y soporte de la plataforma</p>
         <span class="dedica">Por demanda · CEITTO</span>
         <div class="cop">$450.000<small>dedicación mensual</small></div>
+        <div class="total">$2.025.000<small>total ago – 15 dic (4.5 meses)</small></div>
       </article>
     </div>
+    <div class="talento-totals">
+      <div class="talento-tot">
+        <div class="lab">JM · José</div>
+        <div class="val">$16.875.000</div>
+        <div class="hint">$3.750.000/mes × 4.5</div>
+      </div><div class="talento-tot">
+        <div class="lab">JP · Julián</div>
+        <div class="val">$9.900.000</div>
+        <div class="hint">$2.200.000/mes × 4.5</div>
+      </div><div class="talento-tot">
+        <div class="lab">CJ · Consultor</div>
+        <div class="val">$2.025.000</div>
+        <div class="hint">$450.000/mes × 4.5</div>
+      </div>
+      <div class="talento-tot team">
+        <div class="lab">Total equipo</div>
+        <div class="val">$28.800.000</div>
+        <div class="hint">ago – 15 dic · 4.5 meses</div>
+      </div>
+    </div>
     <div class="talento-note">
-      <strong>Costo mensual del equipo: $6.400.000.</strong>
-      Dedicación combinada de coordinación, análisis de datos y apoyo junior para escalar, probar y sostener la plataforma dentro de la institución.
+      <strong>Período de dedicación: 1 de agosto al 15 de diciembre (4.5 meses).</strong>
+      Mensual del equipo: $6.400.000. Total del período: $28.800.000.
     </div>
     <div class="talento-plat">
       <a href="https://github.com/julian8811/ConvocaRadar-IA" target="_blank" rel="noopener">ConvocaRadar-IA en GitHub</a>
