@@ -260,6 +260,83 @@ CAPACIDADES = [
     {"t": "Red Secopind", "d": "Propiedad intelectual · ICIPC."},
 ]
 
+TALENTO = [
+    {
+        "ini": "JM", "nombre": "José Mario Gómez López",
+        "rol": "Líder CEITTO · coordinación institucional y articulación con TI",
+        "dedica": "CEITTO · Colmayor", "cop": 3_750_000,
+    },
+    {
+        "ini": "JP", "nombre": "Julián Esteban Pineda Montoya",
+        "rol": "Analista de datos · escalamiento y operación de ConvocaRadar-IA",
+        "dedica": "Medio tiempo · CEITTO", "cop": 2_200_000,
+    },
+    {
+        "ini": "CJ", "nombre": "Consultor Junior",
+        "rol": "Apoyo en pruebas, documentación y soporte de la plataforma",
+        "dedica": "Por demanda · CEITTO", "cop": 450_000,
+    },
+]
+
+# Ruta de escalamiento de ConvocaRadar-IA: de local a infraestructura TI del CMA
+ESCALADO = [
+    {
+        "n": "01", "t": "Alistamiento y diagnóstico",
+        "meta": "CEITTO + Gestión de Tecnología e Informática del CMA",
+        "acts": [
+            "Inventario técnico de ConvocaRadar-IA: código, dependencias, base de datos y tareas de scraping",
+            "Levantamiento de requisitos con el área TI del CMA: capacidad, red y seguridad",
+            "Definición de la arquitectura destino en la infraestructura institucional",
+            "Plan de trabajo con riesgos, tiempos y responsables",
+        ],
+        "out": "Documento de arquitectura y plan de escalamiento aprobado por TI",
+    },
+    {
+        "n": "02", "t": "Preparación de infraestructura",
+        "meta": "Aprovisionamiento en el ecosistema tecnológico Colmayor",
+        "acts": [
+            "Aprovisionamiento de servidor o máquina virtual y base de datos institucional",
+            "Configuración de red, dominio y certificados SSL del CMA",
+            "Políticas de acceso, roles y cumplimiento de Ley 1581 (datos personales)",
+            "Conexión del repositorio GitHub al despliegue continuo (CI/CD)",
+        ],
+        "out": "Ambientes institucionales de desarrollo y producción listos",
+    },
+    {
+        "n": "03", "t": "Migración y despliegue",
+        "meta": "Traslado de la plataforma desde el entorno local",
+        "acts": [
+            "Empaquetado y migración del código desde el entorno local",
+            "Migración de la base de datos y de las fuentes de convocatorias",
+            "Programación de scraping y clasificación con IA en el servidor institucional",
+            "Integración de autenticación y usuarios institucionales",
+        ],
+        "out": "ConvocaRadar-IA operando en la infraestructura del CMA",
+    },
+    {
+        "n": "04", "t": "Pruebas y validación",
+        "meta": "Verificación funcional, técnica y con usuarios",
+        "acts": [
+            "Pruebas funcionales de búsqueda, filtros y alertas de convocatorias",
+            "Pruebas de carga y rendimiento del scraping programado",
+            "Pruebas de seguridad, respaldo y recuperación",
+            "Validación con usuarios de CEITTO, investigación y extensión (UAT)",
+        ],
+        "out": "Acta de pruebas con visto bueno de TI y CEITTO",
+    },
+    {
+        "n": "05", "t": "Producción y soporte",
+        "meta": "Operación estable con soporte del equipo CEITTO",
+        "acts": [
+            "Puesta en producción con monitoreo y respaldos automáticos",
+            "Capacitación a usuarios y documentación de operación",
+            "Soporte y mejora continua a cargo del equipo CEITTO",
+            "Indicadores de uso y ampliación de fuentes nacionales e internacionales",
+        ],
+        "out": "Plataforma institucional estable con soporte permanente",
+    },
+]
+
 # Contextualizado a Colmayor (PDI 2024-2028, CNA, CEITTO, Alcaldía de Medellín)
 PROBLEMAS = [
     {
@@ -741,6 +818,73 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 .pdi-inds b{{display:block;font-family:var(--display);font-size:.98rem;margin-bottom:.3rem;color:var(--charcoal)}}
 .pdi-inds span{{font-size:.88rem;color:var(--mute)}}
 
+/* Talento humano + escalado ConvocaRadar */
+.talento-grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;margin-top:1.5rem}}
+.persona{{
+  position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:18px;
+  padding:1.5rem 1.35rem 1.35rem;box-shadow:var(--shadow);transition:.25s;
+}}
+.persona::before{{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--teal),var(--orange))}}
+.persona:hover{{transform:translateY(-4px)}}
+.persona .avatar{{
+  width:64px;height:64px;border-radius:18px;display:grid;place-items:center;margin-bottom:.9rem;
+  background:linear-gradient(145deg,var(--charcoal),#163d3c);color:var(--orange);
+  font-family:var(--display);font-weight:800;font-size:1.3rem;border-bottom:3px solid var(--orange);
+}}
+.persona h3{{font-family:var(--display);font-size:1.15rem;line-height:1.25;margin-bottom:.3rem}}
+.persona .rol{{font-size:.9rem;color:var(--mute);margin-bottom:.85rem;min-height:2.6em}}
+.persona .dedica{{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--teal-deep);background:rgba(0,179,175,.12);padding:.3rem .6rem;border-radius:999px;margin-bottom:.75rem}}
+.persona .cop{{font-family:var(--display);font-size:1.5rem;font-weight:800;color:var(--primary)}}
+.persona .cop small{{display:block;font-family:var(--font);font-size:.75rem;font-weight:500;color:var(--mute);margin-top:.15rem}}
+.talento-note{{
+  margin-top:1rem;background:var(--alt);border:1px solid var(--line);border-left:4px solid var(--teal);
+  border-radius:12px;padding:1rem 1.2rem;font-size:.95rem;color:var(--mute);
+}}
+.esc-stage{{display:grid;grid-template-columns:300px 1fr;gap:1rem;margin-top:1.5rem;align-items:start}}
+.esc-steps{{display:grid;gap:.5rem}}
+.esc-step{{
+  width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;border:1px solid var(--line);
+  background:var(--surface);border-radius:14px;padding:.9rem 1rem;display:grid;grid-template-columns:44px 1fr;gap:.7rem;
+  align-items:center;box-shadow:var(--shadow);transition:.22s;position:relative;
+}}
+.esc-step:hover,.esc-step.on{{background:var(--charcoal);color:#fff;transform:translateX(4px)}}
+.esc-step .num{{
+  width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-family:var(--display);
+  font-weight:800;background:rgba(0,179,175,.14);color:var(--teal-deep);
+}}
+.esc-step.on .num{{background:rgba(243,154,26,.25);color:var(--orange)}}
+.esc-step h3{{font-family:var(--display);font-size:.98rem;margin-bottom:.1rem}}
+.esc-step p{{font-size:.78rem;color:var(--mute);margin:0}}
+.esc-step.on p{{color:rgba(255,255,255,.7)}}
+.esc-panel{{
+  background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:1.4rem 1.35rem;
+  box-shadow:var(--shadow);border-top:4px solid var(--teal);min-height:320px;
+}}
+.esc-panel .fase-tag{{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--teal-deep);margin-bottom:.5rem}}
+.esc-panel h3{{font-family:var(--display);font-size:1.35rem;margin-bottom:.65rem}}
+.esc-acts{{list-style:none;display:grid;gap:.5rem;padding:0;margin:0 0 .9rem}}
+.esc-acts li{{
+  background:var(--alt);border-radius:10px;padding:.75rem .9rem;border-left:3px solid var(--teal);
+  font-size:.93rem;color:var(--mute);opacity:0;transform:translateY(8px);animation:fadeUp .35s ease forwards;
+}}
+.esc-acts li:nth-child(2n){{border-left-color:var(--orange)}}
+.esc-out{{
+  background:linear-gradient(145deg,var(--charcoal),#163d3c);color:#fff;border-radius:12px;padding:.9rem 1.1rem;
+  font-size:.93rem;border-left:4px solid var(--orange);
+}}
+.esc-out b{{color:var(--orange)}}
+.talento-plat{{
+  display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-top:1rem;
+}}
+.talento-plat a{{
+  display:inline-flex;align-items:center;gap:.4rem;background:var(--charcoal);color:#fff;text-decoration:none;
+  font-weight:600;font-size:.88rem;border-radius:999px;padding:.55rem 1rem;
+}}
+.talento-plat a:hover{{background:var(--teal-deep)}}
+.talento-plat span{{font-size:.85rem;color:var(--mute)}}
+@media(max-width:1000px){{.talento-grid{{grid-template-columns:1fr 1fr}}.esc-stage{{grid-template-columns:1fr}}}}
+@media(max-width:700px){{.talento-grid{{grid-template-columns:1fr}}.esc-panel{{min-height:0}}}}
+
 /* KPIs */
 .kpi-tabs{{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.1rem}}
 .kpi-tab{{border:1px solid var(--line);background:var(--surface);color:var(--mute);padding:.45rem .85rem;border-radius:999px;cursor:pointer;font:600 .85rem var(--font)}}
@@ -952,8 +1096,9 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
       <a href="#kpis">KPIs</a>
       <a href="#hardware">Hardware</a>
       <a href="#servicios">Servicios</a>
-      <a href="#piloto">Piloto</a>
       <a href="#estudios">Trayectoria</a>
+      <a href="#talento">Talento</a>
+      <a href="#piloto">Piloto</a>
     </div>
   </div>
 </nav>
@@ -1261,6 +1406,54 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
   </div>
 </section>
 
+<section id="talento">
+  <div class="wrap reveal">
+    <p class="kicker">Talento humano</p>
+    <h2>Equipo CEITTO para el escalamiento y soporte</h2>
+    <p class="sub">El escalamiento de la plataforma de vigilancia tecnológica con el área de TI y el soporte de la propuesta estarán a cargo del CEITTO.</p>
+    <div class="talento-grid">
+      {''.join(f'''<article class="persona">
+        <div class="avatar">{p['ini']}</div>
+        <h3>{p['nombre']}</h3>
+        <p class="rol">{p['rol']}</p>
+        <span class="dedica">{p['dedica']}</span>
+        <div class="cop">{fmt_cop(p['cop'])}<small>dedicación mensual</small></div>
+      </article>''' for p in TALENTO)}
+    </div>
+    <div class="talento-note">
+      <strong>Costo mensual del equipo: {fmt_cop(sum(p['cop'] for p in TALENTO))}.</strong>
+      Dedicación combinada de coordinación, análisis de datos y apoyo junior para escalar, probar y sostener la plataforma dentro de la institución.
+    </div>
+    <div class="talento-plat">
+      <a href="https://github.com/julian8811/ConvocaRadar-IA" target="_blank" rel="noopener">ConvocaRadar-IA en GitHub</a>
+      <a href="https://convocaradar-web.vercel.app/dashboard" target="_blank" rel="noopener">Dashboard en vivo</a>
+      <span>Plataforma de vigilancia tecnológica de convocatorias nacionales e internacionales.</span>
+    </div>
+
+    <div style="margin-top:2.6rem">
+      <p class="kicker">Ruta de escalamiento</p>
+      <h2 style="font-size:clamp(1.4rem,2.4vw,1.8rem)">De la operación local a la infraestructura TI del CMA</h2>
+      <p class="sub">Cinco fases para llevar ConvocaRadar-IA al ecosistema tecnológico institucional, con pruebas y soporte del equipo CEITTO. Clic en cada fase.</p>
+      <div class="esc-stage">
+        <div class="esc-steps" id="escSteps">
+          {''.join(f'''<button class="esc-step{' on' if i==0 else ''}" type="button" data-i="{i}">
+            <span class="num">{e['n']}</span>
+            <div><h3>{e['t']}</h3><p>{e['meta']}</p></div>
+          </button>''' for i,e in enumerate(ESCALADO))}
+        </div>
+        <aside class="esc-panel" id="escPanel">
+          <p class="fase-tag">Fase {ESCALADO[0]['n']} · {ESCALADO[0]['meta']}</p>
+          <h3>{ESCALADO[0]['t']}</h3>
+          <ul class="esc-acts">
+            {''.join(f'<li style="animation-delay:{i*0.05}s">{a}</li>' for i,a in enumerate(ESCALADO[0]['acts']))}
+          </ul>
+          <div class="esc-out"><b>Entregable:</b> {ESCALADO[0]['out']}</div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="piloto" class="section-alt">
   <div class="wrap reveal">
     <p class="kicker">Piloto</p>
@@ -1349,6 +1542,25 @@ document.querySelectorAll('#trayRail .tray-chip').forEach(btn=>{{
   }};
 }});
 if(document.getElementById('trayRail')) renderTray(0,0);
+
+const ESCALADO = {json.dumps(ESCALADO, ensure_ascii=False)};
+function renderEsc(i){{
+  const e = ESCALADO[i];
+  const panel = document.getElementById('escPanel');
+  if(!panel) return;
+  panel.innerHTML = `
+    <p class="fase-tag">Fase ${{e.n}} · ${{e.meta}}</p>
+    <h3>${{e.t}}</h3>
+    <ul class="esc-acts">${{e.acts.map((a,n)=>`<li style="animation-delay:${{n*0.05}}s">${{a}}</li>`).join('')}}</ul>
+    <div class="esc-out"><b>Entregable:</b> ${{e.out}}</div>`;
+}}
+document.querySelectorAll('#escSteps .esc-step').forEach(btn=>{{
+  btn.onclick=()=>{{
+    document.querySelectorAll('#escSteps .esc-step').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    renderEsc(+btn.dataset.i);
+  }};
+}});
 
 function renderProb(i){{
   const p = PROBLEMAS[i];
@@ -1512,6 +1724,10 @@ assert 'id="problema"' in html
 assert 'id="ventajas-pdi"' in html
 assert "Academia transformadora" in html
 assert 'id="estudios"' in html
+assert 'id="talento"' in html
+assert "Julián Esteban Pineda Montoya" in html
+assert "ConvocaRadar-IA" in html
+assert html.count("esc-step") >= 5
 assert "evidencias/camara" in html
 assert "mgdalena-medio.vercel.app" in html
 assert "convocaradar-web.vercel.app" in html
