@@ -429,6 +429,136 @@ VENTAJAS_PDI = [
     },
 ]
 
+
+
+# Agenda institucional + indicadores IES Distrito + riesgos (observaciones Felipe)
+# Período de referencia indicadores: Plan Indicativo IES Distrito · corte jun-2026
+AGENDA_INST = [
+    {
+        "id": "l1",
+        "linea": "L1",
+        "nombre": "Academia transformadora de vidas",
+        "foco": "Calidad, trayectorias estudiantiles y agenda de estudios",
+        "programas": [
+            "Experiencias formativas significativas",
+            "Transformación pedagógica e innovación educativa",
+            "Autoevaluación y acreditación de alta calidad",
+            "Trayectorias estudiantiles, permanencia y graduación",
+        ],
+        "estudios": [
+            {"a": "2024", "t": "Avances en la evaluación del impacto de la docencia (ventana 2018-2023)"},
+            {"a": "2022", "t": "Resultados Saber Pro y Saber TyT · Colmayor (2017-2022)"},
+            {"a": "2022", "t": "Análisis de valor agregado · Saber Pro 2019-2020"},
+            {"a": "2022", "t": "Caracterización de la población estudiantil (2018-2021)"},
+            {"a": "2022", "t": "Evaluación de impacto de la formación de pregrado en graduados"},
+        ],
+        "indicadores": [
+            {"cod": "1.2.1.4", "t": "Matrícula educación superior", "meta": "10.500 plan", "logro": "6.622", "u": "estudiantes"},
+            {"cod": "1.2.1.10", "t": "Permanencia estudiantil", "meta": "4.781", "logro": "5.938*", "u": "intervenciones"},
+            {"cod": "1.2.13", "t": "Acreditación institucional vigente", "meta": "1", "logro": "1", "u": "vigente"},
+            {"cod": "1.2.15", "t": "Programas con acreditación de alta calidad", "meta": "10 (2026)", "logro": "1", "u": "programas"},
+            {"cod": "1.2.2.10", "t": "Seguridad alimentaria Colmayor", "meta": "1", "logro": "1", "u": "estrategia"},
+        ],
+        "aporte": "Tablero oficial de cobertura, éxito académico y evidencia para autoevaluación CNA, alimentado por la Agenda de Estudios Institucionales.",
+    },
+    {
+        "id": "l2",
+        "linea": "L2",
+        "nombre": "Intercambio de saberes",
+        "foco": "Investigación, extensión, PMO y Plan Indicativo Distrital",
+        "programas": [
+            "Investigación e innovación formativa",
+            "Innovación, transferencia y emprendimiento",
+            "Nuevos talentos y formación avanzada",
+            "Territorio, proyección social y extensión",
+            "Formación para la vida y el trabajo",
+            "Mundo sin fronteras (internacionalización)",
+        ],
+        "dominios": [
+            {"t": "Internacionalización", "d": "Movilidad, bilingüismo y competencias globales (dominio separado)"},
+            {"t": "Graduados", "d": "Inserción laboral, pertinencia e impacto de la formación"},
+            {"t": "Centro de Lenguas", "d": "Estrategias de bilingüismo y competencias lingüísticas"},
+        ],
+        "estudios": [
+            {"a": "2022", "t": "Evaluación del impacto de la Internacionalización (2017-2021)"},
+            {"a": "2022", "t": "Evaluación de impacto en formación de pregrado · egresados"},
+            {"a": "2015", "t": "Estudios de pertinencia e inserción laboral por programa"},
+            {"a": "2020", "t": "Evaluaciones de impacto por programa académico (cohortes 2014-2018)"},
+        ],
+        "indicadores": [
+            {"cod": "1.2.6.2", "t": "Semilleros de investigación activos", "meta": "14 (2026)", "logro": "14", "u": "semilleros"},
+            {"cod": "1.2.6.3", "t": "Estudiantes en semilleros", "meta": "402 (2026)", "logro": "410", "u": "estudiantes"},
+            {"cod": "1.2.6.4", "t": "Publicaciones indexadas", "meta": "40 (2026)", "logro": "15", "u": "publicaciones"},
+            {"cod": "1.2.7.1", "t": "Emprendimientos base tecnológica/ICC", "meta": "6 (2026)", "logro": "3", "u": "emprendimientos"},
+            {"cod": "1.2.7.4", "t": "Proyectos I+D+i alianza cuádruple hélice", "meta": "1 (2026)", "logro": "1", "u": "proyectos"},
+            {"cod": "1.2.1.14", "t": "Estrategia de internacionalización", "meta": "1", "logro": "1", "u": "estrategia"},
+        ],
+        "pmo": [
+            "Embudo: convocatoria → comité → aprobación → ejecución → cierre",
+            "Tiempo de respuesta al comité y productos entregables",
+            "Acompañamiento técnico real (PMO activa, no vacía)",
+            "Lectura del Plan Indicativo Distrital + aporte Colmayor",
+        ],
+        "aporte": "Radar de convocatorias, productos de investigación y dominios separados (Intl / Graduados / Lenguas) con lectura Distrital.",
+    },
+    {
+        "id": "l4",
+        "linea": "L4",
+        "nombre": "Sostenibilidad y gestión humana integral",
+        "foco": "Talento, recursos, venta de servicios y riesgos financieros",
+        "programas": [
+            "Gestión del talento humano",
+            "Mercadeo e identidad institucional",
+            "Planificación, gestión y sostenibilidad institucional",
+        ],
+        "estudios": [
+            {"a": "PDI", "t": "Seguimiento a ingresos por venta de servicios y autofinanciamiento"},
+            {"a": "PDI", "t": "Capacidad instalada del equipo CEITTO / Observatorio"},
+            {"a": "MIPG", "t": "Transparencia, ética pública y atención al ciudadano"},
+        ],
+        "indicadores": [
+            {"cod": "PDI", "t": "Ingresos por venta de servicios (meta acumulada PDI)", "meta": "$3.930 M", "logro": "en seguimiento", "u": "COP"},
+            {"cod": "Obs", "t": "Costo mensual equipo CEITTO (escalamiento)", "meta": "$6.4 M", "logro": "asignado", "u": "COP/mes"},
+            {"cod": "Obs", "t": "Total talento ago–15 dic (4,5 meses)", "meta": "$28.8 M", "logro": "proyectado", "u": "COP"},
+            {"cod": "1.2.6.6", "t": "Plan estratégico de TIC en implementación", "meta": "1", "logro": "1", "u": "plan"},
+        ],
+        "aporte": "Tablero potencial → solicitado → aprobado → ejecutado → facturado → recaudado → margen, con equipo y recursos visibles.",
+    },
+    {
+        "id": "riesgos",
+        "linea": "RX",
+        "nombre": "Riesgos, PINAR y gobernanza",
+        "foco": "Mapas de riesgos + información dispersa + Agenda bidireccional",
+        "programas": [
+            "Gobernanza de datos (L3 · Gestión integral de la información)",
+            "PINAR 2024: archivo, repositorios y estructura documental",
+            "Agenda de Estudios Institucionales ↔ Observatorio (bidireccional)",
+            "Leyenda de datos: Oficial / Reportado / Propuesto",
+        ],
+        "estudios": [
+            {"a": "Calidad", "t": "Agenda de Estudios sobre Asuntos Institucionales (Aseguramiento de la Calidad)"},
+            {"a": "PINAR", "t": "Información dispersa documentada en PINAR 2024 (informe de pares)"},
+            {"a": "G+", "t": "Mapas de riesgos corrupción y gestión · seguimiento 30/04/2026"},
+        ],
+        "indicadores": [
+            {"cod": "PDI", "t": "Modelo de gobernanza de datos implementado", "meta": "1", "logro": "1 (2025-2)", "u": "modelo"},
+            {"cod": "Corr", "t": "Riesgos de corrupción Alta/Extrema mapeados", "meta": "49", "logro": "en G+", "u": "riesgos"},
+            {"cod": "Gest", "t": "Riesgos de gestión (mapa institucional)", "meta": "138", "logro": "4 Alta", "u": "riesgos"},
+        ],
+        "riesgos": [
+            {"z": "Extrema", "t": "Manipulación de plataformas tecnológicas", "a": "Trazabilidad, linaje y evidencia de accesos"},
+            {"z": "Alta", "t": "Manejo indebido de la información", "a": "Catálogo de dominios, custodios y publicación controlada"},
+            {"z": "Alta", "t": "Utilización indebida de información", "a": "Roles, bitácora y separación de datos sensibles"},
+            {"z": "Alta", "t": "Desviación de recursos / jineteo", "a": "Flujo proyecto–presupuesto–evidencia auditables"},
+            {"z": "Extrema", "t": "Desviación en asignación de beneficios", "a": "Cupos, criterios y beneficiarios trazables"},
+            {"z": "Alta", "t": "Alteración u ocultamiento de información", "a": "Estados Borrador→Validado→Publicado"},
+            {"z": "Clave", "t": "Baja integración / difícil acceso a sistemas", "a": "Interoperabilidad y repositorio de indicadores"},
+            {"z": "Clave", "t": "Pérdida de archivo e información", "a": "PINAR, expediente electrónico y KPI→soporte"},
+        ],
+        "aporte": "El Observatorio no sustituye el control interno: aporta transparencia, evidencia y alertas ejecutivas sobre riesgos de información y recursos.",
+    },
+]
+
 KPIS = [
     {"id": "KPI-01", "dim": "operativa", "nombre": "Disponibilidad del servidor", "meta": "≥ 99% mensual"},
     {"id": "KPI-02", "dim": "operativa", "nombre": "Tiempo de integración de datos", "meta": "< 2 horas/día"},
@@ -910,6 +1040,103 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 @media(max-width:1000px){{.talento-grid{{grid-template-columns:1fr 1fr}}.esc-stage{{grid-template-columns:1fr}}}}
 @media(max-width:700px){{.talento-grid{{grid-template-columns:1fr}}.esc-panel{{min-height:0}}}}
 
+
+/* Agenda institucional L1/L2/L4 + riesgos */
+.agenda-stage{{margin-top:1.4rem}}
+.agenda-tabs{{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;margin-bottom:1rem}}
+.agenda-tab{{
+  border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:1rem .85rem;
+  cursor:pointer;text-align:left;font:inherit;color:inherit;transition:.22s;box-shadow:var(--shadow);min-height:112px;
+}}
+.agenda-tab:hover,.agenda-tab.on{{background:var(--charcoal);color:#fff;border-color:var(--charcoal);transform:translateY(-2px)}}
+.agenda-tab .ln{{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:.35rem}}
+.agenda-tab.on .ln{{color:var(--orange)}}
+.agenda-tab h3{{font-family:var(--display);font-size:.95rem;line-height:1.25;margin-bottom:.3rem}}
+.agenda-tab p{{font-size:.8rem;color:var(--mute);margin:0}}
+.agenda-tab.on p{{color:rgba(255,255,255,.7)}}
+.agenda-panel{{
+  background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1.35rem 1.4rem;
+  box-shadow:var(--shadow);border-top:4px solid var(--teal);min-height:380px;
+}}
+.agenda-panel .foco{{color:var(--mute);margin:.35rem 0 1rem;font-size:.95rem}}
+.agenda-grid{{display:grid;grid-template-columns:1.1fr 1fr;gap:1rem}}
+.agenda-block h4{{
+  font-family:var(--display);font-size:1rem;margin:0 0 .55rem;display:flex;align-items:center;gap:.4rem;
+}}
+.agenda-block h4 span{{
+  font-family:var(--font);font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  background:rgba(0,179,175,.12);color:var(--teal-deep);padding:.2rem .5rem;border-radius:999px;
+}}
+.agenda-list{{list-style:none;padding:0;margin:0 0 .9rem;display:grid;gap:.4rem}}
+.agenda-list li{{
+  background:var(--alt);border-radius:10px;padding:.65rem .8rem;font-size:.88rem;color:var(--mute);
+  border-left:3px solid var(--teal);
+}}
+.agenda-list li.yr{{border-left-color:var(--orange)}}
+.agenda-list li b{{color:var(--ink);font-weight:700}}
+.agenda-list li .yr-tag{{
+  display:inline-block;font-size:.68rem;font-weight:700;color:var(--orange);margin-right:.35rem;
+}}
+.kpi-mini{{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.9rem}}
+.kpi-mini .k{{
+  background:var(--alt);border-radius:12px;padding:.75rem .8rem;border-top:3px solid var(--teal);
+}}
+.kpi-mini .k:nth-child(2n){{border-top-color:var(--orange)}}
+.kpi-mini .cod{{font-size:.68rem;font-weight:700;letter-spacing:.04em;color:var(--teal-deep)}}
+.kpi-mini .kt{{font-size:.86rem;font-weight:600;margin:.2rem 0 .35rem;line-height:1.25}}
+.kpi-mini .meta{{font-size:.75rem;color:var(--mute)}}
+.kpi-mini .log{{font-family:var(--display);font-size:1.05rem;font-weight:800;color:var(--primary)}}
+.dom-row{{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:.9rem}}
+.dom-card{{
+  background:linear-gradient(145deg,var(--charcoal),#163d3c);color:#fff;border-radius:12px;padding:.8rem .85rem;
+  border-left:3px solid var(--orange);
+}}
+.dom-card b{{display:block;color:var(--orange);font-size:.82rem;margin-bottom:.25rem}}
+.dom-card span{{font-size:.78rem;color:rgba(255,255,255,.78);line-height:1.35}}
+.risk-grid{{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-bottom:.9rem}}
+.risk-item{{
+  background:var(--alt);border-radius:10px;padding:.7rem .8rem;border-left:3px solid #c45c26;
+}}
+.risk-item .rz{{
+  display:inline-block;font-size:.65rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  color:#fff;background:#c45c26;padding:.15rem .4rem;border-radius:4px;margin-bottom:.3rem;
+}}
+.risk-item .rz.Clave{{background:var(--teal-deep)}}
+.risk-item .rz.Alta{{background:#b45309}}
+.risk-item .rz.Extrema{{background:#9f1239}}
+.risk-item b{{display:block;font-size:.86rem;margin-bottom:.2rem}}
+.risk-item span{{font-size:.78rem;color:var(--mute)}}
+.agenda-aporte{{
+  margin-top:.4rem;background:linear-gradient(145deg,var(--charcoal),#163d3c);color:#fff;
+  border-radius:12px;padding:.9rem 1.1rem;font-size:.92rem;border-left:4px solid var(--orange);
+}}
+.agenda-aporte b{{color:var(--orange)}}
+.agenda-legend{{
+  display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;align-items:center;
+}}
+.agenda-legend .pill{{
+  font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  padding:.35rem .7rem;border-radius:999px;border:1px solid var(--line);background:var(--surface);
+}}
+.agenda-legend .pill.off{{border-color:var(--teal);color:var(--teal-deep)}}
+.agenda-legend .pill.rep{{border-color:var(--orange);color:#b45309}}
+.agenda-legend .pill.prop{{border-color:var(--mute);color:var(--mute)}}
+.agenda-legend .note{{font-size:.82rem;color:var(--mute)}}
+.agenda-src{{
+  margin-top:.85rem;font-size:.8rem;color:var(--mute);border-top:1px dashed var(--line);padding-top:.7rem;
+}}
+.agenda-src a{{color:var(--teal-deep);font-weight:600}}
+@media(max-width:1100px){{
+  .agenda-tabs{{grid-template-columns:1fr 1fr}}
+  .agenda-grid{{grid-template-columns:1fr}}
+  .dom-row{{grid-template-columns:1fr}}
+  .risk-grid{{grid-template-columns:1fr}}
+}}
+@media(max-width:700px){{
+  .agenda-tabs{{grid-template-columns:1fr}}
+  .kpi-mini{{grid-template-columns:1fr}}
+}}
+
 /* KPIs */
 .kpi-tabs{{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.1rem}}
 .kpi-tab{{border:1px solid var(--line);background:var(--surface);color:var(--mute);padding:.45rem .85rem;border-radius:999px;cursor:pointer;font:600 .85rem var(--font)}}
@@ -1117,6 +1344,7 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
       <a href="#objetivos">Objetivos</a>
       <a href="#problema">Problemas</a>
       <a href="#ventajas-pdi">Ventajas PDI</a>
+      <a href="#agenda">Agenda</a>
       <a href="#flujo">Flujo</a>
       <a href="#kpis">KPIs</a>
       <a href="#hardware">Hardware</a>
@@ -1210,6 +1438,32 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
     </div>
   </div>
 </section>
+
+<section class="section-alt" id="agenda">
+  <div class="wrap reveal">
+    <p class="kicker">Plan de Desarrollo · Agenda institucional</p>
+    <h2>Estudios, indicadores y riesgos en L1, L2 y L4</h2>
+    <p class="sub">Integración de la Agenda de Estudios sobre Asuntos Institucionales, indicadores IES Distrito (corte jun-2026) y mapas de riesgos, según las observaciones de acompañamiento a la presentación del Observatorio.</p>
+    <div class="agenda-stage">
+      <div class="agenda-tabs" id="agendaTabs">
+        {''.join(f'''<button class="agenda-tab{' on' if i==0 else ''}" type="button" data-i="{i}">
+          <p class="ln">{a['linea']}</p>
+          <h3>{a['nombre']}</h3>
+          <p>{a['foco']}</p>
+        </button>''' for i,a in enumerate(AGENDA_INST))}
+      </div>
+      <div class="agenda-panel" id="agendaPanel"></div>
+    </div>
+    <div class="agenda-legend">
+      <span class="pill off">Oficial</span>
+      <span class="pill rep">Reportado</span>
+      <span class="pill prop">Propuesto</span>
+      <span class="note">Clasificación de datos para no mezclar KPI PMO no aprobados con metas PDI.</span>
+    </div>
+    <p class="agenda-src">Fuentes: <a href="https://www.colmayor.edu.co/institucional/aseguramiento-calidad-academica/agenda-de-estudios-de-asuntos-institucionales/" target="_blank" rel="noopener">Agenda de Estudios Institucionales</a> · Indicadores IES Distrito · Mapas de riesgos G+ · PINAR 2024 · observaciones de acompañamiento.</p>
+  </div>
+</section>
+
 
 <section class="section-alt" id="valor">
   <div class="wrap reveal">
@@ -1518,6 +1772,7 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 <script>
 const PROBLEMAS = {json.dumps(PROBLEMAS, ensure_ascii=False)};
 const VENTAJAS_PDI = {json.dumps(VENTAJAS_PDI, ensure_ascii=False)};
+const AGENDA_INST = {json.dumps(AGENDA_INST, ensure_ascii=False)};
 const FLOW={json.dumps({n["id"]:n for n in FLOW},ensure_ascii=False)};
 const OBJ={json.dumps(OBJ,ensure_ascii=False)};
 const PLAN_DATA = {json.dumps(PLAN, ensure_ascii=False)};
@@ -1631,6 +1886,57 @@ document.querySelectorAll('#pdiTabs .pdi-tab').forEach(btn=>{{
     renderPdi(+btn.dataset.i);
   }};
 }});
+
+
+function renderAgenda(i){{
+  const a = AGENDA_INST[i];
+  const panel = document.getElementById('agendaPanel');
+  if(!panel || !a) return;
+  const estudios = (a.estudios||[]).map(e=>`<li class="yr"><span class="yr-tag">${{e.a}}</span>${{e.t}}</li>`).join('');
+  const programas = (a.programas||[]).map(p=>`<li>${{p}}</li>`).join('');
+  const inds = (a.indicadores||[]).map(k=>`
+    <div class="k">
+      <div class="cod">${{k.cod}}</div>
+      <div class="kt">${{k.t}}</div>
+      <div class="log">${{k.logro}}</div>
+      <div class="meta">Meta ${{k.meta}} · ${{k.u}}</div>
+    </div>`).join('');
+  const dominios = a.dominios
+    ? `<div class="dom-row">${{a.dominios.map(d=>`<div class="dom-card"><b>${{d.t}}</b><span>${{d.d}}</span></div>`).join('')}}</div>`
+    : '';
+  const pmo = a.pmo
+    ? `<div class="agenda-block"><h4>PMO activa <span>acompañamiento</span></h4><ul class="agenda-list">${{a.pmo.map(x=>`<li>${{x}}</li>`).join('')}}</ul></div>`
+    : '';
+  const riesgos = a.riesgos
+    ? `<div class="agenda-block"><h4>Riesgos priorizados <span>corrupción · gestión</span></h4><div class="risk-grid">${{a.riesgos.map(r=>`<div class="risk-item"><span class="rz ${{r.z}}">${{r.z}}</span><b>${{r.t}}</b><span>Aporte del Observatorio: ${{r.a}}</span></div>`).join('')}}</div></div>`
+    : '';
+  panel.innerHTML = `
+    <p class="ln" style="font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)">${{a.linea}}</p>
+    <h3 style="font-family:var(--display);font-size:1.35rem;margin:.2rem 0">${{a.nombre}}</h3>
+    <p class="foco">${{a.foco}}</p>
+    ${{dominios}}
+    <div class="agenda-grid">
+      <div>
+        <div class="agenda-block"><h4>Programas / ejes <span>PDI</span></h4><ul class="agenda-list">${{programas}}</ul></div>
+        <div class="agenda-block"><h4>Agenda de estudios <span>institucional</span></h4><ul class="agenda-list">${{estudios}}</ul></div>
+        ${{pmo}}
+      </div>
+      <div>
+        <div class="agenda-block"><h4>Indicadores IES Distrito <span>jun-2026</span></h4><div class="kpi-mini">${{inds}}</div></div>
+        ${{riesgos}}
+      </div>
+    </div>
+    <div class="agenda-aporte"><b>Aporte del Observatorio:</b> ${{a.aporte}}</div>`;
+}}
+document.querySelectorAll('#agendaTabs .agenda-tab').forEach(btn=>{{
+  btn.onclick=()=>{{
+    document.querySelectorAll('#agendaTabs .agenda-tab').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    renderAgenda(+btn.dataset.i);
+  }};
+}});
+if(document.getElementById('agendaTabs')) renderAgenda(0);
+
 
 
 function renderFlow(id){{
@@ -1760,6 +2066,8 @@ assert "Computador de alto rendimiento" in html
 assert "KPI-01" in html
 assert 'id="problema"' in html
 assert 'id="ventajas-pdi"' in html
+assert 'id="agenda"' in html
+assert "renderAgenda" in html
 assert "Academia transformadora" in html
 assert 'id="estudios"' in html
 assert 'id="talento"' in html
