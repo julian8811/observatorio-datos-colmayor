@@ -591,15 +591,19 @@ DIM_LABEL = {
 
 HW = {
     "ws": {
-        "titulo": "Computador de alto rendimiento · Ryzen 9 9950X + RTX 5090",
+        "titulo": "NVIDIA DGX Spark · supercomputador personal de IA",
         "specs": [
-            "AMD Ryzen 9 9950X (16 núcleos / 32 hilos)",
-            "192 GB DDR5 · NVIDIA GeForce RTX 5090 32 GB",
-            "SSD NVMe 2 TB · fuente ≥1.200 W · AIO 360",
-            "Windows 11 Pro · ensamble y garantía ≥2 años",
-            "Cotización distribuidores CO · carrito mixto (jul-2026)",
+            "Superchip NVIDIA GB10 Grace Blackwell (CPU Arm 20 núcleos: 10× Cortex-X925 + 10× Cortex-A725)",
+            "Hasta 1 PFLOP de desempeño de IA (FP4) · Tensor Cores 5.ª generación",
+            "128 GB LPDDR5x de memoria unificada coherente (273 GB/s)",
+            "SSD NVMe M.2 4 TB con autocifrado · NVIDIA DGX OS",
+            "ConnectX-7 200 Gbps · 10 GbE · Wi-Fi 7 · BT 5.4 · 4× USB-C · HDMI 2.1a",
+            "Formato compacto 150×150×50,5 mm · 1,2 kg · PSU 240 W (TDP GB10 140 W)",
+            "Fuente: NVIDIA Marketplace · USD $4,699 × TRM 3,207.18811 (jul-2026)",
         ],
-        "cop": 37_081_000,
+        "cop": 15070577,
+        "img": "media/dgx-spark.jpg",
+        "url": "https://marketplace.nvidia.com/en-us/enterprise/personal-ai-supercomputers/dgx-spark/",
     },
     "ups": {
         "titulo": "Eaton DX2000LAN",
@@ -607,7 +611,7 @@ HW = {
             "Online doble conversión",
             "2000 VA / 1800 W",
             "Autonomía 5–15 min según carga",
-            "Cubre consumo estimado del equipo bajo carga",
+            "Cubre consumo estimado del DGX Spark bajo carga (PSU 240 W)",
         ],
         "cop": 2_400_000,
     },
@@ -620,7 +624,7 @@ _total = _ws + _ups + _ia
 PRESUPUESTO = {
     "total": _total,
     "lineas": [
-        {"nombre": "Computador de alto rendimiento (Ryzen 9 9950X + RTX 5090)", "valor": _ws, "pct": round(_ws / _total * 100, 1)},
+        {"nombre": "NVIDIA DGX Spark (Marketplace)", "valor": _ws, "pct": round(_ws / _total * 100, 1)},
         {"nombre": "UPS Eaton DX2000LAN", "valor": _ups, "pct": round(_ups / _total * 100, 1)},
         {"nombre": "Implementación de IA", "valor": _ia, "pct": round(_ia / _total * 100, 1)},
     ],
@@ -1040,6 +1044,18 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 @media(max-width:1000px){{.talento-grid{{grid-template-columns:1fr 1fr}}.esc-stage{{grid-template-columns:1fr}}}}
 @media(max-width:700px){{.talento-grid{{grid-template-columns:1fr}}.esc-panel{{min-height:0}}}}
 
+
+
+.hw-photo{{
+  width:100%;aspect-ratio:16/10;object-fit:contain;background:linear-gradient(145deg,#0b0b0b,#1a1a1a);
+  border-radius:12px;margin:0 0 1rem;display:block;border:1px solid var(--line);
+}}
+.hw-link{{
+  display:inline-flex;align-items:center;gap:.35rem;margin-top:.55rem;font-size:.82rem;font-weight:600;
+  color:var(--teal-deep);text-decoration:none;
+}}
+.hw-link:hover{{text-decoration:underline}}
+.hw-usd{{font-size:.78rem;color:var(--mute);margin-top:.25rem}}
 
 /* Agenda institucional L1/L2/L4 + riesgos */
 .agenda-stage{{margin-top:1.4rem}}
@@ -1589,10 +1605,13 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
     <p class="sub">{HW['ws']['titulo']} + {HW['ups']['titulo']} · inversión total del MVP.</p>
     <div class="hw-grid">
       <article class="hw">
-        <span class="tag">Cotización jul-2026</span>
+        <span class="tag">NVIDIA Marketplace</span>
+        <img class="hw-photo" src="{HW['ws']['img']}" alt="NVIDIA DGX Spark" loading="lazy">
         <h3>{HW['ws']['titulo']}</h3>
         <ul>{''.join(f'<li>{s}</li>' for s in HW['ws']['specs'])}</ul>
         <div class="price">{fmt_cop(HW['ws']['cop'])}</div>
+        <p class="hw-usd">Equiv. Marketplace USD $4.699 · conversión TRM jul-2026</p>
+        <a class="hw-link" href="{HW['ws']['url']}" target="_blank" rel="noopener">Ver ficha en NVIDIA Marketplace →</a>
       </article>
       <article class="hw ups">
         <span class="tag">UPS</span>
@@ -2056,13 +2075,14 @@ window.addEventListener('scroll',()=>{{
 (OUT / "index.html").write_text(html, encoding="utf-8")
 assert "Seleccione un objetivo" not in html
 assert "no reemplaza" in html
-assert "RTX 5090" in html
+assert "DGX Spark" in html
 assert "Eaton DX2000LAN" in html
+assert "dgx-spark.jpg" in html
 assert "Implementación de IA" in html
 assert "Red y conectividad" not in html
 assert "Dell Precision" not in html
 assert "Workstation" not in html
-assert "Computador de alto rendimiento" in html
+assert "NVIDIA DGX Spark" in html
 assert "KPI-01" in html
 assert 'id="problema"' in html
 assert 'id="ventajas-pdi"' in html

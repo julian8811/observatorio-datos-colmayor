@@ -358,6 +358,18 @@ h2{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spacin
 @media(max-width:700px){.talento-grid{grid-template-columns:1fr}.esc-panel{min-height:0}}
 
 
+
+.hw-photo{
+  width:100%;aspect-ratio:16/10;object-fit:contain;background:linear-gradient(145deg,#0b0b0b,#1a1a1a);
+  border-radius:12px;margin:0 0 1rem;display:block;border:1px solid var(--line);
+}
+.hw-link{
+  display:inline-flex;align-items:center;gap:.35rem;margin-top:.55rem;font-size:.82rem;font-weight:600;
+  color:var(--teal-deep);text-decoration:none;
+}
+.hw-link:hover{text-decoration:underline}
+.hw-usd{font-size:.78rem;color:var(--mute);margin-top:.25rem}
+
 /* Agenda institucional L1/L2/L4 + riesgos */
 .agenda-stage{margin-top:1.4rem}
 .agenda-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;margin-bottom:1rem}
@@ -689,7 +701,7 @@ h2{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spacin
         <div class="metric"><b>4</b><span>Objetivos</span></div>
         <div class="metric"><b>10</b><span>Etapas</span></div>
         <div class="metric"><b>20</b><span>KPIs MVP</span></div>
-        <div class="metric"><b>51.6M</b><span>Presupuesto MVP</span></div>
+        <div class="metric"><b>29.6M</b><span>Presupuesto MVP</span></div>
       </div>
     </div>
   </div>
@@ -1130,36 +1142,39 @@ h2{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spacin
   <div class="wrap reveal">
     <p class="kicker">Infraestructura MVP</p>
     <h2>Configuración recomendada y presupuesto MVP</h2>
-    <p class="sub">Computador de alto rendimiento · Ryzen 9 9950X + RTX 5090 + Eaton DX2000LAN · inversión total del MVP.</p>
+    <p class="sub">NVIDIA DGX Spark · supercomputador personal de IA + Eaton DX2000LAN · inversión total del MVP.</p>
     <div class="hw-grid">
       <article class="hw">
-        <span class="tag">Cotización jul-2026</span>
-        <h3>Computador de alto rendimiento · Ryzen 9 9950X + RTX 5090</h3>
-        <ul><li>AMD Ryzen 9 9950X (16 núcleos / 32 hilos)</li><li>192 GB DDR5 · NVIDIA GeForce RTX 5090 32 GB</li><li>SSD NVMe 2 TB · fuente ≥1.200 W · AIO 360</li><li>Windows 11 Pro · ensamble y garantía ≥2 años</li><li>Cotización distribuidores CO · carrito mixto (jul-2026)</li></ul>
-        <div class="price">$37.081.000</div>
+        <span class="tag">NVIDIA Marketplace</span>
+        <img class="hw-photo" src="media/dgx-spark.jpg" alt="NVIDIA DGX Spark" loading="lazy">
+        <h3>NVIDIA DGX Spark · supercomputador personal de IA</h3>
+        <ul><li>Superchip NVIDIA GB10 Grace Blackwell (CPU Arm 20 núcleos: 10× Cortex-X925 + 10× Cortex-A725)</li><li>Hasta 1 PFLOP de desempeño de IA (FP4) · Tensor Cores 5.ª generación</li><li>128 GB LPDDR5x de memoria unificada coherente (273 GB/s)</li><li>SSD NVMe M.2 4 TB con autocifrado · NVIDIA DGX OS</li><li>ConnectX-7 200 Gbps · 10 GbE · Wi-Fi 7 · BT 5.4 · 4× USB-C · HDMI 2.1a</li><li>Formato compacto 150×150×50,5 mm · 1,2 kg · PSU 240 W (TDP GB10 140 W)</li><li>Fuente: NVIDIA Marketplace · USD $4,699 × TRM 3,207.18811 (jul-2026)</li></ul>
+        <div class="price">$15.070.577</div>
+        <p class="hw-usd">Equiv. Marketplace USD $4.699 · conversión TRM jul-2026</p>
+        <a class="hw-link" href="https://marketplace.nvidia.com/en-us/enterprise/personal-ai-supercomputers/dgx-spark/" target="_blank" rel="noopener">Ver ficha en NVIDIA Marketplace →</a>
       </article>
       <article class="hw ups">
         <span class="tag">UPS</span>
         <h3>Eaton DX2000LAN</h3>
-        <ul><li>Online doble conversión</li><li>2000 VA / 1800 W</li><li>Autonomía 5–15 min según carga</li><li>Cubre consumo estimado del equipo bajo carga</li></ul>
+        <ul><li>Online doble conversión</li><li>2000 VA / 1800 W</li><li>Autonomía 5–15 min según carga</li><li>Cubre consumo estimado del DGX Spark bajo carga (PSU 240 W)</li></ul>
         <div class="price">$2.400.000</div>
       </article>
     </div>
     <div class="budget">
       <p style="font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;opacity:.75">Presupuesto total del proyecto MVP</p>
-      <div class="total">$51.581.000</div>
+      <div class="total">$29.570.577</div>
       <div class="budget-row">
-        <div><div>Computador de alto rendimiento (Ryzen 9 9950X + RTX 5090)</div><div class="bar"><div class="fill" style="width:71.9%"></div></div></div>
-        <strong>$37.081.000</strong>
-        <span style="opacity:.7">71.9%</span>
+        <div><div>NVIDIA DGX Spark (Marketplace)</div><div class="bar"><div class="fill" style="width:51.0%"></div></div></div>
+        <strong>$15.070.577</strong>
+        <span style="opacity:.7">51.0%</span>
       </div><div class="budget-row">
-        <div><div>UPS Eaton DX2000LAN</div><div class="bar"><div class="fill" style="width:4.7%"></div></div></div>
+        <div><div>UPS Eaton DX2000LAN</div><div class="bar"><div class="fill" style="width:8.1%"></div></div></div>
         <strong>$2.400.000</strong>
-        <span style="opacity:.7">4.7%</span>
+        <span style="opacity:.7">8.1%</span>
       </div><div class="budget-row">
-        <div><div>Implementación de IA</div><div class="bar"><div class="fill" style="width:23.5%"></div></div></div>
+        <div><div>Implementación de IA</div><div class="bar"><div class="fill" style="width:40.9%"></div></div></div>
         <strong>$12.100.000</strong>
-        <span style="opacity:.7">23.5%</span>
+        <span style="opacity:.7">40.9%</span>
       </div>
     </div>
   </div>
