@@ -599,21 +599,24 @@ HW = {
             "SSD NVMe M.2 4 TB con autocifrado · NVIDIA DGX OS",
             "ConnectX-7 200 Gbps · 10 GbE · Wi-Fi 7 · BT 5.4 · 4× USB-C · HDMI 2.1a",
             "Formato compacto 150×150×50,5 mm · 1,2 kg · PSU 240 W (TDP GB10 140 W)",
-            "Fuente: NVIDIA Marketplace · USD $4,699 × TRM 3,207.18811 (jul-2026)",
+            "Proveedor Colombia: Clones y Periféricos (oferta jul-2026)",
         ],
-        "cop": 15070577,
+        "cop": 29420000,
+        "list_cop": 31479000,
         "img": "media/dgx-spark.jpg",
-        "url": "https://marketplace.nvidia.com/en-us/enterprise/personal-ai-supercomputers/dgx-spark/",
+        "url": "https://clonesyperifericos.com/comprar/pc-nvidia-dgx-spark-20-core-arm-10-cortex-x925-10-cortex-a725-arm-128gb-lpddr5x/",
     },
     "ups": {
         "titulo": "Eaton DX2000LAN",
         "specs": [
             "Online doble conversión",
-            "2000 VA / 1800 W",
+            "2000 VA / 1800 W · factor de potencia 0,9",
             "Autonomía 5–15 min según carga",
-            "Cubre consumo estimado del DGX Spark bajo carga (PSU 240 W)",
+            "Pantalla LCD · USB · ranura NMC / LAN",
+            "Cubre consumo estimado del DGX Spark (PSU 240 W)",
         ],
         "cop": 2_400_000,
+        "img": "media/eaton-dx2000lan.jpg",
     },
 }
 
@@ -624,7 +627,7 @@ _total = _ws + _ups + _ia
 PRESUPUESTO = {
     "total": _total,
     "lineas": [
-        {"nombre": "NVIDIA DGX Spark (Marketplace)", "valor": _ws, "pct": round(_ws / _total * 100, 1)},
+        {"nombre": "NVIDIA DGX Spark (Clones y Periféricos)", "valor": _ws, "pct": round(_ws / _total * 100, 1)},
         {"nombre": "UPS Eaton DX2000LAN", "valor": _ups, "pct": round(_ups / _total * 100, 1)},
         {"nombre": "Implementación de IA", "valor": _ia, "pct": round(_ia / _total * 100, 1)},
     ],
@@ -1046,16 +1049,24 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 
 
 
-.hw-photo{{
-  width:100%;aspect-ratio:16/10;object-fit:contain;background:linear-gradient(145deg,#0b0b0b,#1a1a1a);
-  border-radius:12px;margin:0 0 1rem;display:block;border:1px solid var(--line);
+.hw-grid{{align-items:stretch}}
+.hw{{
+  display:flex;flex-direction:column;height:100%;min-height:100%;
 }}
+.hw-photo{{
+  width:100%;height:220px;object-fit:contain;object-position:center;
+  background:linear-gradient(145deg,#f4f7f7,#e8eeee);
+  border-radius:12px;margin:0 0 1rem;display:block;border:1px solid var(--line);padding:.5rem;
+}}
+.hw ul{{flex:1 1 auto;margin-bottom:.85rem}}
+.hw .price{{margin-top:auto}}
 .hw-link{{
   display:inline-flex;align-items:center;gap:.35rem;margin-top:.55rem;font-size:.82rem;font-weight:600;
   color:var(--teal-deep);text-decoration:none;
 }}
 .hw-link:hover{{text-decoration:underline}}
 .hw-usd{{font-size:.78rem;color:var(--mute);margin-top:.25rem}}
+@media(max-width:800px){{.hw-photo{{height:180px}}}}
 
 /* Agenda institucional L1/L2/L4 + riesgos */
 .agenda-stage{{margin-top:1.4rem}}
@@ -1605,16 +1616,17 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
     <p class="sub">{HW['ws']['titulo']} + {HW['ups']['titulo']} · inversión total del MVP.</p>
     <div class="hw-grid">
       <article class="hw">
-        <span class="tag">NVIDIA Marketplace</span>
+        <span class="tag">Clones y Periféricos</span>
         <img class="hw-photo" src="{HW['ws']['img']}" alt="NVIDIA DGX Spark" loading="lazy">
         <h3>{HW['ws']['titulo']}</h3>
         <ul>{''.join(f'<li>{s}</li>' for s in HW['ws']['specs'])}</ul>
         <div class="price">{fmt_cop(HW['ws']['cop'])}</div>
-        <p class="hw-usd">Equiv. Marketplace USD $4.699 · conversión TRM jul-2026</p>
-        <a class="hw-link" href="{HW['ws']['url']}" target="_blank" rel="noopener">Ver ficha en NVIDIA Marketplace →</a>
+        <p class="hw-usd">Precio lista {fmt_cop(HW['ws']['list_cop'])} · oferta vigente en proveedor Colombia</p>
+        <a class="hw-link" href="{HW['ws']['url']}" target="_blank" rel="noopener">Ver en Clones y Periféricos →</a>
       </article>
       <article class="hw ups">
         <span class="tag">UPS</span>
+        <img class="hw-photo" src="{HW['ups']['img']}" alt="Eaton DX2000LAN" loading="lazy">
         <h3>{HW['ups']['titulo']}</h3>
         <ul>{''.join(f'<li>{s}</li>' for s in HW['ups']['specs'])}</ul>
         <div class="price">{fmt_cop(HW['ups']['cop'])}</div>
