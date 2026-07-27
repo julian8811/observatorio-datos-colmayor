@@ -609,11 +609,13 @@ HW = {
     "ups": {
         "titulo": "Eaton DX2000LAN",
         "specs": [
-            "Online doble conversión",
+"Online doble conversión",
             "2000 VA / 1800 W · factor de potencia 0,9",
             "Autonomía 5–15 min según carga",
             "Pantalla LCD · USB · ranura NMC / LAN",
             "Cubre consumo estimado del DGX Spark (PSU 240 W)",
+            "Torre · instalación rápida",
+            "Respaldo eléctrico continuo para el nodo DGX",
         ],
         "cop": 2_400_000,
         "img": "media/eaton-dx2000lan.jpg",
@@ -1049,9 +1051,9 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 
 
 
-.hw-grid{{align-items:stretch}}
-.hw{{
-  display:flex;flex-direction:column;height:100%;min-height:100%;
+.hw-grid{{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:1rem;align-items:stretch}}
+.hw,.hw.ups{{
+  display:flex;flex-direction:column;height:100%;box-sizing:border-box;
 }}
 .hw-photo{{
   width:100%;height:220px;object-fit:contain;object-position:center;
@@ -1181,14 +1183,14 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 .kpi p{{font-size:.88rem;color:var(--teal-deep);font-weight:600}}
 
 /* Hardware + budget */
-.hw-grid{{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:1rem}}
-.hw{{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.25rem;box-shadow:var(--shadow)}}
+.hw-grid{{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:1rem;align-items:stretch}}
+.hw,.hw.ups{{display:flex;flex-direction:column;height:100%;box-sizing:border-box;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.25rem;box-shadow:var(--shadow)}}
 .hw .tag{{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);background:rgba(0,179,175,.12);padding:.25rem .55rem;border-radius:6px;margin-bottom:.55rem}}
 .hw.ups .tag{{color:var(--primary);background:rgba(243,154,26,.12)}}
 .hw h3{{font-family:var(--display);font-size:1.15rem;margin-bottom:.65rem}}
-.hw ul{{list-style:none;display:grid;gap:.35rem;margin-bottom:.75rem}}
+.hw ul{{list-style:none;display:grid;gap:.35rem;margin-bottom:.75rem;flex:1 1 auto}}
 .hw li{{font-size:.9rem;color:var(--mute);padding:.35rem 0;border-bottom:1px solid var(--line)}}
-.hw .price{{font-family:var(--display);font-size:1.35rem;color:var(--primary);font-weight:800}}
+.hw .price{{font-family:var(--display);font-size:1.35rem;color:var(--primary);font-weight:800;margin-top:auto}}
 .budget{{background:var(--charcoal);color:#fff;border-radius:16px;padding:1.5rem;border-top:4px solid var(--orange)}}
 .budget .total{{font-family:var(--display);font-size:clamp(2rem,3vw,2.6rem);color:var(--orange);margin:.2rem 0 1rem}}
 .budget-row{{display:grid;grid-template-columns:1fr auto auto;gap:.75rem;align-items:center;padding:.55rem 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:.92rem}}
