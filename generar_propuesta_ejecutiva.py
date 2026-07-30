@@ -358,13 +358,91 @@ COMPUTO_USO = [
     {"t": "Respaldo continuo", "d": "UPS Eaton + nodo siempre disponible para agentes y reportes."},
 ]
 
-CRONO_2026_2 = [
-    {"m": "Ago", "t": "Alistamiento", "d": "Arquitectura TI, inventario ConvocaRadar, roles y datos oficiales."},
-    {"m": "Sep", "t": "Despliegue", "d": "DGX en operación, UPS, CI/CD y ambientes Colmayor."},
-    {"m": "Oct", "t": "Piloto", "d": "Bienestar → permanencia y primer tablero ejecutivo."},
-    {"m": "Nov", "t": "Integración", "d": "Indicadores PDI L1/L2/L4 + radar de convocatorias."},
-    {"m": "Dic", "t": "Cierre", "d": "Acta de pruebas, capacitación y proyección 2027."},
+
+# Cronograma Gantt 2026-2: 1 ago – 18 dic (140 días). start/end = día 0-index desde 1 ago.
+GANTT_MESES = [
+    {"id": "ago", "label": "Agosto", "days": 31, "start": 0},
+    {"id": "sep", "label": "Septiembre", "days": 30, "start": 31},
+    {"id": "oct", "label": "Octubre", "days": 31, "start": 61},
+    {"id": "nov", "label": "Noviembre", "days": 30, "start": 92},
+    {"id": "dic", "label": "Dic (1–18)", "days": 18, "start": 122},
 ]
+GANTT_TOTAL_DIAS = 140  # 31+30+31+30+18
+
+GANTT_2026_2 = [
+    {
+        "id": "g1", "t": "Alistamiento y diagnóstico",
+        "start": 0, "end": 30, "resp": "CEITTO + TI",
+        "desc": "Inventario ConvocaRadar-IA, requisitos TI, arquitectura destino y plan de riesgos.",
+        "entregables": [
+            "Documento de arquitectura aprobado",
+            "Inventario técnico de la plataforma",
+            "Plan de trabajo ago–dic con responsables",
+        ],
+    },
+    {
+        "id": "g2", "t": "Aprovisionamiento DGX Spark + UPS",
+        "start": 14, "end": 60, "resp": "TI · Compras",
+        "desc": "Recepción, instalación y puesta en marcha del nodo de IA y respaldo eléctrico.",
+        "entregables": [
+            "DGX Spark en operación en campus",
+            "Eaton DX2000LAN configurado",
+            "Acta de recepción técnica",
+        ],
+    },
+    {
+        "id": "g3", "t": "Migración ConvocaRadar-IA a TI",
+        "start": 31, "end": 80, "resp": "Julián · TI",
+        "desc": "Despliegue desde entorno local a infraestructura Colmayor, CI/CD e identidades.",
+        "entregables": [
+            "Ambientes desarrollo y producción",
+            "ConvocaRadar-IA en infra CMA",
+            "Accesos institucionales configurados",
+        ],
+    },
+    {
+        "id": "g4", "t": "Piloto bienestar → permanencia",
+        "start": 61, "end": 106, "resp": "CEITTO · Bienestar",
+        "desc": "Caso demostrativo que conecta evidencia de bienestar con trayectoria estudiantil.",
+        "entregables": [
+            "Tablero piloto validado",
+            "Indicadores de permanencia cargados",
+            "Informe de hallazgos del piloto",
+        ],
+    },
+    {
+        "id": "g5", "t": "Integración indicadores PDI",
+        "start": 75, "end": 126, "resp": "CEITTO · Planeación",
+        "desc": "Tablero ejecutivo L1, L2 y L4 con lectura IES Distrito y leyenda Oficial/Reportado/Propuesto.",
+        "entregables": [
+            "Tablero ejecutivo PDI",
+            "Radar de convocatorias operativo",
+            "Diccionario de indicadores mínimos",
+        ],
+    },
+    {
+        "id": "g6", "t": "Pruebas, UAT y ajustes",
+        "start": 101, "end": 133, "resp": "Junior · TI · CEITTO",
+        "desc": "Pruebas funcionales, de carga, seguridad y validación con usuarios.",
+        "entregables": [
+            "Acta de pruebas con visto bueno",
+            "Lista de hallazgos y ajustes",
+            "Checklist de seguridad y respaldos",
+        ],
+    },
+    {
+        "id": "g7", "t": "Capacitación y cierre 2026-2",
+        "start": 122, "end": 139, "resp": "José Mario · Julián",
+        "desc": "Formación a usuarios, documentación de operación y proyección 2027.",
+        "entregables": [
+            "Sesiones de capacitación registradas",
+            "Manual de operación v1",
+            "Acta de cierre y proyección 2027",
+        ],
+    },
+]
+
+CRONO_2026_2 = GANTT_2026_2  # compat
 
 MINIMO_OP = [
     "DGX Spark + Eaton DX2000LAN en operación",
@@ -1187,13 +1265,59 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 .exec-card:nth-child(3n+2){{border-top-color:var(--orange)}}
 .exec-card h3{{font-family:var(--display);font-size:1.05rem;margin-bottom:.35rem}}
 .exec-card p{{font-size:.9rem;color:var(--mute);margin:0;line-height:1.4}}
-.crono-rail{{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;margin-top:1rem}}
-.crono-pill{{
-  background:var(--charcoal);color:#fff;border-radius:12px;padding:.85rem .75rem;text-align:left;
+.gantt-wrap{{margin-top:1.2rem;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1.1rem 1.15rem;box-shadow:var(--shadow)}}
+.gantt-head{{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.85rem;flex-wrap:wrap}}
+.gantt-head h3{{font-family:var(--display);font-size:1.2rem;margin:0}}
+.gantt-head .rango{{font-size:.85rem;color:var(--mute)}}
+.gantt-months{{display:grid;grid-template-columns:220px 1fr;gap:.5rem;margin-bottom:.35rem}}
+.gantt-months .lab{{font-size:.72rem;color:transparent}}
+.gantt-months .track{{display:grid;grid-template-columns:31fr 30fr 31fr 30fr 18fr;gap:0;border-bottom:1px solid var(--line)}}
+.gantt-months .track span{{
+  text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--teal-deep);padding:.35rem 0;border-left:1px dashed rgba(0,0,0,.08);
 }}
-.crono-pill .m{{display:block;color:var(--orange);font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}}
-.crono-pill h3{{font-family:var(--display);font-size:.95rem;margin:.2rem 0 .25rem}}
-.crono-pill p{{font-size:.78rem;color:rgba(255,255,255,.72);margin:0}}
+.gantt-months .track span:first-child{{border-left:none}}
+.gantt-rows{{display:grid;gap:.4rem}}
+.gantt-row{{
+  display:grid;grid-template-columns:220px 1fr;gap:.5rem;align-items:center;cursor:pointer;
+  border:1px solid transparent;border-radius:10px;padding:.2rem .25rem;transition:.2s;
+}}
+.gantt-row:hover,.gantt-row.on{{background:var(--alt);border-color:var(--line)}}
+.gantt-row .meta h4{{font-size:.88rem;margin:0 0 .1rem;font-family:var(--display);line-height:1.2}}
+.gantt-row .meta p{{font-size:.72rem;color:var(--mute);margin:0}}
+.gantt-bar-track{{
+  position:relative;height:34px;background:rgba(0,0,0,.03);border-radius:8px;overflow:hidden;
+  border:1px solid var(--line);
+}}
+.gantt-bar{{
+  position:absolute;top:5px;height:22px;border-radius:7px;background:linear-gradient(90deg,var(--teal),var(--teal-deep));
+  box-shadow:0 2px 6px rgba(0,100,90,.25);display:flex;align-items:center;padding:0 .55rem;
+  color:#fff;font-size:.68rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  transition:transform .2s, filter .2s;
+}}
+.gantt-row:nth-child(2n) .gantt-bar{{background:linear-gradient(90deg,var(--orange),#c45c26)}}
+.gantt-row.on .gantt-bar{{transform:scaleY(1.12);filter:brightness(1.08)}}
+.gantt-panel{{
+  margin-top:.9rem;background:linear-gradient(145deg,var(--charcoal),#163d3c);color:#fff;
+  border-radius:12px;padding:1rem 1.15rem;border-left:4px solid var(--orange);min-height:120px;
+}}
+.gantt-panel .tag{{font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--orange)}}
+.gantt-panel h4{{font-family:var(--display);font-size:1.15rem;margin:.25rem 0 .4rem}}
+.gantt-panel .desc{{font-size:.9rem;color:rgba(255,255,255,.78);margin:0 0 .65rem}}
+.gantt-panel .ent{{list-style:none;padding:0;margin:0;display:grid;gap:.35rem}}
+.gantt-panel .ent li{{
+  background:rgba(255,255,255,.08);border-radius:8px;padding:.5rem .7rem;font-size:.86rem;
+  border-left:3px solid var(--teal);
+}}
+.gantt-panel .ent li b{{color:var(--orange)}}
+.gantt-legend{{display:flex;gap:1rem;flex-wrap:wrap;margin-top:.75rem;font-size:.78rem;color:var(--mute)}}
+.gantt-legend i{{display:inline-block;width:14px;height:10px;border-radius:3px;margin-right:.35rem;vertical-align:middle}}
+.gantt-legend .a{{background:var(--teal)}}
+.gantt-legend .b{{background:var(--orange)}}
+@media(max-width:900px){{
+  .gantt-months,.gantt-row{{grid-template-columns:1fr}}
+  .gantt-months .lab,.gantt-row .meta{{margin-bottom:.25rem}}
+}}
 .min-list{{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;list-style:none;padding:0;margin:1rem 0 0}}
 .min-list li{{background:var(--alt);border-radius:10px;padding:.7rem .85rem;border-left:3px solid var(--teal);font-size:.9rem;color:var(--mute)}}
 .qs-grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:1.1rem}}
@@ -1222,11 +1346,11 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 .plan-exec li{{font-size:.86rem;color:var(--mute)}}
 .two-col{{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.2rem}}
 @media(max-width:1000px){{
-  .exec-grid,.qs-grid,.plan-exec,.crono-rail{{grid-template-columns:1fr 1fr}}
+  .exec-grid,.qs-grid,.plan-exec
   .ali-grid,.two-col,.min-list{{grid-template-columns:1fr}}
 }}
 @media(max-width:700px){{
-  .exec-grid,.qs-grid,.plan-exec,.crono-rail{{grid-template-columns:1fr}}
+  .exec-grid,.qs-grid,.plan-exec
 }}
 
 /* Agenda institucional L1/L2/L4 + riesgos */
@@ -1595,9 +1719,27 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
     <div class="plan-exec">
       {''.join('<article><div class="n">Fase {n}</div><h3>{title}</h3><ul>{items}</ul></article>'.format(n=ph["n"], title=ph["t"], items=''.join(f'<li>· {i}</li>' for i in ph["items"])) for ph in PLAN_DISENO)}
     </div>
-    <h3 style="font-family:var(--display);font-size:1.25rem;margin:1.6rem 0 .4rem">Cronograma 2026-2</h3>
-    <div class="crono-rail">
-      {''.join(f'<div class="crono-pill"><span class="m">{c["m"]}</span><h3>{c["t"]}</h3><p>{c["d"]}</p></div>' for c in CRONO_2026_2)}
+        <h3 style="font-family:var(--display);font-size:1.25rem;margin:1.6rem 0 .4rem">Cronograma 2026-2</h3>
+    <p class="sub" style="margin-top:0">Del 1 de agosto al 18 de diciembre. Clic en cada barra para ver entregables.</p>
+    <div class="gantt-wrap" id="ganttWrap">
+      <div class="gantt-head">
+        <h3>Cronograma operativo</h3>
+        <span class="rango">1 ago 2026 → 18 dic 2026 · {GANTT_TOTAL_DIAS} días</span>
+      </div>
+      <div class="gantt-months">
+        <div class="lab">Actividad</div>
+        <div class="track">{''.join(f'<span>{m["label"]}</span>' for m in GANTT_MESES)}</div>
+      </div>
+      <div class="gantt-rows" id="ganttRows">
+        {''.join('<div class="gantt-row{on}" data-i="{i}" role="button" tabindex="0"><div class="meta"><h4>{t}</h4><p>{resp} · día {d0}–{d1}</p></div><div class="gantt-bar-track"><div class="gantt-bar" style="left:{left}%;width:{width}%">{t}</div></div></div>'.format(on=(' on' if i==0 else ''), i=i, t=g['t'], resp=g['resp'], d0=g['start']+1, d1=g['end']+1, left=round(g['start']/GANTT_TOTAL_DIAS*100, 2), width=round((g['end']-g['start']+1)/GANTT_TOTAL_DIAS*100, 2)) for i,g in enumerate(GANTT_2026_2))}
+      </div>
+      <aside class="gantt-panel" id="ganttPanel">
+        <div class="tag">Entregables · {GANTT_2026_2[0]['resp']}</div>
+        <h4>{GANTT_2026_2[0]['t']}</h4>
+        <p class="desc">{GANTT_2026_2[0]['desc']}</p>
+        <ul class="ent">{''.join(f'<li><b>Entregable:</b> {e}</li>' for e in GANTT_2026_2[0]['entregables'])}</ul>
+      </aside>
+      <div class="gantt-legend"><span><i class="a"></i>Fases técnicas / despliegue</span><span><i class="b"></i>Piloto, integración y cierre</span></div>
     </div>
     <div class="two-col">
       <div>
@@ -1807,6 +1949,8 @@ const PILARES = {json.dumps(PILARES, ensure_ascii=False)};
 const VENTAJAS = {json.dumps(VENTAJAS, ensure_ascii=False)};
 const SERVICIOS = {json.dumps(SERVICIOS, ensure_ascii=False)};
 const ESTUDIOS = {json.dumps(ESTUDIOS, ensure_ascii=False)};
+const GANTT_2026_2 = {json.dumps(GANTT_2026_2, ensure_ascii=False)};
+
 document.getElementById('menu').onclick=()=>document.getElementById('links').classList.toggle('open');
 document.querySelectorAll('#links a').forEach(a=>{{
   a.addEventListener('click',()=>document.getElementById('links').classList.remove('open'));
@@ -2075,12 +2219,34 @@ window.addEventListener('scroll',()=>{{
   secs.forEach(s=>{{if(scrollY>=s.offsetTop-110)cur=s.id;}});
   links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')===`#${{cur}}`));
 }});
+
+function renderGantt(i){{
+  const g = GANTT_2026_2[i];
+  const panel = document.getElementById('ganttPanel');
+  if(!panel || !g) return;
+  panel.innerHTML = `
+    <div class="tag">Entregables · ${{g.resp}}</div>
+    <h4>${{g.t}}</h4>
+    <p class="desc">${{g.desc}}</p>
+    <ul class="ent">${{g.entregables.map(e=>`<li><b>Entregable:</b> ${{e}}</li>`).join('')}}</ul>`;
+}}
+document.querySelectorAll('#ganttRows .gantt-row').forEach(row=>{{
+  const activate=()=>{{
+    document.querySelectorAll('#ganttRows .gantt-row').forEach(r=>r.classList.remove('on'));
+    row.classList.add('on');
+    renderGantt(+row.dataset.i);
+  }};
+  row.addEventListener('click', activate);
+  row.addEventListener('keydown', e=>{{ if(e.key==='Enter'||e.key===' '){{ e.preventDefault(); activate(); }} }});
+}});
+if(document.getElementById('ganttRows')) renderGantt(0);
+
 </script>
 </body>
 </html>
 '''
 
-(OUT / "index.html").write_text(html, encoding="utf-8")
+(OUT / "ejecutiva.html").write_text(html, encoding="utf-8")
 assert "Seleccione un objetivo" not in html
 assert "no reemplaza" in html
 assert "DGX Spark" in html
@@ -2116,5 +2282,7 @@ assert 'id="hardware"' in html
 assert '29.420.000' in html
 assert 'Mínimo operativo' in html
 assert 'Cronograma 2026-2' in html
-print("OK", OUT / "index.html", "total", PRESUPUESTO["total"])
+assert "ganttRows" in html
+assert "Entregable" in html
+print("OK", OUT / "ejecutiva.html", "total", PRESUPUESTO["total"])
 
