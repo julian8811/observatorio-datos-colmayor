@@ -266,9 +266,9 @@ PERIODO_TALENTO = "ago – 15 dic"
 
 TALENTO = [
     {
-        "ini": "JM", "nombre": "José Mario Gómez López",
-        "rol": "Líder CEITTO · coordinación institucional y articulación con TI",
-        "dedica": "CEITTO · Colmayor", "cop": 3_750_000,
+        "ini": "JM", "nombre": "José Mario López Gómez",
+        "rol": "Docente ocasional · Facultad de Administración · apoyo y articulación CEITTO / TI",
+        "dedica": "10 horas de apoyo", "cop": 3_750_000,
     },
     {
         "ini": "JP", "nombre": "Julián Esteban Pineda Montoya",
@@ -281,7 +281,6 @@ TALENTO = [
         "dedica": "Por demanda · CEITTO", "cop": 450_000,
     },
 ]
-
 # Ruta de escalamiento de ConvocaRadar-IA: de local a infraestructura TI del CMA
 ESCALADO = [
     {
@@ -340,6 +339,114 @@ ESCALADO = [
         "out": "Plataforma institucional estable con soporte permanente",
     },
 ]
+
+# --- Versión ejecutiva (resumen para decisión) ---
+BENEFICIOS_EXEC = [
+    {"t": "Decisión con evidencia", "d": "Tableros PDI L1–L4 y alertas ejecutivas en días, no en semanas."},
+    {"t": "Convocatorias trazables", "d": "Radar nacional e internacional con embudo hasta cierre y productos."},
+    {"t": "Calidad y acreditación", "d": "Expedientes con dato oficial, reportado o propuesto, listos para CNA."},
+    {"t": "Transparencia y riesgo", "d": "Linaje del dato, evidencia y soporte frente a mapas de riesgos G+."},
+    {"t": "Capacidad instalada", "d": "DGX Spark + CEITTO para VT/IC, IA local y servicios externos."},
+    {"t": "Conecta institucional", "d": "Articula facultades, Distrito, redes y transferencia (ruta OTRI)."},
+]
+
+COMPUTO_USO = [
+    {"t": "IA local segura", "d": "Inferencia y ajuste de modelos en campus, sin depender solo de nube."},
+    {"t": "ConvocaRadar-IA", "d": "Scraping, clasificación y alertas de convocatorias N/I en producción."},
+    {"t": "Analítica institucional", "d": "Tableros de PDI, permanencia, semilleros y venta de servicios."},
+    {"t": "VT / IC a la medida", "d": "Estudios territoriales y sectoriales con entrega HTML/PDF/tablero."},
+    {"t": "Respaldo continuo", "d": "UPS Eaton + nodo siempre disponible para agentes y reportes."},
+]
+
+CRONO_2026_2 = [
+    {"m": "Ago", "t": "Alistamiento", "d": "Arquitectura TI, inventario ConvocaRadar, roles y datos oficiales."},
+    {"m": "Sep", "t": "Despliegue", "d": "DGX en operación, UPS, CI/CD y ambientes Colmayor."},
+    {"m": "Oct", "t": "Piloto", "d": "Bienestar → permanencia y primer tablero ejecutivo."},
+    {"m": "Nov", "t": "Integración", "d": "Indicadores PDI L1/L2/L4 + radar de convocatorias."},
+    {"m": "Dic", "t": "Cierre", "d": "Acta de pruebas, capacitación y proyección 2027."},
+]
+
+MINIMO_OP = [
+    "DGX Spark + Eaton DX2000LAN en operación",
+    "ConvocaRadar-IA desplegado en infraestructura TI del CMA",
+    "Un tablero ejecutivo (PDI / convocatorias / piloto)",
+    "Equipo CEITTO con dedicación activa (JM 10 h + Julián MT + Junior)",
+    "Leyenda Oficial / Reportado / Propuesto en indicadores",
+]
+
+PROYECCION_2027 = [
+    {"t": "Autofinanciamiento", "d": "Ampliar venta de servicios VT/IC y estudios a terceros."},
+    {"t": "Dominios separados", "d": "Internacionalización, Graduados y Centro de Lenguas con dueños de dato."},
+    {"t": "Ruta OTRI", "d": "Avanzar reconocimiento Minciencias de transferencia de resultados."},
+    {"t": "Red Innruta", "d": "Consolidar ingreso y uso de plataformas de inteligencia competitiva."},
+    {"t": "Más plataformas", "d": "Pipeline de productos digitales alineados al PDI y al Distrito."},
+]
+
+QUE_SIGUE = [
+    {"plat": "ConvocaRadar-IA", "foco": "Vigilancia de convocatorias nacionales e internacionales", "estado": "En escalamiento a TI Colmayor"},
+    {"plat": "Tablero PDI ejecutivo", "foco": "L1, L2 y L4 con indicadores IES Distrito y alertas", "estado": "Por diseñar · 2026-2"},
+    {"plat": "Piloto permanencia", "foco": "Bienestar → graduación y éxito académico", "estado": "Caso demostrativo"},
+    {"plat": "Observatorio VT/IC", "foco": "Estudios territoriales y sectoriales con evidencia", "estado": "Trayectoria demostrada"},
+    {"plat": "Ruta OTRI / transferencia", "foco": "Gestión de PI, licenciamiento y spin-offs (TRL 6–9)", "estado": "Línea estratégica"},
+    {"plat": "Suite Innruta", "foco": "Inteligencia competitiva y vigilancia tecnológica en red", "estado": "Ingreso a la red"},
+]
+
+PERFIL_IDONEIDAD = [
+    {"t": "Analista de datos CEITTO", "d": "Opera plataformas, limpia datos y entrega tableros/reportes."},
+    {"t": "Articulación académica", "d": "Docente ocasional Fac. Administración (10 h) conecta demanda institucional."},
+    {"t": "Soporte junior", "d": "Pruebas, documentación y acompañamiento de usuarios."},
+    {"t": "TI Colmayor", "d": "Infraestructura, seguridad, identidad y continuidad del servicio."},
+]
+
+ALIANZAS = [
+    {
+        "t": "Ruta OTRI · Minciencias",
+        "d": "Reconocimiento de Oficinas de Transferencia de Resultados de Investigación: transferencia TRL 6–9, PI, spin-offs y articulación U–empresa.",
+        "url": "https://minciencias.gov.co/reconocimiento-actores/reconocimiento-oficinas-transferencia-resultados-investigacion-otri",
+        "tag": "Certificación / reconocimiento",
+    },
+    {
+        "t": "Red Innruta",
+        "d": "Ingreso a la red de inteligencia competitiva: plataformas, buenas prácticas y colaboración en VT/IC.",
+        "url": "https://www.linkedin.com/in/innruta-red-ic-41343016b/",
+        "tag": "Alianza estratégica",
+    },
+    {
+        "t": "Red Secopind · ICIPC",
+        "d": "Propiedad intelectual y vigilancia tecnológica con referentes del ecosistema.",
+        "url": "",
+        "tag": "Red técnica",
+    },
+    {
+        "t": "Conecta CEITTO",
+        "d": "Mecanismo de articulación con facultades, investigación, extensión, Distrito y aliados externos.",
+        "url": "",
+        "tag": "Gobernanza interna",
+    },
+]
+
+PLAN_DISENO = [
+    {"n": "01", "t": "Diseño", "items": [
+        "Procedimiento, objetivos y flujo del Observatorio",
+        "Instrumento de oportunidades CTi",
+        "Plan de acción 2026-2027",
+        "Mecanismos de captura y divulgación",
+    ]},
+    {"n": "02", "t": "Necesidades", "items": [
+        "Facultades, Investigación y Extensión",
+        "CEITTO: innovación, PI y emprendimiento",
+        "Direcciones y Bienestar (piloto)",
+        "Demanda de industria y territorio",
+    ]},
+    {"n": "03", "t": "Modelo", "items": [
+        "Gobernanza de datos (Oficial / Reportado / Propuesto)",
+        "MVP en DGX Spark + ConvocaRadar-IA",
+        "Indicadores mínimos PDI y Distrito",
+        "Ruta de alianzas OTRI / Innruta",
+    ]},
+]
+
+
 
 # Contextualizado a Colmayor (PDI 2024-2028, CNA, CEITTO, Alcaldía de Medellín)
 PROBLEMAS = [
@@ -1070,6 +1177,58 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 .hw-usd{{font-size:.78rem;color:var(--mute);margin-top:.25rem}}
 @media(max-width:800px){{.hw-photo{{height:180px}}}}
 
+
+/* Exec summary */
+.exec-grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:1.2rem}}
+.exec-card{{
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.15rem;
+  box-shadow:var(--shadow);border-top:3px solid var(--teal);
+}}
+.exec-card:nth-child(3n+2){{border-top-color:var(--orange)}}
+.exec-card h3{{font-family:var(--display);font-size:1.05rem;margin-bottom:.35rem}}
+.exec-card p{{font-size:.9rem;color:var(--mute);margin:0;line-height:1.4}}
+.crono-rail{{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;margin-top:1rem}}
+.crono-pill{{
+  background:var(--charcoal);color:#fff;border-radius:12px;padding:.85rem .75rem;text-align:left;
+}}
+.crono-pill .m{{display:block;color:var(--orange);font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}}
+.crono-pill h3{{font-family:var(--display);font-size:.95rem;margin:.2rem 0 .25rem}}
+.crono-pill p{{font-size:.78rem;color:rgba(255,255,255,.72);margin:0}}
+.min-list{{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;list-style:none;padding:0;margin:1rem 0 0}}
+.min-list li{{background:var(--alt);border-radius:10px;padding:.7rem .85rem;border-left:3px solid var(--teal);font-size:.9rem;color:var(--mute)}}
+.qs-grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:1.1rem}}
+.qs-card{{
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.1rem;box-shadow:var(--shadow);
+}}
+.qs-card .st{{font-size:.68rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--teal-deep)}}
+.qs-card h3{{font-family:var(--display);font-size:1.05rem;margin:.35rem 0}}
+.qs-card p{{font-size:.88rem;color:var(--mute);margin:0}}
+.ali-grid{{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1.1rem}}
+.ali-card{{
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.15rem;box-shadow:var(--shadow);
+  display:flex;flex-direction:column;gap:.4rem;
+}}
+.ali-card .tag{{align-self:flex-start;font-size:.68rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  background:rgba(0,179,175,.12);color:var(--teal-deep);padding:.25rem .55rem;border-radius:999px}}
+.ali-card h3{{font-family:var(--display);font-size:1.1rem;margin:0}}
+.ali-card p{{font-size:.9rem;color:var(--mute);margin:0;flex:1}}
+.ali-card a{{font-size:.85rem;font-weight:600;color:var(--teal-deep);text-decoration:none}}
+.ali-card a:hover{{text-decoration:underline}}
+.plan-exec{{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:1rem}}
+.plan-exec article{{background:var(--alt);border-radius:12px;padding:1rem;border-top:3px solid var(--orange)}}
+.plan-exec .n{{font-size:.72rem;font-weight:800;color:var(--orange)}}
+.plan-exec h3{{font-family:var(--display);font-size:1.05rem;margin:.2rem 0 .5rem}}
+.plan-exec ul{{list-style:none;padding:0;margin:0;display:grid;gap:.3rem}}
+.plan-exec li{{font-size:.86rem;color:var(--mute)}}
+.two-col{{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.2rem}}
+@media(max-width:1000px){{
+  .exec-grid,.qs-grid,.plan-exec,.crono-rail{{grid-template-columns:1fr 1fr}}
+  .ali-grid,.two-col,.min-list{{grid-template-columns:1fr}}
+}}
+@media(max-width:700px){{
+  .exec-grid,.qs-grid,.plan-exec,.crono-rail{{grid-template-columns:1fr}}
+}}
+
 /* Agenda institucional L1/L2/L4 + riesgos */
 .agenda-stage{{margin-top:1.4rem}}
 .agenda-tabs{{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;margin-bottom:1rem}}
@@ -1370,17 +1529,14 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
     <button class="menu" id="menu" type="button">Menú</button>
     <div class="nav-links" id="links">
       <a href="#inicio">Inicio</a>
-      <a href="#objetivos">Objetivos</a>
-      <a href="#problema">Problemas</a>
-      <a href="#ventajas-pdi">Ventajas PDI</a>
-      <a href="#agenda">Agenda</a>
-      <a href="#flujo">Flujo</a>
-      <a href="#kpis">KPIs</a>
-      <a href="#hardware">Hardware</a>
-      <a href="#servicios">Servicios</a>
+      <a href="#beneficios">Beneficios</a>
+      <a href="#computo">Cómputo</a>
+      <a href="#plan">Plan 2026-2</a>
+      <a href="#talento">Equipo</a>
+      <a href="#alianzas">Alianzas</a>
       <a href="#estudios">Trayectoria</a>
-      <a href="#talento">Talento</a>
-      <a href="#piloto">Piloto</a>
+      <a href="#hardware">Presupuesto</a>
+      <a href="#sigue">Qué sigue</a>
     </div>
   </div>
 </nav>
@@ -1395,7 +1551,7 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
     <div class="wrap">
       <div class="chip"><i></i> Observatorio de Ciencia, Tecnología e Innovación</div>
       <h1>De datos del entorno a <em>decisión</em> estratégica</h1>
-      <p class="hero-lead">Organizar · Cuantificar · Procesar · Disponer</p>
+      <p class="hero-lead">Versión ejecutiva · 2026-2 · CEITTO Colmayor</p>
       <p class="hero-obj"><strong>Objetivo:</strong> {OBJETIVO_CLARO}</p>
       <div class="hero-metrics">
         <div class="metric"><b>4</b><span>Objetivos</span></div>
@@ -1407,288 +1563,76 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
   </div>
 </header>
 
-<section id="objetivos">
-  <div class="wrap reveal">
-    <p class="kicker">Direccionamiento</p>
-    <h2>Objetivos específicos</h2>
-    <div class="bento bento-4" style="margin-top:1.4rem">
-      {''.join(f'''<button class="card obj-card{' on' if i==0 else ''}" data-i="{i}" type="button">
-        <div class="glyph">{o['n']}</div>
-        <h3>{o['t']}</h3>
-        <p>{o['s']}</p>
-      </button>''' for i,o in enumerate(OBJ))}
-    </div>
-    <div class="obj-panel" id="objPanel"><strong>{OBJ[0]['t']}</strong><p>{OBJ[0]['d']}</p></div>
-  </div>
-</section>
 
-<section class="section-alt" id="problema">
+<section id="beneficios" class="section-alt">
   <div class="wrap reveal">
-    <p class="kicker">Problemática institucional</p>
-    <h2>De reportes fragmentados a inteligencia accionable</h2>
-    <p class="sub">Retos reales de Colmayor para calidad, planeación, investigación y extensión, leídos a la luz del Plan de Desarrollo 2024-2028.</p>
-    <div class="prob-stage">
-      <div class="prob-list" id="probList">
-        {''.join(f'''<button class="prob-btn{' solucion' if p['tipo']=='solucion' else ''}{' on' if i==0 else ''}" type="button" data-i="{i}">
-          <div class="prob-id">{p['id']}</div>
-          <div><h3>{p['titulo']}</h3><p class="prob-meta">{p['colmayor']}</p></div>
-        </button>''' for i,p in enumerate(PROBLEMAS))}
-      </div>
-      <aside class="prob-panel{' solucion' if PROBLEMAS[0]['tipo']=='solucion' else ''}" id="probPanel">
-        <p class="tag">Contexto Colmayor</p>
-        <h3>{PROBLEMAS[0]['titulo']}</h3>
-        <p>{PROBLEMAS[0]['desc']}</p>
-        <div class="efecto"><strong>Implicación:</strong> {PROBLEMAS[0]['efecto']}</div>
-      </aside>
+    <p class="kicker">Valor ejecutivo</p>
+    <h2>Beneficios de adoptar el Observatorio</h2>
+    <p class="sub">Resumen alineado al Plan de Desarrollo 2024-2028 (L1, L2 y L4) y a la operación CEITTO.</p>
+    <div class="exec-grid">
+      {''.join(f'<article class="exec-card"><h3>{b["t"]}</h3><p>{b["d"]}</p></article>' for b in BENEFICIOS_EXEC)}
     </div>
   </div>
 </section>
 
-<section id="ventajas-pdi">
+<section id="computo">
   <div class="wrap reveal">
-    <p class="kicker">Alineación institucional</p>
-    <h2>Ventajas de adoptar el Observatorio</h2>
-    <p class="sub">Articulados a las cuatro líneas del Plan de Desarrollo 2024-2028: Avanzando en la innovación y la transformación de la educación.</p>
-    <div class="pdi-stage">
-      <div class="pdi-tabs" id="pdiTabs">
-        {''.join(f'''<button class="pdi-tab{' on' if i==0 else ''}" type="button" data-i="{i}">
-          <p class="ln">{v['linea']}</p>
-          <h3>{v['nombre']}</h3>
-          <p>{v['foco']}</p>
-        </button>''' for i,v in enumerate(VENTAJAS_PDI))}
-      </div>
-      <div class="pdi-panel" id="pdiPanel">
-        <h3>{VENTAJAS_PDI[0]['nombre']}</h3>
-        <p class="foco">{VENTAJAS_PDI[0]['foco']}</p>
-        <ul class="pdi-inds">
-          {''.join(f'<li style="animation-delay:{i*0.05}s"><b>{ind["t"]}</b><span>{ind["m"]}</span></li>' for i,ind in enumerate(VENTAJAS_PDI[0]['indicadores']))}
-        </ul>
-      </div>
+    <p class="kicker">Infraestructura solicitada</p>
+    <h2>Qué hace el equipo de cómputo</h2>
+    <p class="sub">NVIDIA DGX Spark + Eaton DX2000LAN: nodo de IA local para el Observatorio y ConvocaRadar-IA.</p>
+    <div class="exec-grid">
+      {''.join(f'<article class="exec-card"><h3>{c["t"]}</h3><p>{c["d"]}</p></article>' for c in COMPUTO_USO)}
     </div>
+    <p class="agenda-src" style="margin-top:1rem">Detalle técnico y presupuesto en <a href="#hardware">Presupuesto MVP</a>. Proveedor: Clones y Periféricos.</p>
   </div>
 </section>
 
-<section class="section-alt" id="agenda">
+<section id="plan" class="section-alt">
   <div class="wrap reveal">
-    <p class="kicker">Plan de Desarrollo · Agenda institucional</p>
-    <h2>Estudios, indicadores y riesgos en L1, L2 y L4</h2>
-    <p class="sub">Integración de la Agenda de Estudios sobre Asuntos Institucionales, indicadores IES Distrito (corte jun-2026) y mapas de riesgos, según las observaciones de acompañamiento a la presentación del Observatorio.</p>
-    <div class="agenda-stage">
-      <div class="agenda-tabs" id="agendaTabs">
-        {''.join(f'''<button class="agenda-tab{' on' if i==0 else ''}" type="button" data-i="{i}">
-          <p class="ln">{a['linea']}</p>
-          <h3>{a['nombre']}</h3>
-          <p>{a['foco']}</p>
-        </button>''' for i,a in enumerate(AGENDA_INST))}
-      </div>
-      <div class="agenda-panel" id="agendaPanel"></div>
+    <p class="kicker">Plan de diseño · 2026-2</p>
+    <h2>Diseño, cronograma y mínimo operativo</h2>
+    <p class="sub">Hoja de ruta corta para poner en marcha el Observatorio en el semestre.</p>
+    <div class="plan-exec">
+      {''.join('<article><div class="n">Fase {n}</div><h3>{title}</h3><ul>{items}</ul></article>'.format(n=ph["n"], title=ph["t"], items=''.join(f'<li>· {i}</li>' for i in ph["items"])) for ph in PLAN_DISENO)}
     </div>
-    <div class="agenda-legend">
-      <span class="pill off">Oficial</span>
-      <span class="pill rep">Reportado</span>
-      <span class="pill prop">Propuesto</span>
-      <span class="note">Clasificación de datos para no mezclar KPI PMO no aprobados con metas PDI.</span>
+    <h3 style="font-family:var(--display);font-size:1.25rem;margin:1.6rem 0 .4rem">Cronograma 2026-2</h3>
+    <div class="crono-rail">
+      {''.join(f'<div class="crono-pill"><span class="m">{c["m"]}</span><h3>{c["t"]}</h3><p>{c["d"]}</p></div>' for c in CRONO_2026_2)}
     </div>
-    <p class="agenda-src">Fuentes: <a href="https://www.colmayor.edu.co/institucional/aseguramiento-calidad-academica/agenda-de-estudios-de-asuntos-institucionales/" target="_blank" rel="noopener">Agenda de Estudios Institucionales</a> · Indicadores IES Distrito · Mapas de riesgos G+ · PINAR 2024 · observaciones de acompañamiento.</p>
-  </div>
-</section>
-
-
-<section class="section-alt" id="valor">
-  <div class="wrap reveal">
-    <p class="kicker">Valor</p>
-    <h2>Por qué un Observatorio CTi</h2>
-    <div class="valor-stage">
-      <div class="pillar-stack" id="pillarStack">
-        {''.join(f'''<button class="pillar-btn{' on' if i==0 else ''}" type="button" data-i="{i}">
-          <div class="pillar-ico">{i+1}</div>
-          <div><h3>{p["t"]}</h3><p>{p["d"]}</p></div>
-        </button>''' for i,p in enumerate(PILARES))}
+    <div class="two-col">
+      <div>
+        <h3 style="font-family:var(--display);font-size:1.15rem;margin:0 0 .35rem">Mínimo operativo</h3>
+        <ul class="min-list">{''.join(f'<li>{x}</li>' for x in MINIMO_OP)}</ul>
       </div>
-      <aside class="valor-panel" id="valorPanel">
-        <p class="eyebrow">Pilar activo</p>
-        <h3>{PILARES[0]["t"]}</h3>
-        <p>{PILARES[0]["d"]}</p>
-      </aside>
-    </div>
-    <div class="adv-rail" id="advRail">
-      {''.join(f'''<button class="adv-chip" type="button" data-i="{i}">
-        <span class="av">{i+1}</span><b>{v["t"]}</b><span>{v["d"]}</span>
-      </button>''' for i,v in enumerate(VENTAJAS))}
-    </div>
-    <div class="adv-spotlight" id="advSpot"></div>
-  </div>
-</section>
-
-<section id="flujo">
-  <div class="wrap reveal">
-    <p class="kicker">Operación</p>
-    <h2>Diagrama de flujo del Observatorio CTi</h2>
-    <p class="sub">Vista completa del ciclo. Clic en cada etapa para detalle del proceso.</p>
-    <div class="flow-shell">
-      <div class="flow-bar">
-        <div class="flow-legend">
-          <span><i class="dot" style="background:#dff7f6;border:1px solid #2C3339"></i>Entrada</span>
-          <span><i class="dot" style="background:#eef7e8;border:1px solid #2C3339"></i>Captura</span>
-          <span><i class="dot" style="background:#fff;border:1px solid #2C3339"></i>Proceso / análisis</span>
-          <span><i class="dot" style="background:#fff4e5;border:1px solid #2C3339"></i>Salida / decisión</span>
-        </div>
-        <span>Clic en cada etapa</span>
-      </div>
-      <div class="flow-canvas">
-        <svg id="diagrama" viewBox="0 0 1050 360" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#7f93a6"/></marker>
-            <marker id="arrowC" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#F39A1A"/></marker>
-          </defs>
-          {''.join(edges_svg)}
-          {''.join(nodes_svg)}
-        </svg>
-      </div>
-      <div class="flow-detail" id="flowDetail">
-        <div class="flow-step">{f0['n']}</div>
-        <div>
-          <h3>{f0['titulo']} · {f0['fase']}</h3>
-          <p class="proceso">{f0['proceso']}</p>
-          <div class="flow-grid">
-            <div class="flow-box"><h4>Actividades</h4><ul>{''.join(f'<li>{a}</li>' for a in f0['actividades'])}</ul></div>
-            <div class="flow-box"><h4>Entradas / salidas</h4><p><strong>En:</strong> {f0['entradas']}<br/><strong>Out:</strong> {f0['salidas']}</p></div>
-            <div class="flow-box"><h4>Responsable</h4><p>{f0['responsable']}</p></div>
-          </div>
+      <div>
+        <h3 style="font-family:var(--display);font-size:1.15rem;margin:0 0 .35rem">Proyección 2027</h3>
+        <div class="exec-grid" style="grid-template-columns:1fr;margin-top:.5rem">
+          {''.join(f'<article class="exec-card"><h3>{x["t"]}</h3><p>{x["d"]}</p></article>' for x in PROYECCION_2027[:3])}
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section-alt" id="plan">
+<section id="perfil">
   <div class="wrap reveal">
-    <p class="kicker">2026-2</p>
-    <h2>Plan de diseño</h2>
-    <div class="roadmap">
-      <div class="roadmap-track" id="roadTrack">
-        {''.join(f'''<button class="road-step{' on' if i==0 else ''}" type="button" data-i="{i}">
-          <div class="road-dot">{p["fase"]}</div>
-          <h3>{p["t"]}</h3>
-          <p class="hint">{len(p["items"])} actividades</p>
-        </button>''' for i,p in enumerate(PLAN))}
-      </div>
-      <div class="road-panel" id="roadPanel">
-        <div class="road-badge">{PLAN[0]["fase"]}</div>
-        <div>
-          <h3>{PLAN[0]["t"]}</h3>
-          <ul class="road-items">{''.join(f'<li style="animation-delay:{i*0.05}s">{it}</li>' for i,it in enumerate(PLAN[0]["items"]))}</ul>
-        </div>
-      </div>
+    <p class="kicker">Capacidad humana</p>
+    <h2>Perfil de idoneidad</h2>
+    <p class="sub">Roles mínimos para operar el Observatorio con calidad y continuidad.</p>
+    <div class="exec-grid" style="grid-template-columns:repeat(4,1fr)">
+      {''.join(f'<article class="exec-card"><h3>{x["t"]}</h3><p>{x["d"]}</p></article>' for x in PERFIL_IDONEIDAD)}
     </div>
+    <p class="agenda-src">Detalle de dedicación y costos en <a href="#talento">Equipo</a>.</p>
   </div>
 </section>
 
-<section id="recoleccion">
+<section id="alianzas" class="section-alt">
   <div class="wrap reveal">
-    <p class="kicker">Componentes</p>
-    <h2>Recolección de información</h2>
-    <div class="split" style="margin-top:1.3rem">
-      <div class="know ex"><h3>Explícito</h3><ul><li>Fuentes secundarias VT/IC</li><li>Bases, patentes y convocatorias</li></ul></div>
-      <div class="know ta"><h3>Tácito</h3><ul><li>Entrevistas a tomadores de decisión</li><li>Eventos, foros y observación directa</li></ul></div>
-    </div>
-  </div>
-</section>
-
-<section class="section-alt" id="kpis">
-  <div class="wrap reveal">
-    <p class="kicker">Indicadores MVP</p>
-    <h2>20 KPIs en 4 dimensiones</h2>
-    <p class="sub">Marco de gestión del observatorio: operativa, analítica, ROI y sostenibilidad.</p>
-    <div class="kpi-tabs" id="kpiTabs">
-      <button class="kpi-tab on" data-dim="all" type="button">Todos (20)</button>
-      <button class="kpi-tab" data-dim="operativa" type="button">Operativa (4)</button>
-      <button class="kpi-tab" data-dim="analitica" type="button">Analítica (5)</button>
-      <button class="kpi-tab" data-dim="roi" type="button">ROI (8)</button>
-      <button class="kpi-tab" data-dim="sostenibilidad" type="button">Sostenibilidad (3)</button>
-    </div>
-    <div class="kpi-grid" id="kpiGrid">{kpi_cards}</div>
-  </div>
-</section>
-
-<section id="hardware">
-  <div class="wrap reveal">
-    <p class="kicker">Infraestructura MVP</p>
-    <h2>Configuración recomendada y presupuesto MVP</h2>
-    <p class="sub">{HW['ws']['titulo']} + {HW['ups']['titulo']} · inversión total del MVP.</p>
-    <div class="hw-grid">
-      <article class="hw">
-        <span class="tag">Clones y Periféricos</span>
-        <img class="hw-photo" src="{HW['ws']['img']}" alt="NVIDIA DGX Spark" loading="lazy">
-        <h3>{HW['ws']['titulo']}</h3>
-        <ul>{''.join(f'<li>{s}</li>' for s in HW['ws']['specs'])}</ul>
-        <div class="price">{fmt_cop(HW['ws']['cop'])}</div>
-        <p class="hw-usd">Precio lista {fmt_cop(HW['ws']['list_cop'])} · oferta vigente en proveedor Colombia</p>
-        <a class="hw-link" href="{HW['ws']['url']}" target="_blank" rel="noopener">Ver en Clones y Periféricos →</a>
-      </article>
-      <article class="hw ups">
-        <span class="tag">UPS</span>
-        <img class="hw-photo" src="{HW['ups']['img']}" alt="Eaton DX2000LAN" loading="lazy">
-        <h3>{HW['ups']['titulo']}</h3>
-        <ul>{''.join(f'<li>{s}</li>' for s in HW['ups']['specs'])}</ul>
-        <div class="price">{fmt_cop(HW['ups']['cop'])}</div>
-      </article>
-    </div>
-    <div class="budget">
-      <p style="font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;opacity:.75">Presupuesto total del proyecto MVP</p>
-      <div class="total">{fmt_cop(PRESUPUESTO['total'])}</div>
-      {''.join(f'''<div class="budget-row">
-        <div><div>{l['nombre']}</div><div class="bar"><div class="fill" style="width:{l['pct']}%"></div></div></div>
-        <strong>{fmt_cop(l['valor'])}</strong>
-        <span style="opacity:.7">{l['pct']}%</span>
-      </div>''' for l in PRESUPUESTO['lineas'])}
-    </div>
-  </div>
-</section>
-
-<section class="section-alt" id="canales">
-  <div class="wrap reveal">
-    <p class="kicker">Divulgación</p>
-    <h2>Canales CTIC</h2>
-    <div class="canal-stage">
-      <div class="canal-hub" id="canalHub">
-        <p class="hub-label">Canal activo</p>
-        <h3 id="canalTitle">{CANALES[0]}</h3>
-        <p id="canalDesc">Medio de divulgación para fortalecer capacidades institucionales en CTi.</p>
-      </div>
-      <div class="canal-mosaic" id="canalMosaic">
-        {''.join(f'''<button class="canal-tile{' on' if i==0 else ''}" type="button" data-c="{c}">
-          <span class="ci">{str(i+1).zfill(2)}</span><b>{c}</b>
-        </button>''' for i,c in enumerate(CANALES))}
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="servicios">
-  <div class="wrap reveal">
-    <p class="kicker">Portafolio</p>
-    <h2>Servicios del Observatorio CTi</h2>
-    <div class="svc-mosaic" id="svcMosaic">
-      {''.join(f'''<button class="svc-tile" type="button" data-i="{i}">
-        <span class="sn">0{i+1}</span><b>{s["t"]}</b><span>{s["d"]}</span>
-      </button>''' for i,s in enumerate(SERVICIOS))}
-    </div>
-    <div class="svc-detail" id="svcDetail"></div>
-  </div>
-</section>
-
-<div class="marquee" aria-hidden="true"><div class="marquee-track">{''.join(f'<span>{f}</span>' for f in FUENTES+FUENTES)}</div></div>
-
-<section id="capacidades" class="section-alt">
-  <div class="wrap reveal">
-    <p class="kicker">Capacidades</p>
-    <h2>Perfil, herramientas y redes</h2>
-    <div class="bento bento-4" style="margin:1.2rem 0">
-      {''.join(f'<article class="card"><h3>{c["t"]}</h3><p>{c["d"]}</p></article>' for c in CAPACIDADES)}
-    </div>
-    <div class="lineas">
-      {''.join(f'<article class="linea"><h3>{l["t"]}</h3><p>{l["d"]}</p></article>' for l in LINEAS)}
+    <p class="kicker">Ecosistema</p>
+    <h2>Convenios y alianzas estratégicas</h2>
+    <p class="sub">Conecta CEITTO con redes de VT/IC y la ruta de reconocimiento OTRI de Minciencias.</p>
+    <div class="ali-grid">
+      {''.join(f'<article class="ali-card"><span class="tag">{a["tag"]}</span><h3>{a["t"]}</h3><p>{a["d"]}</p>' + (f'<a href="{a["url"]}" target="_blank" rel="noopener">Ver referencia →</a>' if a.get("url") else "") + '</article>' for a in ALIANZAS)}
     </div>
   </div>
 </section>
@@ -1779,6 +1723,41 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
   </div>
 </section>
 
+<section id="hardware">
+  <div class="wrap reveal">
+    <p class="kicker">Infraestructura MVP</p>
+    <h2>Configuración recomendada y presupuesto MVP</h2>
+    <p class="sub">{HW['ws']['titulo']} + {HW['ups']['titulo']} · inversión total del MVP.</p>
+    <div class="hw-grid">
+      <article class="hw">
+        <span class="tag">Clones y Periféricos</span>
+        <img class="hw-photo" src="{HW['ws']['img']}" alt="NVIDIA DGX Spark" loading="lazy">
+        <h3>{HW['ws']['titulo']}</h3>
+        <ul>{''.join(f'<li>{s}</li>' for s in HW['ws']['specs'])}</ul>
+        <div class="price">{fmt_cop(HW['ws']['cop'])}</div>
+        <p class="hw-usd">Precio lista {fmt_cop(HW['ws']['list_cop'])} · oferta vigente en proveedor Colombia</p>
+        <a class="hw-link" href="{HW['ws']['url']}" target="_blank" rel="noopener">Ver en Clones y Periféricos →</a>
+      </article>
+      <article class="hw ups">
+        <span class="tag">UPS</span>
+        <img class="hw-photo" src="{HW['ups']['img']}" alt="Eaton DX2000LAN" loading="lazy">
+        <h3>{HW['ups']['titulo']}</h3>
+        <ul>{''.join(f'<li>{s}</li>' for s in HW['ups']['specs'])}</ul>
+        <div class="price">{fmt_cop(HW['ups']['cop'])}</div>
+      </article>
+    </div>
+    <div class="budget">
+      <p style="font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;opacity:.75">Presupuesto total del proyecto MVP</p>
+      <div class="total">{fmt_cop(PRESUPUESTO['total'])}</div>
+      {''.join(f'''<div class="budget-row">
+        <div><div>{l['nombre']}</div><div class="bar"><div class="fill" style="width:{l['pct']}%"></div></div></div>
+        <strong>{fmt_cop(l['valor'])}</strong>
+        <span style="opacity:.7">{l['pct']}%</span>
+      </div>''' for l in PRESUPUESTO['lineas'])}
+    </div>
+  </div>
+</section>
+
 <section id="piloto" class="section-alt">
   <div class="wrap reveal">
     <p class="kicker">Piloto</p>
@@ -1789,6 +1768,21 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
         <h3>Indicadores de bienestar → permanencia, graduación y éxito académico</h3>
         <p>Caso demostrativo para conectar evidencia social con trayectoria estudiantil.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="sigue" class="section-alt">
+  <div class="wrap reveal">
+    <p class="kicker">Hoja de ruta</p>
+    <h2>Qué sigue: plataformas a diseñar</h2>
+    <p class="sub">Prioridades de producto digital y su foco institucional.</p>
+    <div class="qs-grid">
+      {''.join(f'<article class="qs-card"><div class="st">{q["estado"]}</div><h3>{q["plat"]}</h3><p>{q["foco"]}</p></article>' for q in QUE_SIGUE)}
+    </div>
+    <div class="exec-grid" style="margin-top:1.2rem">
+      {''.join(f'<article class="exec-card"><h3>{x["t"]}</h3><p>{x["d"]}</p></article>' for x in PROYECCION_2027[3:])}
     </div>
   </div>
 </section>
@@ -2097,11 +2091,6 @@ assert "Red y conectividad" not in html
 assert "Dell Precision" not in html
 assert "Workstation" not in html
 assert "NVIDIA DGX Spark" in html
-assert "KPI-01" in html
-assert 'id="problema"' in html
-assert 'id="ventajas-pdi"' in html
-assert 'id="agenda"' in html
-assert "renderAgenda" in html
 assert "Academia transformadora" in html
 assert 'id="estudios"' in html
 assert 'id="talento"' in html
@@ -2113,5 +2102,19 @@ assert "mgdalena-medio.vercel.app" in html
 assert "convocaradar-web.vercel.app" in html
 assert "\u2014" not in html
 assert OBJETIVO_CLARO.split()[0] in html
+assert 'id="beneficios"' in html
+assert 'id="sigue"' in html
+assert 'id="alianzas"' in html
+assert 'José Mario López Gómez' in html
+assert '10 horas' in html
+assert 'OTRI' in html
+assert 'Innruta' in html
+assert 'id="computo"' in html
+assert 'id="plan"' in html
+assert 'id="perfil"' in html
+assert 'id="hardware"' in html
+assert '29.420.000' in html
+assert 'Mínimo operativo' in html
+assert 'Cronograma 2026-2' in html
 print("OK", OUT / "index.html", "total", PRESUPUESTO["total"])
 
