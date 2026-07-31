@@ -665,23 +665,6 @@ h2{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spacin
 .marquee-track span{font-family:var(--display);font-weight:700;font-size:.9rem;color:var(--mute)}
 @keyframes marquee{to{transform:translateX(-50%)}}
 
-
-/* Version switcher */
-.ver-switch{display:inline-flex;align-items:center;gap:.45rem;margin-left:.35rem}
-.ver-switch a.ver-exec,.ver-switch a.ver-full{
-  font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
-  padding:.35rem .7rem;border-radius:999px;border:1px solid rgba(255,255,255,.28);
-  color:#fff;background:rgba(255,255,255,.08);text-decoration:none;white-space:nowrap;
-  transition:background .2s,border-color .2s,transform .2s
-}
-.ver-switch a.ver-exec:hover,.ver-switch a.ver-full:hover{
-  background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.45);transform:translateY(-1px)
-}
-.ver-note{font-size:.65rem;opacity:.75;font-weight:500;letter-spacing:.02em;text-transform:none}
-@media (max-width:900px){
-  .ver-switch{margin:.4rem 0 0;width:100%}
-  .ver-switch a.ver-exec,.ver-switch a.ver-full{font-size:.7rem}
-}
 </style>
 </head>
 <body>
@@ -692,7 +675,6 @@ h2{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spacin
       <img src="logo-colmayor-blanco.png" alt="Colmayor"/>
       <div><b>Observatorio CTi</b><span>CEITTO · Colmayor</span></div>
     </div>
-    <div class="ver-switch"><a href="ejecutiva.html" class="ver-exec">Versión ejecutiva</a><span class="ver-note">Comparativo de versiones</span></div>
     <button class="menu" id="menu" type="button">Menú</button>
     <div class="nav-links" id="links">
       <a href="#inicio">Inicio</a>
@@ -1282,7 +1264,7 @@ h2{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spacin
     <p class="kicker">Capacidades</p>
     <h2>Perfil, herramientas y redes</h2>
     <div class="bento bento-4" style="margin:1.2rem 0">
-      <article class="card"><h3>Analista de datos</h3><p>Un perfil con experiencia para operar el Observatorio.</p></article><article class="card"><h3>Software especializado</h3><p>Acceso a herramientas de análisis y vigilancia.</p></article><article class="card"><h3>Red Innruta</h3><p>Inteligencia competitiva y sus plataformas.</p></article><article class="card"><h3>Red Secopind</h3><p>Propiedad intelectual · ICIPC.</p></article>
+      <article class="card"><h3>Líder de datos / Observatorio</h3><p>Perfil CEITTO que lidera escalamiento, soporte y operación del Observatorio.</p></article><article class="card"><h3>Software especializado</h3><p>Acceso a herramientas de análisis y vigilancia.</p></article><article class="card"><h3>Red Innruta</h3><p>Inteligencia competitiva y sus plataformas.</p></article><article class="card"><h3>Red Secopind</h3><p>Propiedad intelectual · ICIPC.</p></article>
     </div>
     <div class="lineas">
       <article class="linea"><h3>Gestión empresarial</h3><p>Productividad y competitividad</p></article><article class="linea"><h3>VT / IC</h3><p>Vigilancia e inteligencia</p></article><article class="linea"><h3>Patentabilidad</h3><p>Estado de la técnica</p></article>
@@ -1346,23 +1328,23 @@ h2{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spacin
     <p class="sub">El escalamiento de la plataforma de vigilancia tecnológica con el área de TI y el soporte de la propuesta estarán a cargo del CEITTO.</p>
     <div class="talento-grid">
       <article class="persona">
-        <div class="avatar">JM</div>
-        <h3>José Mario Gómez López</h3>
-        <p class="rol">Líder CEITTO · coordinación institucional y articulación con TI</p>
-        <span class="dedica">CEITTO · Colmayor</span>
-        <div class="cop">$3.750.000<small>dedicación mensual</small></div>
-        <div class="total">$16.875.000<small>total ago – 15 dic (4.5 meses)</small></div>
-      </article><article class="persona">
         <div class="avatar">JP</div>
         <h3>Julián Esteban Pineda Montoya</h3>
-        <p class="rol">Analista de datos · escalamiento y operación de ConvocaRadar-IA</p>
+        <p class="rol">Líder del escalamiento y soporte · Observatorio · Analista de datos · ConvocaRadar-IA</p>
         <span class="dedica">Medio tiempo · CEITTO</span>
         <div class="cop">$2.200.000<small>dedicación mensual</small></div>
         <div class="total">$9.900.000<small>total ago – 15 dic (4.5 meses)</small></div>
       </article><article class="persona">
+        <div class="avatar">JM</div>
+        <h3>José Mario López Gómez</h3>
+        <p class="rol">Articulación académica · Docente ocasional Fac. Administración (10 h) · conecta demanda institucional</p>
+        <span class="dedica">10 horas de apoyo</span>
+        <div class="cop">$3.750.000<small>dedicación mensual</small></div>
+        <div class="total">$16.875.000<small>total ago – 15 dic (4.5 meses)</small></div>
+      </article><article class="persona">
         <div class="avatar">CJ</div>
         <h3>Consultor Junior</h3>
-        <p class="rol">Apoyo en pruebas, documentación y soporte de la plataforma</p>
+        <p class="rol">Apoyo operativo · pruebas, documentación y soporte</p>
         <span class="dedica">Por demanda · CEITTO</span>
         <div class="cop">$450.000<small>dedicación mensual</small></div>
         <div class="total">$2.025.000<small>total ago – 15 dic (4.5 meses)</small></div>
@@ -1370,13 +1352,13 @@ h2{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spacin
     </div>
     <div class="talento-totals">
       <div class="talento-tot">
-        <div class="lab">José Mario Gómez López</div>
-        <div class="val">$16.875.000</div>
-        <div class="hint">$3.750.000/mes × 4.5</div>
-      </div><div class="talento-tot">
         <div class="lab">Julián Esteban Pineda Montoya</div>
         <div class="val">$9.900.000</div>
         <div class="hint">$2.200.000/mes × 4.5</div>
+      </div><div class="talento-tot">
+        <div class="lab">José Mario López Gómez</div>
+        <div class="val">$16.875.000</div>
+        <div class="hint">$3.750.000/mes × 4.5</div>
       </div><div class="talento-tot">
         <div class="lab">Consultor Junior</div>
         <div class="val">$2.025.000</div>

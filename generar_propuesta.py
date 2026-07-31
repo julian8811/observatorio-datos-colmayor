@@ -254,7 +254,7 @@ LINEAS = [
 ]
 
 CAPACIDADES = [
-    {"t": "Analista de datos", "d": "Un perfil con experiencia para operar el Observatorio."},
+    {"t": "Líder de datos / Observatorio", "d": "Perfil CEITTO que lidera escalamiento, soporte y operación del Observatorio."},
     {"t": "Software especializado", "d": "Acceso a herramientas de análisis y vigilancia."},
     {"t": "Red Innruta", "d": "Inteligencia competitiva y sus plataformas."},
     {"t": "Red Secopind", "d": "Propiedad intelectual · ICIPC."},
@@ -266,18 +266,18 @@ PERIODO_TALENTO = "ago – 15 dic"
 
 TALENTO = [
     {
-        "ini": "JM", "nombre": "José Mario Gómez López",
-        "rol": "Líder CEITTO · coordinación institucional y articulación con TI",
-        "dedica": "CEITTO · Colmayor", "cop": 3_750_000,
-    },
-    {
         "ini": "JP", "nombre": "Julián Esteban Pineda Montoya",
-        "rol": "Analista de datos · escalamiento y operación de ConvocaRadar-IA",
+        "rol": "Líder del escalamiento y soporte · Observatorio · Analista de datos · ConvocaRadar-IA",
         "dedica": "Medio tiempo · CEITTO", "cop": 2_200_000,
     },
     {
+        "ini": "JM", "nombre": "José Mario López Gómez",
+        "rol": "Articulación académica · Docente ocasional Fac. Administración (10 h) · conecta demanda institucional",
+        "dedica": "10 horas de apoyo", "cop": 3_750_000,
+    },
+    {
         "ini": "CJ", "nombre": "Consultor Junior",
-        "rol": "Apoyo en pruebas, documentación y soporte de la plataforma",
+        "rol": "Apoyo operativo · pruebas, documentación y soporte",
         "dedica": "Por demanda · CEITTO", "cop": 450_000,
     },
 ]

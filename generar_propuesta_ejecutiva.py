@@ -254,7 +254,7 @@ LINEAS = [
 ]
 
 CAPACIDADES = [
-    {"t": "Analista de datos", "d": "Un perfil con experiencia para operar el Observatorio."},
+    {"t": "Líder de datos / Observatorio", "d": "Perfil CEITTO que lidera escalamiento, soporte y operación del Observatorio."},
     {"t": "Software especializado", "d": "Acceso a herramientas de análisis y vigilancia."},
     {"t": "Red Innruta", "d": "Inteligencia competitiva y sus plataformas."},
     {"t": "Red Secopind", "d": "Propiedad intelectual · ICIPC."},
@@ -266,18 +266,18 @@ PERIODO_TALENTO = "ago – 15 dic"
 
 TALENTO = [
     {
-        "ini": "JM", "nombre": "José Mario López Gómez",
-        "rol": "Docente ocasional · Facultad de Administración · apoyo y articulación CEITTO / TI",
-        "dedica": "10 horas de apoyo", "cop": 3_750_000,
-    },
-    {
         "ini": "JP", "nombre": "Julián Esteban Pineda Montoya",
-        "rol": "Analista de datos · escalamiento y operación de ConvocaRadar-IA",
+        "rol": "Líder del escalamiento y soporte · Observatorio · Analista de datos · ConvocaRadar-IA",
         "dedica": "Medio tiempo · CEITTO", "cop": 2_200_000,
     },
     {
+        "ini": "JM", "nombre": "José Mario López Gómez",
+        "rol": "Articulación académica · Docente ocasional Fac. Administración (10 h) · conecta demanda institucional",
+        "dedica": "10 horas de apoyo", "cop": 3_750_000,
+    },
+    {
         "ini": "CJ", "nombre": "Consultor Junior",
-        "rol": "Apoyo en pruebas, documentación y soporte de la plataforma",
+        "rol": "Apoyo operativo · pruebas, documentación y soporte",
         "dedica": "Por demanda · CEITTO", "cop": 450_000,
     },
 ]
@@ -448,7 +448,7 @@ MINIMO_OP = [
     "DGX Spark + Eaton DX2000LAN en operación",
     "ConvocaRadar-IA desplegado en infraestructura TI del CMA",
     "Un tablero ejecutivo (PDI / convocatorias / piloto)",
-    "Equipo CEITTO con dedicación activa (JM 10 h + Julián MT + Junior)",
+    "Equipo CEITTO con dedicación activa (Julián MT líder + José Mario 10 h + Junior)",
     "Leyenda Oficial / Reportado / Propuesto en indicadores",
 ]
 
@@ -470,9 +470,9 @@ QUE_SIGUE = [
 ]
 
 PERFIL_IDONEIDAD = [
-    {"t": "Analista de datos CEITTO", "d": "Opera plataformas, limpia datos y entrega tableros/reportes."},
+    {"t": "Líder de escalamiento y soporte", "d": "Analista de datos CEITTO: opera Observatorio y ConvocaRadar-IA, limpia datos y entrega tableros/reportes."},
     {"t": "Articulación académica", "d": "Docente ocasional Fac. Administración (10 h) conecta demanda institucional."},
-    {"t": "Soporte junior", "d": "Pruebas, documentación y acompañamiento de usuarios."},
+    {"t": "Apoyo operativo", "d": "Pruebas, documentación y soporte de la plataforma."},
     {"t": "TI Colmayor", "d": "Infraestructura, seguridad, identidad y continuidad del servicio."},
 ]
 
