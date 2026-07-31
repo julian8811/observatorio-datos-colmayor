@@ -1614,7 +1614,7 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 }}
 @media(max-width:1000px){{
   .valor-stage,.roadmap-track,.canal-stage,.svc-mosaic,.canal-mosaic,.prob-stage,.pdi-inds,
-  .bento-4,.bento-3,.plan,.split,.lineas,.piloto,.hero-metrics,.flow-grid,.servicios,.hw-grid,
+  .bento-4,.bento-3,.plan,.split,.lineas,.hero-metrics,.flow-grid,.servicios,.hw-grid,
   .adv-rail{{grid-template-columns:1fr 1fr}}
   .pdi-tabs{{grid-template-columns:1fr 1fr}}
   .svc-tile:nth-child(1),.svc-tile:nth-child(6){{grid-column:span 1}}
@@ -1645,7 +1645,7 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 }}
 @media(max-width:700px){{
   body{{font-size:16px}}
-  .bento-4,.bento-3,.plan,.split,.lineas,.piloto,.hero-metrics,.flow-grid,.servicios,.hw-grid,
+  .bento-4,.bento-3,.plan,.split,.lineas,.hero-metrics,.flow-grid,.servicios,.hw-grid,
   .pdi-tabs,.pdi-inds,.canal-stage,.canal-mosaic,.svc-mosaic,.valor-stage,.roadmap-track,.road-panel,
   .prob-stage,.tray-stats{{grid-template-columns:1fr}}
   .hero{{min-height:auto}}
@@ -1680,12 +1680,6 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
   .tray-chip{{min-width:140px;flex-basis:140px}}
 }}
 
-.piloto{{display:grid;grid-template-columns:.8fr 1.2fr;gap:1rem}}
-.piloto-visual{{border-radius:14px;min-height:200px;background:url("media/hero-data.jpg") center/cover;position:relative}}
-.piloto-visual::after{{content:"PILOTO";position:absolute;left:1rem;bottom:1rem;font-family:var(--display);font-weight:800;color:#fff;letter-spacing:.08em;background:rgba(44,51,57,.8);padding:.4rem .7rem;border-radius:8px;border-left:3px solid var(--orange);font-size:.9rem}}
-.piloto-copy{{border-radius:14px;background:var(--charcoal);color:#fff;padding:1.75rem;display:flex;flex-direction:column;justify-content:center}}
-.piloto-copy h3{{font-family:var(--display);font-size:1.3rem;line-height:1.3;margin-bottom:.6rem}}
-.piloto-copy p{{color:rgba(255,255,255,.75);font-size:.98rem}}
 
 .cta{{padding:4.2rem 0;text-align:center;background:var(--charcoal);border-top:4px solid var(--orange)}}
 .cta blockquote{{font-family:var(--display);font-size:clamp(1.3rem,2.4vw,1.75rem);color:#fff;max-width:22em;margin:0 auto;line-height:1.35}}
@@ -2018,19 +2012,6 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
   </div>
 </section>
 
-<section id="piloto" class="section-alt">
-  <div class="wrap reveal">
-    <p class="kicker">Piloto</p>
-    <h2>Primer caso de uso</h2>
-    <div class="piloto" style="margin-top:1.2rem">
-      <div class="piloto-visual"></div>
-      <div class="piloto-copy">
-        <h3>Indicadores de bienestar → permanencia, graduación y éxito académico</h3>
-        <p>Caso demostrativo para conectar evidencia social con trayectoria estudiantil.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 
 <section id="sigue" class="section-alt">
