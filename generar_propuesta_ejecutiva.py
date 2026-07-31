@@ -229,10 +229,10 @@ ESTUDIOS = [
         "metric": "30+",
         "metric_l": "oportunidades/mes (meta)",
         "tag": "Radar · I+D+i",
-        "blurb": "ConvoRadar opera como dashboard en vivo. Por seguridad del navegador no se embebe: ábrelo en una pestaña nueva para ver el tablero completo.",
+        "blurb": "El Observatorio de convocatorias opera como dashboard en vivo. Por seguridad del navegador no se embebe: ábrelo en una pestaña nueva para ver el tablero completo.",
         "evidencias": [
-            {"tipo": "url", "label": "ConvoRadar dashboard", "src": "https://convocaradar-web.vercel.app/dashboard"},
-            {"tipo": "url", "label": "ConvoRadar inicio", "src": "https://convocaradar-web.vercel.app/"},
+            {"tipo": "url", "label": "Observatorio de convocatorias - dashboard", "src": "https://convocaradar-web.vercel.app/dashboard"},
+            {"tipo": "url", "label": "Observatorio de convocatorias - inicio", "src": "https://convocaradar-web.vercel.app/"},
         ],
     },
     {
@@ -267,7 +267,7 @@ PERIODO_TALENTO = "ago – 15 dic"
 TALENTO = [
     {
         "ini": "JP", "nombre": "Julián Esteban Pineda Montoya",
-        "rol": "Líder del escalamiento y soporte · Observatorio · Analista de datos · ConvocaRadar-IA",
+        "rol": "Líder del escalamiento y soporte · Observatorio · Analista de datos · Observatorio de convocatorias institucional",
         "dedica": "Medio tiempo · CEITTO", "cop": 2_200_000,
     },
     {
@@ -281,13 +281,13 @@ TALENTO = [
         "dedica": "Por demanda · CEITTO", "cop": 450_000,
     },
 ]
-# Ruta de escalamiento de ConvocaRadar-IA: de local a infraestructura TI del CMA
+# Ruta de escalamiento del Observatorio de convocatorias institucional: de local a infraestructura TI del CMA
 ESCALADO = [
     {
         "n": "01", "t": "Alistamiento y diagnóstico",
         "meta": "CEITTO + Gestión de Tecnología e Informática del CMA",
         "acts": [
-            "Inventario técnico de ConvocaRadar-IA: código, dependencias, base de datos y tareas de scraping",
+            "Inventario técnico del Observatorio de convocatorias institucional: código, dependencias, base de datos y tareas de scraping",
             "Levantamiento de requisitos con el área TI del CMA: capacidad, red y seguridad",
             "Definición de la arquitectura destino en la infraestructura institucional",
             "Plan de trabajo con riesgos, tiempos y responsables",
@@ -314,7 +314,7 @@ ESCALADO = [
             "Programación de scraping y clasificación con IA en el servidor institucional",
             "Integración de autenticación y usuarios institucionales",
         ],
-        "out": "ConvocaRadar-IA operando en la infraestructura del CMA",
+        "out": "Observatorio de convocatorias institucional operando en la infraestructura del CMA",
     },
     {
         "n": "04", "t": "Pruebas y validación",
@@ -352,7 +352,7 @@ BENEFICIOS_EXEC = [
 
 COMPUTO_USO = [
     {"t": "IA local segura", "d": "Inferencia y ajuste de modelos en campus, sin depender solo de nube."},
-    {"t": "ConvocaRadar-IA", "d": "Scraping, clasificación y alertas de convocatorias N/I en producción."},
+    {"t": "Observatorio de convocatorias institucional", "d": "Scraping, clasificación y alertas de convocatorias N/I en producción."},
     {"t": "Analítica institucional", "d": "Tableros de PDI, permanencia, semilleros y venta de servicios."},
     {"t": "VT / IC a la medida", "d": "Estudios territoriales y sectoriales con entrega HTML/PDF/tablero."},
     {"t": "Respaldo continuo", "d": "UPS Eaton + nodo siempre disponible para agentes y reportes."},
@@ -373,7 +373,7 @@ GANTT_2026_2 = [
     {
         "id": "g1", "t": "Alistamiento y diagnóstico",
         "start": 0, "end": 30, "resp": "CEITTO + TI",
-        "desc": "Inventario ConvocaRadar-IA, requisitos TI, arquitectura destino y plan de riesgos.",
+        "desc": "Inventario del Observatorio de convocatorias institucional, requisitos TI, arquitectura destino y plan de riesgos.",
         "entregables": [
             "Documento de arquitectura aprobado",
             "Inventario técnico de la plataforma",
@@ -391,12 +391,12 @@ GANTT_2026_2 = [
         ],
     },
     {
-        "id": "g3", "t": "Migración ConvocaRadar-IA a TI",
+        "id": "g3", "t": "Migración del Observatorio de convocatorias institucional a TI",
         "start": 31, "end": 80, "resp": "Julián · TI",
         "desc": "Despliegue desde entorno local a infraestructura Colmayor, CI/CD e identidades.",
         "entregables": [
             "Ambientes desarrollo y producción",
-            "ConvocaRadar-IA en infra CMA",
+            "Observatorio de convocatorias institucional en infra CMA",
             "Accesos institucionales configurados",
         ],
     },
@@ -446,7 +446,7 @@ CRONO_2026_2 = GANTT_2026_2  # compat
 
 MINIMO_OP = [
     "DGX Spark + Eaton DX2000LAN en operación",
-    "ConvocaRadar-IA desplegado en infraestructura TI del CMA",
+    "Observatorio de convocatorias institucional desplegado en infraestructura TI del CMA",
     "Un tablero ejecutivo (PDI / convocatorias / piloto)",
     "Equipo CEITTO con dedicación activa (Julián MT líder + José Mario 10 h + Junior)",
     "Leyenda Oficial / Reportado / Propuesto en indicadores",
@@ -461,7 +461,7 @@ PROYECCION_2027 = [
 ]
 
 QUE_SIGUE = [
-    {"plat": "ConvocaRadar-IA", "foco": "Vigilancia de convocatorias nacionales e internacionales", "estado": "En escalamiento a TI Colmayor"},
+    {"plat": "Observatorio de convocatorias institucional", "foco": "Vigilancia de convocatorias nacionales e internacionales", "estado": "En escalamiento a TI Colmayor"},
     {"plat": "Tablero PDI ejecutivo", "foco": "L1, L2 y L4 con indicadores IES Distrito y alertas", "estado": "Por diseñar · 2026-2"},
     {"plat": "Piloto permanencia", "foco": "Bienestar → graduación y éxito académico", "estado": "Caso demostrativo"},
     {"plat": "Observatorio VT/IC", "foco": "Estudios territoriales y sectoriales con evidencia", "estado": "Trayectoria demostrada"},
@@ -470,7 +470,7 @@ QUE_SIGUE = [
 ]
 
 PERFIL_IDONEIDAD = [
-    {"t": "Líder de escalamiento y soporte", "d": "Analista de datos CEITTO: opera Observatorio y ConvocaRadar-IA, limpia datos y entrega tableros/reportes."},
+    {"t": "Líder de escalamiento y soporte", "d": "Analista de datos CEITTO: opera el Observatorio de datos y el Observatorio de convocatorias institucional, limpia datos y entrega tableros/reportes."},
     {"t": "Articulación académica", "d": "Docente ocasional Fac. Administración (10 h) conecta demanda institucional."},
     {"t": "Apoyo operativo", "d": "Pruebas, documentación y soporte de la plataforma."},
     {"t": "TI Colmayor", "d": "Infraestructura, seguridad, identidad y continuidad del servicio."},
@@ -518,7 +518,7 @@ PLAN_DISENO = [
     ]},
     {"n": "03", "t": "Modelo", "items": [
         "Gobernanza de datos (Oficial / Reportado / Propuesto)",
-        "MVP en DGX Spark + ConvocaRadar-IA",
+        "MVP en DGX Spark + Observatorio de convocatorias institucional",
         "Indicadores mínimos PDI y Distrito",
         "Ruta de alianzas OTRI / Innruta",
     ]},
@@ -1146,7 +1146,7 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 .pdi-inds b{{display:block;font-family:var(--display);font-size:.98rem;margin-bottom:.3rem;color:var(--charcoal)}}
 .pdi-inds span{{font-size:.88rem;color:var(--mute)}}
 
-/* Talento humano + escalado ConvocaRadar */
+/* Talento humano + escalado Observatorio de convocatorias */
 .talento-grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;margin-top:1.5rem}}
 .persona{{
   position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:18px;
@@ -1255,6 +1255,65 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 .hw-usd{{font-size:.78rem;color:var(--mute);margin-top:.25rem}}
 @media(max-width:800px){{.hw-photo{{height:180px}}}}
 
+
+
+/* -- Interactividad reforzada -- */
+.progress-bar{{
+  position:fixed;top:0;left:0;height:3px;width:0;z-index:10000;
+  background:linear-gradient(90deg,var(--teal),var(--orange));
+  box-shadow:0 0 8px rgba(0,179,175,.45);transition:width .1s linear;
+}}
+.nav-links a{{position:relative}}
+.nav-links a::after{{
+  content:"";position:absolute;left:10%;right:10%;bottom:4px;height:2px;
+  background:var(--orange);transform:scaleX(0);transform-origin:left;transition:.25s;
+}}
+.nav-links a.on::after,.nav-links a:hover::after{{transform:scaleX(1)}}
+.reveal{{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}}
+.reveal.in{{opacity:1;transform:none}}
+.reveal.delay-1{{transition-delay:.08s}}
+.reveal.delay-2{{transition-delay:.16s}}
+.reveal.delay-3{{transition-delay:.24s}}
+.ix-card{{cursor:pointer;transition:transform .25s,box-shadow .25s,border-color .25s}}
+.ix-card:hover{{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.12)}}
+.ix-card.on{{border-color:var(--teal);box-shadow:0 10px 24px rgba(0,179,175,.18)}}
+.ix-card .ix-more{{
+  display:none;margin-top:.65rem;padding-top:.65rem;border-top:1px dashed var(--line);
+  font-size:.88rem;color:var(--mute);line-height:1.4;
+}}
+.ix-card.on .ix-more{{display:block;animation:fadeUp .3s ease}}
+.ix-hint{{
+  font-size:.75rem;color:var(--mute);margin-top:.35rem;font-style:italic;
+}}
+.fab-top{{
+  position:fixed;right:1.1rem;bottom:1.1rem;z-index:9990;width:44px;height:44px;
+  border:none;border-radius:50%;background:var(--charcoal);color:#fff;cursor:pointer;
+  box-shadow:0 8px 20px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:.25s;
+  font-size:1.2rem;line-height:1;
+}}
+.fab-top.show{{opacity:1;pointer-events:auto}}
+.fab-top:hover{{background:var(--teal-deep);transform:translateY(-2px)}}
+.section-jump{{
+  display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin:1rem auto 0;max-width:920px;
+}}
+.section-jump button{{
+  font:inherit;font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;
+  padding:.4rem .75rem;cursor:pointer;transition:.2s;
+}}
+.section-jump button:hover,.section-jump button.on{{background:var(--charcoal);color:#fff;border-color:var(--charcoal)}}
+.count-up{{font-variant-numeric:tabular-nums}}
+.pulse-dot{{
+  display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--orange);
+  margin-right:.4rem;animation:pulseDot 1.6s ease infinite;vertical-align:middle;
+}}
+@keyframes pulseDot{{0%,100%{{opacity:1;transform:scale(1)}}50%{{opacity:.45;transform:scale(.7)}}}}
+@keyframes fadeUp{{from{{opacity:0;transform:translateY(8px)}}to{{opacity:1;transform:none}}}}
+.kpi .ix-card, .exec-card, .ali-card, .persona, .qs-card, .hw{{transition:transform .25s,box-shadow .25s}}
+@media (prefers-reduced-motion:reduce){{
+  .reveal,.ix-card,.fab-top,.nav-links a::after,.gantt-bar{{transition:none!important;animation:none!important}}
+  .reveal{{opacity:1;transform:none}}
+}}
 
 /* Exec summary */
 .exec-grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:1.2rem}}
@@ -1705,7 +1764,7 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
   <div class="wrap reveal">
     <p class="kicker">Infraestructura solicitada</p>
     <h2>Qué hace el equipo de cómputo</h2>
-    <p class="sub">NVIDIA DGX Spark + Eaton DX2000LAN: nodo de IA local para el Observatorio y ConvocaRadar-IA.</p>
+    <p class="sub">NVIDIA DGX Spark + Eaton DX2000LAN: nodo de IA local para el Observatorio de datos y el Observatorio de convocatorias institucional.</p>
     <div class="exec-grid">
       {''.join(f'<article class="exec-card"><h3>{c["t"]}</h3><p>{c["d"]}</p></article>' for c in COMPUTO_USO)}
     </div>
@@ -1895,15 +1954,15 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
       Mensual del equipo: {fmt_cop(sum(p['cop'] for p in TALENTO))}. Total del período: {fmt_cop(int(sum(p['cop'] for p in TALENTO) * MESES_TALENTO))}.
     </div>
     <div class="talento-plat">
-      <a href="https://github.com/julian8811/ConvocaRadar-IA" target="_blank" rel="noopener">ConvocaRadar-IA en GitHub</a>
-      <a href="https://convocaradar-web.vercel.app/dashboard" target="_blank" rel="noopener">Dashboard en vivo</a>
+      <a href="https://github.com/julian8811/ConvocaRadar-IA" target="_blank" rel="noopener">Repositorio del Observatorio de convocatorias</a>
+      <a href="https://convocaradar-web.vercel.app/dashboard" target="_blank" rel="noopener">Observatorio de convocatorias - dashboard</a>
       <span>Plataforma de vigilancia tecnológica de convocatorias nacionales e internacionales.</span>
     </div>
 
     <div style="margin-top:2.6rem">
       <p class="kicker">Ruta de escalamiento</p>
       <h2 style="font-size:clamp(1.4rem,2.4vw,1.8rem)">De la operación local a la infraestructura TI del CMA</h2>
-      <p class="sub">Cinco fases para llevar ConvocaRadar-IA al ecosistema tecnológico institucional, con pruebas y soporte del equipo CEITTO. Clic en cada fase.</p>
+      <p class="sub">Cinco fases para llevar el Observatorio de convocatorias institucional al ecosistema tecnológico institucional, con pruebas y soporte del equipo CEITTO. Clic en cada fase.</p>
       <div class="esc-stage">
         <div class="esc-steps" id="escSteps">
           {''.join(f'''<button class="esc-step{' on' if i==0 else ''}" type="button" data-i="{i}">
@@ -2300,6 +2359,156 @@ document.querySelectorAll('#ganttRows .gantt-row').forEach(row=>{{
 }});
 if(document.getElementById('ganttRows')) renderGantt(0);
 
+
+/* Interactividad reforzada */
+(function(){{
+  // Barra de progreso de lectura
+  let bar = document.querySelector('.progress-bar');
+  if(!bar){{
+    bar = document.createElement('div');
+    bar.className = 'progress-bar';
+    document.body.prepend(bar);
+  }}
+  // FAB volver arriba
+  let fab = document.querySelector('.fab-top');
+  if(!fab){{
+    fab = document.createElement('button');
+    fab.className = 'fab-top';
+    fab.type = 'button';
+    fab.setAttribute('aria-label','Volver arriba');
+    fab.textContent = '↑';
+    document.body.appendChild(fab);
+    fab.addEventListener('click',()=>window.scrollTo({{top:0,behavior:'smooth'}}));
+  }}
+  const onScroll = ()=>{{
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+    bar.style.width = pct + '%';
+    fab.classList.toggle('show', h.scrollTop > 480);
+  }};
+  window.addEventListener('scroll', onScroll, {{passive:true}});
+  onScroll();
+
+  // Reveal on scroll (refuerzo)
+  const reveals = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){{
+    const io = new IntersectionObserver((entries)=>{{
+      entries.forEach(e=>{{ if(e.isIntersecting){{ e.target.classList.add('in'); io.unobserve(e.target); }} }});
+    }}, {{threshold:0.12, rootMargin:'0px 0px -40px 0px'}});
+    reveals.forEach((el,i)=>{{
+      el.classList.add('delay-' + ((i % 3) + 1));
+      io.observe(el);
+    }});
+  }} else {{
+    reveals.forEach(el=>el.classList.add('in'));
+  }}
+
+  // Nav activa por sección
+  const links = Array.from(document.querySelectorAll('#links a[href^="#"]'));
+  const sections = links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const setActive = ()=>{{
+    let current = sections[0];
+    const y = window.scrollY + 120;
+    sections.forEach(s=>{{ if(s.offsetTop <= y) current = s; }});
+    links.forEach(a=>{{
+      const on = current && a.getAttribute('href') === '#' + current.id;
+      a.classList.toggle('on', !!on);
+    }});
+  }};
+  window.addEventListener('scroll', setActive, {{passive:true}});
+  setActive();
+
+  // Tarjetas expandibles
+  const makeIx = (sel, moreBuilder)=>{{
+    document.querySelectorAll(sel).forEach((card, idx)=>{{
+      if(card.dataset.ix) return;
+      card.dataset.ix = '1';
+      card.classList.add('ix-card');
+      card.setAttribute('role','button');
+      card.tabIndex = 0;
+      const more = document.createElement('div');
+      more.className = 'ix-more';
+      more.innerHTML = moreBuilder(card, idx);
+      card.appendChild(more);
+      const toggle = ()=>{{
+        const was = card.classList.contains('on');
+        document.querySelectorAll(sel + '.on').forEach(c=>c.classList.remove('on'));
+        if(!was) card.classList.add('on');
+      }};
+      card.addEventListener('click', (e)=>{{
+        if(e.target.closest('a,button')) return;
+        toggle();
+      }});
+      card.addEventListener('keydown', e=>{{
+        if(e.key==='Enter'||e.key===' '){{ e.preventDefault(); toggle(); }}
+      }});
+    }});
+  }};
+  makeIx('.exec-card', (card)=>`Detalle: ${{card.querySelector('h3')?.textContent || 'elemento'}} - clic de nuevo para cerrar.`);
+  makeIx('.ali-card', (card)=>`Alianza estratégica activa. Usa el enlace de referencia si está disponible.`);
+  makeIx('.qs-card', (card)=>`Plataforma priorizada en la hoja de ruta. Estado: ${{card.querySelector('.st')?.textContent || 'en definición'}}.`);
+  makeIx('#kpis .kpi, #kpis .k, .kpi-grid .kpi', (card)=>`Indicador del MVP. Meta visible en la tarjeta; se reporta en tablero ejecutivo.`);
+  makeIx('.persona', (card)=>`Miembro del equipo CEITTO para operación y escalamiento del Observatorio.`);
+
+  // Contadores animados para precios grandes
+  const animateCount = (el)=>{{
+    const raw = (el.textContent || '').replace(/[^0-9]/g,'');
+    if(!raw) return;
+    const target = parseInt(raw, 10);
+    if(!target || el.dataset.counted) return;
+    el.dataset.counted = '1';
+    el.classList.add('count-up');
+    const dur = 900;
+    const t0 = performance.now();
+    const step = (now)=>{{
+      const p = Math.min(1, (now - t0) / dur);
+      const val = Math.floor(target * (0.15 + 0.85 * p));
+      el.textContent = '$' + val.toString().replace(/\\B(?=(\\d{{3}})+(?!\\d))/g, '.');
+      if(p < 1) requestAnimationFrame(step);
+      else el.textContent = '$' + target.toString().replace(/\\B(?=(\\d{{3}})+(?!\\d))/g, '.');
+    }};
+    requestAnimationFrame(step);
+  }};
+  const priceObs = new IntersectionObserver((entries)=>{{
+    entries.forEach(e=>{{ if(e.isIntersecting){{ animateCount(e.target); priceObs.unobserve(e.target); }} }});
+  }}, {{threshold:0.4}});
+  document.querySelectorAll('.price, .total, .cop, .talento-tot .val').forEach(el=>priceObs.observe(el));
+
+  // Atajos de salto rápido (ejecutiva)
+  const jumpHost = document.querySelector('#beneficios .wrap, #inicio .wrap, header .wrap');
+  if(jumpHost && !document.querySelector('.section-jump')){{
+    const ids = [
+      ['#beneficios','Beneficios'],['#computo','Cómputo'],['#flujo','Flujo'],['#kpis','KPIs'],
+      ['#plan','Plan'],['#talento','Equipo'],['#hardware','Presupuesto'],['#sigue','Qué sigue']
+    ].filter(([id])=>document.querySelector(id));
+    if(ids.length){{
+      const box = document.createElement('div');
+      box.className = 'section-jump reveal';
+      ids.forEach(([href,label])=>{{
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = label;
+        b.addEventListener('click',()=>{{
+          document.querySelector(href)?.scrollIntoView({{behavior:'smooth',block:'start'}});
+        }});
+        box.appendChild(b);
+      }});
+      const hero = document.querySelector('#inicio .wrap, .hero .wrap, header + section .wrap') || jumpHost;
+      hero.appendChild(box);
+    }}
+  }}
+
+  // Hint en gantt / tray
+  document.querySelectorAll('#ganttWrap, #trayRail, #flowCanvas, .pdi-tabs, .agenda-tabs').forEach(el=>{{
+    if(el.querySelector('.ix-hint')) return;
+    const h = document.createElement('p');
+    h.className = 'ix-hint';
+    h.innerHTML = '<span class="pulse-dot"></span>Interactivo: haz clic para explorar detalles';
+    el.parentElement?.insertBefore(h, el);
+  }});
+}})();
+
 </script>
 </body>
 </html>
@@ -2320,7 +2529,8 @@ assert "Academia transformadora" in html
 assert 'id="estudios"' in html
 assert 'id="talento"' in html
 assert "Julián Esteban Pineda Montoya" in html
-assert "ConvocaRadar-IA" in html
+assert "Observatorio de convocatorias" in html
+assert "github.com/julian8811/ConvocaRadar-IA" in html  # repo URL OK
 assert html.count("esc-step") >= 5
 assert "evidencias/camara" in html
 assert "mgdalena-medio.vercel.app" in html
