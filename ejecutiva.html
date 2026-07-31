@@ -778,6 +778,8 @@ h2{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spacin
       <a href="#inicio">Inicio</a>
       <a href="#beneficios">Beneficios</a>
       <a href="#computo">Cómputo</a>
+      <a href="#flujo">Flujo</a>
+      <a href="#kpis">KPIs</a>
       <a href="#plan">Plan 2026-2</a>
       <a href="#talento">Equipo</a>
       <a href="#alianzas">Alianzas</a>
@@ -831,6 +833,213 @@ h2{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spacin
       <article class="exec-card"><h3>IA local segura</h3><p>Inferencia y ajuste de modelos en campus, sin depender solo de nube.</p></article><article class="exec-card"><h3>ConvocaRadar-IA</h3><p>Scraping, clasificación y alertas de convocatorias N/I en producción.</p></article><article class="exec-card"><h3>Analítica institucional</h3><p>Tableros de PDI, permanencia, semilleros y venta de servicios.</p></article><article class="exec-card"><h3>VT / IC a la medida</h3><p>Estudios territoriales y sectoriales con entrega HTML/PDF/tablero.</p></article><article class="exec-card"><h3>Respaldo continuo</h3><p>UPS Eaton + nodo siempre disponible para agentes y reportes.</p></article>
     </div>
     <p class="agenda-src" style="margin-top:1rem">Detalle técnico y presupuesto en <a href="#hardware">Presupuesto MVP</a>. Proveedor: Clones y Periféricos.</p>
+  </div>
+</section>
+
+<section id="flujo">
+  <div class="wrap reveal">
+    <p class="kicker">Operación</p>
+    <h2>Diagrama de flujo del Observatorio CTi</h2>
+    <p class="sub">Vista completa del ciclo. Clic en cada etapa para detalle del proceso.</p>
+    <div class="flow-shell">
+      <div class="flow-bar">
+        <div class="flow-legend">
+          <span><i class="dot" style="background:#dff7f6;border:1px solid #2C3339"></i>Entrada</span>
+          <span><i class="dot" style="background:#eef7e8;border:1px solid #2C3339"></i>Captura</span>
+          <span><i class="dot" style="background:#fff;border:1px solid #2C3339"></i>Proceso / análisis</span>
+          <span><i class="dot" style="background:#fff4e5;border:1px solid #2C3339"></i>Salida / decisión</span>
+        </div>
+        <span>Clic en cada etapa</span>
+      </div>
+      <div class="flow-canvas">
+        <svg id="diagrama" viewBox="0 0 1050 360" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#7f93a6"/></marker>
+            <marker id="arrowC" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#F39A1A"/></marker>
+          </defs>
+          <path class="flecha" d="M 70.0 178.0 C 135.0 178.0, 135.0 78.0, 200.0 78.0" marker-end="url(#arrow)"/><path class="flecha" d="M 70.0 178.0 C 135.0 178.0, 135.0 278.0, 200.0 278.0" marker-end="url(#arrow)"/><path class="flecha" d="M 200.0 78.0 C 265.0 78.0, 265.0 178.0, 330.0 178.0" marker-end="url(#arrow)"/><path class="flecha" d="M 200.0 278.0 C 265.0 278.0, 265.0 178.0, 330.0 178.0" marker-end="url(#arrow)"/><path class="flecha" d="M 330.0 178.0 C 395.0 178.0, 395.0 178.0, 460.0 178.0" marker-end="url(#arrow)"/><path class="flecha" d="M 460.0 178.0 C 525.0 178.0, 525.0 78.0, 590.0 78.0" marker-end="url(#arrow)"/><path class="flecha" d="M 460.0 178.0 C 525.0 178.0, 525.0 278.0, 590.0 278.0" marker-end="url(#arrow)"/><path class="flecha" d="M 590.0 78.0 C 655.0 78.0, 655.0 178.0, 720.0 178.0" marker-end="url(#arrow)"/><path class="flecha" d="M 590.0 278.0 C 655.0 278.0, 655.0 178.0, 720.0 178.0" marker-end="url(#arrow)"/><path class="flecha" d="M 720.0 178.0 C 785.0 178.0, 785.0 178.0, 850.0 178.0" marker-end="url(#arrow)"/><path class="flecha" d="M 850.0 178.0 C 915.0 178.0, 915.0 178.0, 980.0 178.0" marker-end="url(#arrow)"/><path class="flecha ciclo" d="M 980.0 206.0 C 980.0 298.0, 70.0 298.0, 70.0 206.0" marker-end="url(#arrowC)"/><text class="lbl-ciclo" x="480" y="345">Ciclo de mejora continua</text>
+          <g class="nodo" data-id="demanda" transform="translate(20,150)">
+      <rect class="hit" width="100" height="56" fill="transparent"/>
+      <rect class="caja caja-entrada" width="100" height="56" rx="10"/>
+      <circle class="badge" cx="13" cy="13" r="10"/>
+      <text class="badge-n" x="13" y="17">1</text>
+      <text class="fase" x="50.0" y="20">Entrada</text>
+      <text class="tit" x="50.0" y="38">Demanda</text>
+    </g><g class="nodo" data-id="fuentes" transform="translate(150,50)">
+      <rect class="hit" width="100" height="56" fill="transparent"/>
+      <rect class="caja caja-dato" width="100" height="56" rx="10"/>
+      <circle class="badge" cx="13" cy="13" r="10"/>
+      <text class="badge-n" x="13" y="17">2</text>
+      <text class="fase" x="50.0" y="20">Captura</text>
+      <text class="tit" x="50.0" y="38">Fuentes</text>
+    </g><g class="nodo" data-id="tacito" transform="translate(150,250)">
+      <rect class="hit" width="100" height="56" fill="transparent"/>
+      <rect class="caja caja-dato" width="100" height="56" rx="10"/>
+      <circle class="badge" cx="13" cy="13" r="10"/>
+      <text class="badge-n" x="13" y="17">3</text>
+      <text class="fase" x="50.0" y="20">Captura</text>
+      <text class="tit" x="50.0" y="38">Tácito</text>
+    </g><g class="nodo" data-id="captura" transform="translate(280,150)">
+      <rect class="hit" width="100" height="56" fill="transparent"/>
+      <rect class="caja caja-proceso" width="100" height="56" rx="10"/>
+      <circle class="badge" cx="13" cy="13" r="10"/>
+      <text class="badge-n" x="13" y="17">4</text>
+      <text class="fase" x="50.0" y="20">Proceso</text>
+      <text class="tit" x="50.0" y="38">Captura</text>
+    </g><g class="nodo" data-id="tratamiento" transform="translate(410,150)">
+      <rect class="hit" width="100" height="56" fill="transparent"/>
+      <rect class="caja caja-proceso" width="100" height="56" rx="10"/>
+      <circle class="badge" cx="13" cy="13" r="10"/>
+      <text class="badge-n" x="13" y="17">5</text>
+      <text class="fase" x="50.0" y="20">Proceso</text>
+      <text class="tit" x="50.0" y="38">Tratamiento</text>
+    </g><g class="nodo" data-id="vtic" transform="translate(540,50)">
+      <rect class="hit" width="100" height="56" fill="transparent"/>
+      <rect class="caja caja-proceso" width="100" height="56" rx="10"/>
+      <circle class="badge" cx="13" cy="13" r="10"/>
+      <text class="badge-n" x="13" y="17">6</text>
+      <text class="fase" x="50.0" y="20">Análisis</text>
+      <text class="tit" x="50.0" y="38">VT / IC</text>
+    </g><g class="nodo" data-id="tendencias" transform="translate(540,250)">
+      <rect class="hit" width="100" height="56" fill="transparent"/>
+      <rect class="caja caja-proceso" width="100" height="56" rx="10"/>
+      <circle class="badge" cx="13" cy="13" r="10"/>
+      <text class="badge-n" x="13" y="17">7</text>
+      <text class="fase" x="50.0" y="20">Análisis</text>
+      <text class="tit" x="50.0" y="38">Tendencias</text>
+    </g><g class="nodo" data-id="productos" transform="translate(670,150)">
+      <rect class="hit" width="100" height="56" fill="transparent"/>
+      <rect class="caja caja-salida" width="100" height="56" rx="10"/>
+      <circle class="badge" cx="13" cy="13" r="10"/>
+      <text class="badge-n" x="13" y="17">8</text>
+      <text class="fase" x="50.0" y="20">Salida</text>
+      <text class="tit" x="50.0" y="38">Productos</text>
+    </g><g class="nodo" data-id="difusion" transform="translate(800,150)">
+      <rect class="hit" width="100" height="56" fill="transparent"/>
+      <rect class="caja caja-salida" width="100" height="56" rx="10"/>
+      <circle class="badge" cx="13" cy="13" r="10"/>
+      <text class="badge-n" x="13" y="17">9</text>
+      <text class="fase" x="50.0" y="20">Salida</text>
+      <text class="tit" x="50.0" y="38">Difusión</text>
+    </g><g class="nodo" data-id="decision" transform="translate(930,150)">
+      <rect class="hit" width="100" height="56" fill="transparent"/>
+      <rect class="caja caja-salida" width="100" height="56" rx="10"/>
+      <circle class="badge" cx="13" cy="13" r="10"/>
+      <text class="badge-n" x="13" y="17">10</text>
+      <text class="fase" x="50.0" y="20">Cierre</text>
+      <text class="tit" x="50.0" y="38">Decisión</text>
+    </g>
+        </svg>
+      </div>
+      <div class="flow-detail" id="flowDetail">
+        <div class="flow-step">1</div>
+        <div>
+          <h3>Demanda · Entrada</h3>
+          <p class="proceso">Priorizar necesidades de información del CMA.</p>
+          <div class="flow-grid">
+            <div class="flow-box"><h4>Actividades</h4><ul><li>Recibir solicitudes</li><li>Priorizar estudios</li><li>Alinear con CEITTO</li></ul></div>
+            <div class="flow-box"><h4>Entradas / salidas</h4><p><strong>En:</strong> Solicitudes institucionales<br/><strong>Out:</strong> Alcance priorizado</p></div>
+            <div class="flow-box"><h4>Responsable</h4><p>Analista de datos · área solicitante</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt" id="kpis">
+  <div class="wrap reveal">
+    <p class="kicker">Indicadores MVP</p>
+    <h2>20 KPIs en 4 dimensiones</h2>
+    <p class="sub">Marco de gestión del observatorio: operativa, analítica, ROI y sostenibilidad.</p>
+    <div class="kpi-tabs" id="kpiTabs">
+      <button class="kpi-tab on" data-dim="all" type="button">Todos (20)</button>
+      <button class="kpi-tab" data-dim="operativa" type="button">Operativa (4)</button>
+      <button class="kpi-tab" data-dim="analitica" type="button">Analítica (5)</button>
+      <button class="kpi-tab" data-dim="roi" type="button">ROI (8)</button>
+      <button class="kpi-tab" data-dim="sostenibilidad" type="button">Sostenibilidad (3)</button>
+    </div>
+    <div class="kpi-grid" id="kpiGrid"><article class="kpi" data-dim="operativa">
+      <div class="kpi-top"><span class="kid">KPI-01</span><span class="kdim">Operativa</span></div>
+      <h4>Disponibilidad del servidor</h4>
+      <p>≥ 99% mensual</p>
+    </article><article class="kpi" data-dim="operativa">
+      <div class="kpi-top"><span class="kid">KPI-02</span><span class="kdim">Operativa</span></div>
+      <h4>Tiempo de integración de datos</h4>
+      <p>< 2 horas/día</p>
+    </article><article class="kpi" data-dim="operativa">
+      <div class="kpi-top"><span class="kid">KPI-03</span><span class="kdim">Operativa</span></div>
+      <h4>Disponibilidad de tableros</h4>
+      <p>≥ 99,5%</p>
+    </article><article class="kpi" data-dim="operativa">
+      <div class="kpi-top"><span class="kid">KPI-04</span><span class="kdim">Operativa</span></div>
+      <h4>Recuperación ante fallo energético</h4>
+      <p>0 pérdida de datos</p>
+    </article><article class="kpi" data-dim="analitica">
+      <div class="kpi-top"><span class="kid">KPI-05</span><span class="kdim">Analítica</span></div>
+      <h4>Convocatorias mapeadas/mes</h4>
+      <p>≥ 30</p>
+    </article><article class="kpi" data-dim="analitica">
+      <div class="kpi-top"><span class="kid">KPI-06</span><span class="kdim">Analítica</span></div>
+      <h4>Reportes de inteligencia/mes</h4>
+      <p>≥ 2</p>
+    </article><article class="kpi" data-dim="analitica">
+      <div class="kpi-top"><span class="kid">KPI-07</span><span class="kdim">Analítica</span></div>
+      <h4>Fuentes de datos integradas</h4>
+      <p>≥ 5 al mes 6</p>
+    </article><article class="kpi" data-dim="analitica">
+      <div class="kpi-top"><span class="kid">KPI-08</span><span class="kdim">Analítica</span></div>
+      <h4>Tiempo respuesta directivos</h4>
+      <p>≤ 5 días hábiles</p>
+    </article><article class="kpi" data-dim="analitica">
+      <div class="kpi-top"><span class="kid">KPI-09</span><span class="kdim">Analítica</span></div>
+      <h4>Precisión clasificación convocatorias</h4>
+      <p>≥ 85%</p>
+    </article><article class="kpi" data-dim="roi">
+      <div class="kpi-top"><span class="kid">KPI-10</span><span class="kdim">ROI</span></div>
+      <h4>Valor convocatorias postuladas</h4>
+      <p>≥ COP 30M adjudicadas</p>
+    </article><article class="kpi" data-dim="roi">
+      <div class="kpi-top"><span class="kid">KPI-11</span><span class="kdim">ROI</span></div>
+      <h4>Tasa conversión convocatorias</h4>
+      <p>≥ 30% postulación</p>
+    </article><article class="kpi" data-dim="roi">
+      <div class="kpi-top"><span class="kid">KPI-12</span><span class="kdim">ROI</span></div>
+      <h4>Ahorro herramientas externalizadas</h4>
+      <p>≥ 70% reducción</p>
+    </article><article class="kpi" data-dim="roi">
+      <div class="kpi-top"><span class="kid">KPI-13</span><span class="kdim">ROI</span></div>
+      <h4>Reducción horas recopilación manual</h4>
+      <p>≥ 40%</p>
+    </article><article class="kpi" data-dim="roi">
+      <div class="kpi-top"><span class="kid">KPI-14</span><span class="kdim">ROI</span></div>
+      <h4>Ingresos servicios externos</h4>
+      <p>≥ COP 10M año 1</p>
+    </article><article class="kpi" data-dim="roi">
+      <div class="kpi-top"><span class="kid">KPI-15</span><span class="kdim">ROI</span></div>
+      <h4>Propuestas comerciales enviadas</h4>
+      <p>≥ 2 al mes 6</p>
+    </article><article class="kpi" data-dim="roi">
+      <div class="kpi-top"><span class="kid">KPI-16</span><span class="kdim">ROI</span></div>
+      <h4>Reducción tiempo acreditación</h4>
+      <p>≥ 20%</p>
+    </article><article class="kpi" data-dim="roi">
+      <div class="kpi-top"><span class="kid">KPI-17</span><span class="kdim">ROI</span></div>
+      <h4>Decisiones con evidencia</h4>
+      <p>≥ 3/trimestre</p>
+    </article><article class="kpi" data-dim="sostenibilidad">
+      <div class="kpi-top"><span class="kid">KPI-18</span><span class="kdim">Sostenibilidad</span></div>
+      <h4>ROI acumulado hardware</h4>
+      <p>≥ 50% al mes 6</p>
+    </article><article class="kpi" data-dim="sostenibilidad">
+      <div class="kpi-top"><span class="kid">KPI-19</span><span class="kdim">Sostenibilidad</span></div>
+      <h4>Punto de equilibrio</h4>
+      <p>mes 6–14</p>
+    </article><article class="kpi" data-dim="sostenibilidad">
+      <div class="kpi-top"><span class="kid">KPI-20</span><span class="kdim">Sostenibilidad</span></div>
+      <h4>Índice autofinanciamiento</h4>
+      <p>≥ 30% al mes 6</p>
+    </article></div>
   </div>
 </section>
 

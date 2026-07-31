@@ -1655,6 +1655,8 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
       <a href="#inicio">Inicio</a>
       <a href="#beneficios">Beneficios</a>
       <a href="#computo">Cómputo</a>
+      <a href="#flujo">Flujo</a>
+      <a href="#kpis">KPIs</a>
       <a href="#plan">Plan 2026-2</a>
       <a href="#talento">Equipo</a>
       <a href="#alianzas">Alianzas</a>
@@ -1708,6 +1710,63 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
       {''.join(f'<article class="exec-card"><h3>{c["t"]}</h3><p>{c["d"]}</p></article>' for c in COMPUTO_USO)}
     </div>
     <p class="agenda-src" style="margin-top:1rem">Detalle técnico y presupuesto en <a href="#hardware">Presupuesto MVP</a>. Proveedor: Clones y Periféricos.</p>
+  </div>
+</section>
+
+<section id="flujo">
+  <div class="wrap reveal">
+    <p class="kicker">Operación</p>
+    <h2>Diagrama de flujo del Observatorio CTi</h2>
+    <p class="sub">Vista completa del ciclo. Clic en cada etapa para detalle del proceso.</p>
+    <div class="flow-shell">
+      <div class="flow-bar">
+        <div class="flow-legend">
+          <span><i class="dot" style="background:#dff7f6;border:1px solid #2C3339"></i>Entrada</span>
+          <span><i class="dot" style="background:#eef7e8;border:1px solid #2C3339"></i>Captura</span>
+          <span><i class="dot" style="background:#fff;border:1px solid #2C3339"></i>Proceso / análisis</span>
+          <span><i class="dot" style="background:#fff4e5;border:1px solid #2C3339"></i>Salida / decisión</span>
+        </div>
+        <span>Clic en cada etapa</span>
+      </div>
+      <div class="flow-canvas">
+        <svg id="diagrama" viewBox="0 0 1050 360" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#7f93a6"/></marker>
+            <marker id="arrowC" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#F39A1A"/></marker>
+          </defs>
+          {''.join(edges_svg)}
+          {''.join(nodes_svg)}
+        </svg>
+      </div>
+      <div class="flow-detail" id="flowDetail">
+        <div class="flow-step">{f0['n']}</div>
+        <div>
+          <h3>{f0['titulo']} · {f0['fase']}</h3>
+          <p class="proceso">{f0['proceso']}</p>
+          <div class="flow-grid">
+            <div class="flow-box"><h4>Actividades</h4><ul>{''.join(f'<li>{a}</li>' for a in f0['actividades'])}</ul></div>
+            <div class="flow-box"><h4>Entradas / salidas</h4><p><strong>En:</strong> {f0['entradas']}<br/><strong>Out:</strong> {f0['salidas']}</p></div>
+            <div class="flow-box"><h4>Responsable</h4><p>{f0['responsable']}</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt" id="kpis">
+  <div class="wrap reveal">
+    <p class="kicker">Indicadores MVP</p>
+    <h2>20 KPIs en 4 dimensiones</h2>
+    <p class="sub">Marco de gestión del observatorio: operativa, analítica, ROI y sostenibilidad.</p>
+    <div class="kpi-tabs" id="kpiTabs">
+      <button class="kpi-tab on" data-dim="all" type="button">Todos (20)</button>
+      <button class="kpi-tab" data-dim="operativa" type="button">Operativa (4)</button>
+      <button class="kpi-tab" data-dim="analitica" type="button">Analítica (5)</button>
+      <button class="kpi-tab" data-dim="roi" type="button">ROI (8)</button>
+      <button class="kpi-tab" data-dim="sostenibilidad" type="button">Sostenibilidad (3)</button>
+    </div>
+    <div class="kpi-grid" id="kpiGrid">{kpi_cards}</div>
   </div>
 </section>
 
@@ -2276,6 +2335,8 @@ assert '10 horas' in html
 assert 'OTRI' in html
 assert 'Innruta' in html
 assert 'id="computo"' in html
+assert 'id="flujo"' in html
+assert 'id="kpis"' in html
 assert 'id="plan"' in html
 assert 'id="perfil"' in html
 assert 'id="hardware"' in html
