@@ -350,6 +350,62 @@ BENEFICIOS_EXEC = [
     {"t": "Conecta institucional", "d": "Articula facultades, Distrito, redes y transferencia (ruta OTRI)."},
 ]
 
+
+
+# Resumenes interactivos (version corta de la presentacion completa)
+OBJETIVOS_EXEC = [
+    {"n": "01", "t": "Identificar tendencias CTi", "d": "Monitoreo permanente del entorno."},
+    {"n": "02", "t": "Definir captura de datos", "d": "Instrumentos y calidad de la información."},
+    {"n": "03", "t": "Observar industria y academia", "d": "Señales útiles para investigación y extensión."},
+    {"n": "04", "t": "Apoyar decisiones", "d": "Insumos de alto valor para directivos."},
+]
+
+PROBLEMAS_EXEC = [
+    {"id": "P1", "t": "Información dispersa", "d": "Datos académicos, administrativos y de entorno en sistemas separados."},
+    {"id": "P2", "t": "Convocatorias sin trazabilidad", "d": "Oportunidades de I+D+i y CEITTO sin embudo claro."},
+    {"id": "P3", "t": "Entorno cambiante", "d": "Políticas, tecnología y territorio exigen lectura continua."},
+    {"id": "P4", "t": "Brecha analítica", "d": "Acreditación CNA y calidad requieren evidencia trazable."},
+    {"id": "P5", "t": "Gobernanza de datos", "d": "Falta de dueños, estados de validación y repositorio único."},
+    {"id": "P6", "t": "Respuesta del Observatorio", "d": "Capacidad permanente de inteligencia institucional."},
+]
+
+PDI_EXEC = [
+    {"linea": "L1", "t": "Academia transformadora", "d": "Calidad, permanencia, acreditación e inclusión."},
+    {"linea": "L2", "t": "Intercambio de saberes", "d": "Investigación, extensión, PMO e internacionalización."},
+    {"linea": "L3", "t": "Ecosistema tecnológico", "d": "Interoperabilidad, PINAR y gobernanza de datos."},
+    {"linea": "L4", "t": "Sostenibilidad y gestión", "d": "Talento, recursos y venta de servicios."},
+]
+
+DEPS_INST = [
+    {"t": "CEITTO", "d": "Opera el Observatorio y articula VT/IC, transferencia y emprendimiento."},
+    {"t": "Gestión de TI", "d": "Infraestructura, seguridad, identidades y despliegue en campus."},
+    {"t": "Planeación / Calidad", "d": "Indicadores PDI, acreditación y reportes oficiales."},
+    {"t": "Facultades", "d": "Demanda de estudios, datos académicos y uso de tableros."},
+    {"t": "Investigación y Extensión", "d": "Convocatorias, productos y proyección social."},
+    {"t": "Distrito / Alcaldía", "d": "Plan Indicativo IES y lectura de aporte Colmayor."},
+]
+
+SERVICIOS_EXEC = [
+    {"n": "01", "t": "Tendencias CTi", "d": "Áreas de oportunidad."},
+    {"n": "02", "t": "Monitoreo", "d": "Industria y academia."},
+    {"n": "03", "t": "VT / IC", "d": "Estudios a la medida."},
+    {"n": "04", "t": "Prospectiva", "d": "Escenarios futuros."},
+    {"n": "05", "t": "Patentabilidad", "d": "Estado de la técnica."},
+    {"n": "06", "t": "Capacitación", "d": "Asesoría en VT/IC."},
+    {"n": "07", "t": "Estado del arte", "d": "Apoyo a investigación."},
+    {"n": "08", "t": "Transferencia", "d": "Modelos de negocio / OTRI."},
+]
+
+KPIS_CLAVE = [
+    {"id": "K1", "dim": "Operativa", "t": "Disponibilidad del servidor", "m": "≥ 99% mensual"},
+    {"id": "K2", "dim": "Analítica", "t": "Convocatorias mapeadas/mes", "m": "≥ 30"},
+    {"id": "K3", "dim": "Analítica", "t": "Tiempo respuesta directivos", "m": "≤ 5 días hábiles"},
+    {"id": "K4", "dim": "ROI", "t": "Decisiones con evidencia", "m": "≥ 3 / trimestre"},
+    {"id": "K5", "dim": "ROI", "t": "Reducción tiempo acreditación", "m": "≥ 20%"},
+    {"id": "K6", "dim": "ROI", "t": "Ingresos servicios externos", "m": "≥ COP 10M año 1"},
+    {"id": "K7", "dim": "Sostenibilidad", "t": "ROI hardware acumulado", "m": "≥ 50% al mes 6"},
+    {"id": "K8", "dim": "Sostenibilidad", "t": "Autofinanciamiento", "m": "≥ 30% al mes 6"},
+]
 COMPUTO_USO = [
     {"t": "IA local segura", "d": "Inferencia y ajuste de modelos en campus, sin depender solo de nube."},
     {"t": "Observatorio de convocatorias institucional", "d": "Scraping, clasificación y alertas de convocatorias N/I en producción."},
@@ -1693,6 +1749,57 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 .marquee-track span{{font-family:var(--display);font-weight:700;font-size:.9rem;color:var(--mute)}}
 @keyframes marquee{{to{{transform:translateX(-50%)}}}}
 
+
+/* Complementos ejecutivos interactivos */
+.ix-rail{{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.55rem;margin-top:1.1rem}}
+.ix-chip{{
+  text-align:left;font:inherit;color:inherit;cursor:pointer;border:1px solid var(--line);
+  background:var(--surface);border-radius:14px;padding:.85rem .9rem;box-shadow:var(--shadow);transition:.22s;
+}}
+.ix-chip:hover,.ix-chip.on{{background:var(--charcoal);color:#fff;transform:translateY(-2px)}}
+.ix-chip .n{{font-size:.7rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--teal)}}
+.ix-chip.on .n{{color:var(--orange)}}
+.ix-chip h3{{font-family:var(--display);font-size:.95rem;margin:.25rem 0 .2rem;line-height:1.2}}
+.ix-chip p{{font-size:.78rem;color:var(--mute);margin:0}}
+.ix-chip.on p{{color:rgba(255,255,255,.72)}}
+.ix-stage{{
+  margin-top:.85rem;background:var(--surface);border:1px solid var(--line);border-radius:16px;
+  padding:1.15rem 1.25rem;box-shadow:var(--shadow);border-top:4px solid var(--teal);min-height:110px;
+}}
+.ix-stage h3{{font-family:var(--display);font-size:1.2rem;margin:0 0 .35rem}}
+.ix-stage p{{color:var(--mute);margin:0;font-size:.95rem}}
+.kpi-clave{{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem;margin-top:1.1rem}}
+.kpi-clave .kc{{
+  background:var(--alt);border-radius:12px;padding:.9rem;border-top:3px solid var(--teal);cursor:pointer;transition:.22s;
+}}
+.kpi-clave .kc:nth-child(2n){{border-top-color:var(--orange)}}
+.kpi-clave .kc:hover,.kpi-clave .kc.on{{transform:translateY(-3px);background:var(--charcoal);color:#fff}}
+.kpi-clave .kc .dim{{font-size:.68rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--teal-deep)}}
+.kpi-clave .kc.on .dim{{color:var(--orange)}}
+.kpi-clave .kc h3{{font-family:var(--display);font-size:.95rem;margin:.3rem 0 .35rem}}
+.kpi-clave .kc .meta{{font-size:.9rem;font-weight:700;color:var(--primary)}}
+.kpi-clave .kc.on .meta{{color:var(--orange)}}
+.deps-grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-top:1.1rem}}
+.dep-card{{
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem;box-shadow:var(--shadow);
+  cursor:pointer;transition:.22s;border-left:3px solid var(--teal);
+}}
+.dep-card:hover,.dep-card.on{{background:var(--charcoal);color:#fff}}
+.dep-card h3{{font-family:var(--display);font-size:1rem;margin:0 0 .3rem}}
+.dep-card p{{font-size:.85rem;color:var(--mute);margin:0}}
+.dep-card.on p{{color:rgba(255,255,255,.75)}}
+.svc-mosaic{{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-top:1.1rem}}
+.svc-tile{{
+  background:var(--alt);border-radius:12px;padding:.85rem;cursor:pointer;transition:.22s;border:1px solid transparent;
+}}
+.svc-tile:hover,.svc-tile.on{{background:var(--charcoal);color:#fff;border-color:var(--charcoal)}}
+.svc-tile .n{{font-size:.7rem;font-weight:800;color:var(--orange)}}
+.svc-tile h3{{font-family:var(--display);font-size:.95rem;margin:.2rem 0}}
+.svc-tile p{{font-size:.78rem;color:var(--mute);margin:0}}
+.svc-tile.on p{{color:rgba(255,255,255,.7)}}
+@media(max-width:1000px){{.kpi-clave,.deps-grid,.svc-mosaic{{grid-template-columns:1fr 1fr}}}}
+@media(max-width:700px){{.kpi-clave,.deps-grid,.svc-mosaic,.ix-rail{{grid-template-columns:1fr}}}}
+
 </style>
 </head>
 <body>
@@ -1706,16 +1813,22 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
     <button class="menu" id="menu" type="button">Menú</button>
     <div class="nav-links" id="links">
       <a href="#inicio">Inicio</a>
+      <a href="#objetivos">Objetivos</a>
+      <a href="#problema">Problemas</a>
       <a href="#beneficios">Beneficios</a>
+      <a href="#pdi">PDI</a>
       <a href="#computo">Cómputo</a>
       <a href="#flujo">Flujo</a>
       <a href="#kpis">KPIs</a>
-      <a href="#plan">Plan 2026-2</a>
-      <a href="#talento">Equipo</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#deps">Dependencias</a>
+      <a href="#plan">Plan</a>
       <a href="#alianzas">Alianzas</a>
       <a href="#estudios">Trayectoria</a>
+      <a href="#talento">Equipo</a>
       <a href="#hardware">Presupuesto</a>
       <a href="#sigue">Qué sigue</a>
+      <a href="index.html" class="ver-full">Versión completa</a>
     </div>
   </div>
 </nav>
@@ -1743,6 +1856,31 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 </header>
 
 
+
+<section id="objetivos">
+  <div class="wrap reveal">
+    <p class="kicker">Direccionamiento</p>
+    <h2>Objetivos específicos</h2>
+    <p class="sub">Cuatro focos del Observatorio CTi. Clic para detalle.</p>
+    <div class="ix-rail" id="objRail">
+      {''.join('<button class="ix-chip{on}" type="button" data-i="{i}"><span class="n">{n}</span><h3>{tt}</h3><p>{d}</p></button>'.format(on=(' on' if i==0 else ''), i=i, n=o['n'], tt=o['t'], d=o['d']) for i,o in enumerate(OBJETIVOS_EXEC))}
+    </div>
+    <aside class="ix-stage" id="objPanel"><h3>{OBJETIVOS_EXEC[0]["t"]}</h3><p>{OBJETIVOS_EXEC[0]["d"]}</p></aside>
+  </div>
+</section>
+
+<section id="problema" class="section-alt">
+  <div class="wrap reveal">
+    <p class="kicker">Contexto</p>
+    <h2>Problemas que atendemos</h2>
+    <p class="sub">Seis frentes críticos. Clic para el detalle en una línea.</p>
+    <div class="ix-rail" id="probRail">
+      {''.join('<button class="ix-chip{on}" type="button" data-i="{i}"><span class="n">{pid}</span><h3>{tt}</h3><p>{d}</p></button>'.format(on=(' on' if i==0 else ''), i=i, pid=p['id'], tt=p['t'], d=p['d']) for i,p in enumerate(PROBLEMAS_EXEC))}
+    </div>
+    <aside class="ix-stage" id="probPanel"><h3>{PROBLEMAS_EXEC[0]["t"]}</h3><p>{PROBLEMAS_EXEC[0]["d"]}</p></aside>
+  </div>
+</section>
+
 <section id="beneficios" class="section-alt">
   <div class="wrap reveal">
     <p class="kicker">Valor ejecutivo</p>
@@ -1753,6 +1891,19 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
     </div>
   </div>
 </section>
+
+<section id="pdi">
+  <div class="wrap reveal">
+    <p class="kicker">Alineación institucional</p>
+    <h2>Líneas del PDI</h2>
+    <p class="sub">Cuatro líneas estratégicas. Clic para el aporte del Observatorio.</p>
+    <div class="ix-rail" id="pdiRail">
+      {''.join('<button class="ix-chip{on}" type="button" data-i="{i}"><span class="n">{ln}</span><h3>{tt}</h3><p>{d}</p></button>'.format(on=(' on' if i==0 else ''), i=i, ln=x['linea'], tt=x['t'], d=x['d']) for i,x in enumerate(PDI_EXEC))}
+    </div>
+    <aside class="ix-stage" id="pdiPanel"><h3>{PDI_EXEC[0]["t"]}</h3><p>{PDI_EXEC[0]["d"]}</p></aside>
+  </div>
+</section>
+
 
 <section id="computo">
   <div class="wrap reveal">
@@ -1807,21 +1958,43 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
   </div>
 </section>
 
+
 <section class="section-alt" id="kpis">
   <div class="wrap reveal">
-    <p class="kicker">Indicadores MVP</p>
-    <h2>20 KPIs en 4 dimensiones</h2>
-    <p class="sub">Marco de gestión del observatorio: operativa, analítica, ROI y sostenibilidad.</p>
-    <div class="kpi-tabs" id="kpiTabs">
-      <button class="kpi-tab on" data-dim="all" type="button">Todos (20)</button>
-      <button class="kpi-tab" data-dim="operativa" type="button">Operativa (4)</button>
-      <button class="kpi-tab" data-dim="analitica" type="button">Analítica (5)</button>
-      <button class="kpi-tab" data-dim="roi" type="button">ROI (8)</button>
-      <button class="kpi-tab" data-dim="sostenibilidad" type="button">Sostenibilidad (3)</button>
+    <p class="kicker">Indicadores clave</p>
+    <h2>8 KPIs para el MVP</h2>
+    <p class="sub">Selección ejecutiva. Clic en cada indicador.</p>
+    <div class="kpi-clave" id="kpiClave">
+      {''.join('<article class="kc{on}" data-i="{i}"><div class="dim">{dim}</div><h3>{tt}</h3><div class="meta">{mm}</div></article>'.format(on=(' on' if i==0 else ''), i=i, dim=k['dim'], tt=k['t'], mm=k['m']) for i,k in enumerate(KPIS_CLAVE))}
     </div>
-    <div class="kpi-grid" id="kpiGrid">{kpi_cards}</div>
+    <aside class="ix-stage" id="kpiPanel"><h3>{KPIS_CLAVE[0]["t"]}</h3><p>Meta: {KPIS_CLAVE[0]["m"]} · Dimensión {KPIS_CLAVE[0]["dim"]}.</p></aside>
   </div>
 </section>
+
+<section id="servicios">
+  <div class="wrap reveal">
+    <p class="kicker">Portafolio</p>
+    <h2>Servicios del Observatorio</h2>
+    <p class="sub">Ocho líneas de servicio. Clic para foco.</p>
+    <div class="svc-mosaic" id="svcMosaic">
+      {''.join('<article class="svc-tile{on}" data-i="{i}"><div class="n">{n}</div><h3>{tt}</h3><p>{d}</p></article>'.format(on=(' on' if i==0 else ''), i=i, n=s['n'], tt=s['t'], d=s['d']) for i,s in enumerate(SERVICIOS_EXEC))}
+    </div>
+    <aside class="ix-stage" id="svcPanel"><h3>{SERVICIOS_EXEC[0]["t"]}</h3><p>{SERVICIOS_EXEC[0]["d"]}</p></aside>
+  </div>
+</section>
+
+<section id="deps" class="section-alt">
+  <div class="wrap reveal">
+    <p class="kicker">Gobernanza</p>
+    <h2>Dependencias institucionales</h2>
+    <p class="sub">Quiénes hacen posible el Observatorio. Clic para resaltar el rol.</p>
+    <div class="deps-grid" id="depsGrid">
+      {''.join('<article class="dep-card{on}" data-i="{i}"><h3>{tt}</h3><p>{dd}</p></article>'.format(on=(' on' if i==0 else ''), i=i, tt=dp['t'], dd=dp['d']) for i,dp in enumerate(DEPS_INST))}
+    </div>
+  </div>
+</section>
+
+
 
 <section id="plan" class="section-alt">
   <div class="wrap reveal">
@@ -2128,7 +2301,7 @@ document.querySelectorAll('#escSteps .esc-step').forEach(btn=>{{
 function renderProb(i){{
   const p = PROBLEMAS[i];
   const panel = document.getElementById('probPanel');
-  if(!panel) return;
+  if(!panel || document.getElementById('probRail')) return;
   panel.className = 'prob-panel' + (p.tipo==='solucion' ? ' solucion' : '');
   panel.innerHTML = `<p class="tag">Contexto Colmayor</p><h3>${{p.titulo}}</h3><p>${{p.desc}}</p><div class="efecto"><strong>Implicación:</strong> ${{p.efecto}}</div>`;
 }}
@@ -2143,7 +2316,7 @@ document.querySelectorAll('#probList .prob-btn').forEach(btn=>{{
 function renderPdi(i){{
   const v = VENTAJAS_PDI[i];
   const panel = document.getElementById('pdiPanel');
-  if(!panel) return;
+  if(!panel || document.getElementById('pdiRail')) return;
   panel.innerHTML = `
     <h3>${{v.nombre}}</h3>
     <p class="foco">${{v.foco}}</p>
@@ -2300,10 +2473,14 @@ document.querySelectorAll('#svcMosaic .svc-tile').forEach(btn=>{{
   btn.onclick=()=>{{
     document.querySelectorAll('#svcMosaic .svc-tile').forEach(b=>b.classList.remove('on'));
     btn.classList.add('on');
-    const s=SERVICIOS[+btn.dataset.i];
-    const d=document.getElementById('svcDetail');
-    d.classList.add('show');
-    d.innerHTML=`<strong>${{s.t}}</strong>: ${{s.d}}`;
+    const d=document.getElementById('svcDetail')||document.getElementById('svcPanel');
+    if(!d) return;
+    if(d.id==='svcDetail' && typeof SERVICIOS!=='undefined'){{
+      const s=SERVICIOS[+btn.dataset.i];
+      if(!s) return;
+      d.classList.add('show');
+      d.innerHTML=`<strong>${{s.t}}</strong>: ${{s.d}}`;
+    }}
   }};
 }});
 
@@ -2487,6 +2664,62 @@ if(document.getElementById('ganttRows')) renderGantt(0);
     h.className = 'ix-hint';
     h.innerHTML = '<span class="pulse-dot"></span>Interactivo: haz clic para explorar detalles';
     el.parentElement?.insertBefore(h, el);
+  }});
+}})();
+
+
+function wireRail(railId, panelId, data){{
+  const rail = document.getElementById(railId);
+  const panel = document.getElementById(panelId);
+  if(!rail || !panel) return;
+  rail.querySelectorAll('[data-i]').forEach(btn=>{{
+    btn.addEventListener('click',()=>{{
+      rail.querySelectorAll('[data-i]').forEach(b=>b.classList.remove('on'));
+      btn.classList.add('on');
+      const x = data[+btn.dataset.i];
+      panel.innerHTML = `<h3>${{x.t}}</h3><p>${{x.d}}</p>`;
+    }});
+  }});
+}}
+wireRail('objRail','objPanel', {json.dumps([{"t":o["t"],"d":o["d"]} for o in OBJETIVOS_EXEC], ensure_ascii=False)});
+wireRail('probRail','probPanel', {json.dumps([{"t":p["t"],"d":p["d"]} for p in PROBLEMAS_EXEC], ensure_ascii=False)});
+wireRail('pdiRail','pdiPanel', {json.dumps([{"t":x["t"],"d":x["d"]} for x in PDI_EXEC], ensure_ascii=False)});
+(function(){{
+  const data = {json.dumps(KPIS_CLAVE, ensure_ascii=False)};
+  const host = document.getElementById('kpiClave');
+  const panel = document.getElementById('kpiPanel');
+  if(!host || !panel) return;
+  host.querySelectorAll('[data-i]').forEach(card=>{{
+    card.addEventListener('click',()=>{{
+      host.querySelectorAll('[data-i]').forEach(c=>c.classList.remove('on'));
+      card.classList.add('on');
+      const k = data[+card.dataset.i];
+      panel.innerHTML = `<h3>${{k.t}}</h3><p>Meta: ${{k.m}} · Dimensión ${{k.dim}}.</p>`;
+    }});
+  }});
+}})();
+(function(){{
+  const data = {json.dumps(SERVICIOS_EXEC, ensure_ascii=False)};
+  const host = document.getElementById('svcMosaic');
+  const panel = document.getElementById('svcPanel');
+  if(!host || !panel) return;
+  host.querySelectorAll('[data-i]').forEach(card=>{{
+    card.addEventListener('click',()=>{{
+      host.querySelectorAll('[data-i]').forEach(c=>c.classList.remove('on'));
+      card.classList.add('on');
+      const s = data[+card.dataset.i];
+      panel.innerHTML = `<h3>${{s.t}}</h3><p>${{s.d}}</p>`;
+    }});
+  }});
+}})();
+(function(){{
+  const host = document.getElementById('depsGrid');
+  if(!host) return;
+  host.querySelectorAll('[data-i]').forEach(card=>{{
+    card.addEventListener('click',()=>{{
+      host.querySelectorAll('[data-i]').forEach(c=>c.classList.remove('on'));
+      card.classList.add('on');
+    }});
   }});
 }})();
 
