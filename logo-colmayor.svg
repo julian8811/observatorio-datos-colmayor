@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" role="img" aria-label="Institución Universitaria Colegio Mayor de Antioquia">
+  <!-- Escudo -->
+  <g transform="translate(8,8)">
+    <path d="M52 2 L98 14 V58 C98 86 78 100 52 110 C26 100 6 86 6 58 V14 Z" fill="#2C3339" stroke="#fff" stroke-width="3.2" stroke-linejoin="round"/>
+    <!-- Franja naranja -->
+    <path d="M14 16 L90 16 V36 H14 Z" fill="#F39A1A"/>
+    <!-- Símbolo superior (libro / llama estilizada) -->
+    <path d="M52 21c-4.5 3.2-7.5 6.8-7.5 10.2 0 3.3 2.8 5.3 7.5 5.3s7.5-2 7.5-5.3C59.5 27.8 56.5 24.2 52 21z" fill="#fff"/>
+    <!-- Torre -->
+    <g fill="#C8CDD1">
+      <rect x="38" y="42" width="28" height="28" rx="1.5"/>
+      <rect x="36" y="38" width="6" height="7"/>
+      <rect x="49" y="38" width="6" height="7"/>
+      <rect x="62" y="38" width="6" height="7"/>
+      <rect x="44" y="52" width="5" height="8" fill="#2C3339"/>
+      <rect x="55" y="52" width="5" height="8" fill="#2C3339"/>
+    </g>
+    <!-- Montañas verdes -->
+    <path d="M14 72 L30 58 L44 70 L58 56 L74 68 L90 54 V96 H14 Z" fill="#1B7A3A"/>
+    <path d="M14 88 L90 88 V104 C78 108 64 110 52 110 C40 110 26 108 14 104 Z" fill="#14632E"/>
+  </g>
+  <!-- Tipografía institucional -->
+  <g fill="#fff" font-family="Inter, Arial, Helvetica, sans-serif">
+    <text x="128" y="38" font-size="13.5" font-weight="500" letter-spacing="1.6">INSTITUCIÓN UNIVERSITARIA</text>
+    <text x="128" y="68" font-size="26" font-weight="800" letter-spacing="0.4">COLEGIO MAYOR</text>
+    <text x="128" y="98" font-size="26" font-weight="800" letter-spacing="0.4">DE ANTIOQUIA®</text>
+  </g>
+</svg>
