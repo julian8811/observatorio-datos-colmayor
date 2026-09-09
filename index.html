@@ -43,7 +43,14 @@ nav .wrap{min-height:88px;padding-top:.85rem;padding-bottom:.85rem;display:flex;
 .tray-money .tm.total b{color:var(--orange)}
 .tray-money .tm span{font-size:.82rem;color:var(--mute);line-height:1.35}
 .tray-money .tm.total span{color:rgba(255,255,255,.78)}
+.tray-money .tm .amt-analitica{margin-top:.65rem;padding-top:.65rem;border-top:1px dashed rgba(44,51,57,.18)}
+.tray-money .tm.total .amt-analitica{border-top-color:rgba(255,255,255,.2)}
+.tray-money .tm .amt-analitica .lbl-a{display:block;font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--teal-deep);margin-bottom:.15rem}
+.tray-money .tm.total .amt-analitica .lbl-a{color:var(--teal)}
+.tray-money .tm .amt-analitica strong{display:block;font-family:var(--display);font-size:1.05rem;color:var(--teal-deep);font-weight:800}
+.tray-money .tm.total .amt-analitica strong{color:#7fe0dd}
 .tray-chip .cop{display:block;margin-top:.35rem;font-size:.78rem;font-weight:800;color:var(--orange)}
+.tray-chip .cop-sub{display:block;margin-top:.2rem;font-size:.7rem;font-weight:700;color:var(--teal-deep);line-height:1.3}
 @media (max-width:900px){.tray-money{grid-template-columns:1fr 1fr}.brand{max-width:100%}}
 @media (max-width:640px){.tray-money{grid-template-columns:1fr}}
 
@@ -844,34 +851,73 @@ h2{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spacin
     <h2>El Colegio Mayor ya convirtió analítica e IA en valor institucional</h2>
     <p class="sub">Estos antecedentes muestran que el Observatorio no parte de cero: organiza capacidades existentes, reduce dependencia operativa y crea una plataforma para escalar servicios analíticos. Cifras de ejecución o gestión con analítica tomadas de la propuesta de implementación institucional.</p>
     <div class="tray-money">
-      <div class="tm total"><span>Total gasto en inteligencia y analítica de datos</span><b>$ 66.000.000</b><span>Antecedente de demanda real de estudios, tableros y lectura territorial</span></div>
-      <div class="tm"><span>Ruta de competitividad turística regional</span><b>$ 37.000.000</b><span>Gasto en inteligencia y analítica de datos · Cámara / RNT</span></div>
-      <div class="tm"><span>Paisaje cultural ganadero Magdalena Medio</span><b>$ 12.000.000</b><span>Gasto en inteligencia y analítica de datos</span></div>
-      <div class="tm"><span>Denominación de origen · Tapetusa</span><b>$ 7.000.000</b><span>Gasto en inteligencia y analítica de datos</span></div>
-      <div class="tm"><span>Oferta y demanda turística · El Peñol</span><b>$ 10.000.000</b><span>Estudio municipal con evidencia navegable</span></div>
+      <div class="tm total">
+        <span>Total ejecutado o gestionado</span>
+        <b>$ 509.000.000</b>
+        <span>Antecedente de demanda real de estudios, tableros y lectura territorial</span>
+        <div class="amt-analitica">
+          <span class="lbl-a">Gasto en inteligencia y analítica de datos</span>
+          <strong>$ 56.000.000</strong>
+        </div>
+      </div>
+      <div class="tm">
+        <span>Ruta de competitividad turística regional</span>
+        <b>$ 97.800.000</b>
+        <span>Asociada a análisis RNT / Cámara de Comercio</span>
+        <div class="amt-analitica">
+          <span class="lbl-a">Gasto en inteligencia y analítica de datos</span>
+          <strong>$ 37.000.000</strong>
+        </div>
+      </div>
+      <div class="tm">
+        <span>Paisaje cultural ganadero Magdalena Medio</span>
+        <b>$ 42.000.000</b>
+        <span>Proyecto territorial con entregables VT/IC</span>
+        <div class="amt-analitica">
+          <span class="lbl-a">Gasto en inteligencia y analítica de datos</span>
+          <strong>$ 12.000.000</strong>
+        </div>
+      </div>
+      <div class="tm">
+        <span>Denominación de origen · Tapetusa</span>
+        <b>$ 360.000.000</b>
+        <span>Expediente DOP y transferencia de conocimiento</span>
+        <div class="amt-analitica">
+          <span class="lbl-a">Gasto en inteligencia y analítica de datos</span>
+          <strong>$ 7.000.000</strong>
+        </div>
+      </div>
+      <div class="tm">
+        <span>Oferta y demanda turística · El Peñol</span>
+        <b>$ 10.000.000</b>
+        <span>Estudio municipal con evidencia navegable</span>
+      </div>
     </div>
     <div class="tray-stats">
       <div class="tray-stat"><b>7</b><span>Líneas de evidencia</span></div>
       <div class="tray-stat"><b>26</b><span>Evidencias enlazadas</span></div>
-      <div class="tray-stat"><b>$66M</b><span>Gasto en analítica</span></div>
-      <div class="tray-stat"><b>Colmayor</b><span>Capacidad instalada</span></div>
+      <div class="tray-stat"><b>$509M</b><span>Ejecutado / gestionado</span></div>
+      <div class="tray-stat"><b>$56M</b><span>Gasto en analítica</span></div>
     </div>
     <div class="tray-rail" id="trayRail">
       <button class="tray-chip on" type="button" data-i="0">
         <span class="n">01</span>
         <b>Cámara de Comercio</b>
         <span>Análisis RNT en 5 subregiones de Antioquia</span>
-        <span class="cop">$ 37.000.000</span>
+        <span class="cop">$ 97.800.000</span>
+        <span class="cop-sub">Analítica $ 37.000.000</span>
       </button><button class="tray-chip" type="button" data-i="1">
         <span class="n">02</span>
         <b>Magdalena medio</b>
         <span>Paisaje ganadero y desarrollo territorial</span>
-        <span class="cop">$ 12.000.000</span>
+        <span class="cop">$ 42.000.000</span>
+        <span class="cop-sub">Analítica $ 12.000.000</span>
       </button><button class="tray-chip" type="button" data-i="2">
         <span class="n">03</span>
         <b>Denominación de origen</b>
         <span>Tapetusa artesanal y reconocimiento DOP</span>
-        <span class="cop">$ 7.000.000</span>
+        <span class="cop">$ 360.000.000</span>
+        <span class="cop-sub">Analítica $ 7.000.000</span>
       </button><button class="tray-chip" type="button" data-i="3">
         <span class="n">04</span>
         <b>Peñol</b>
@@ -1465,7 +1511,7 @@ const SERVICIOS = [
   {"t":"Estado del arte","d":"Apoyo a investigación","x":"Síntesis estructurada de literatura, patentes y fuentes especializadas para grupos, semilleros y proyectos de investigación."},
   {"t":"Transferencia","d":"Modelos de negocio / OTRI","x":"Articulación de madurez tecnológica, licenciamiento, modelos de negocio y spin-offs con la ruta de transferencia institucional."}
 ];
-const ESTUDIOS = [{"id": "camara", "t": "Cámara de Comercio", "d": "Ruta de competitividad turística regional · RNT 5 subregiones", "metric": "$97.8M", "metric_l": "ejecutado/gestionado", "cop": "$ 97.800.000", "tag": "Territorio · RNT", "blurb": "Informe interactivo de análisis del Registro Nacional de Turismo por subregiones, con lectura territorial para decisión empresarial e institucional.", "evidencias": [{"tipo": "html", "label": "Análisis RNT subregiones", "src": "evidencias/camara/analisis-rnt-subregiones.html"}]}, {"id": "magdalena", "t": "Magdalena medio", "d": "Paisaje cultural ganadero Magdalena Medio - Antioquia", "metric": "$42M", "metric_l": "ejecutado/gestionado", "cop": "$ 42.000.000", "tag": "Territorio · agro", "blurb": "Estudios del paisaje ganadero del Magdalena Medio: atractivos, ruta Puerto Berrío-Maceo, benchmarking, modelo de negocio y taller PCG. La plataforma web se abre en pestaña nueva.", "evidencias": [{"tipo": "html", "label": "Atractivos turísticos", "src": "evidencias/magdalena/atractivos-turisticos.html"}, {"tipo": "html", "label": "Dashboard taller PCG", "src": "evidencias/magdalena/dashboard-taller-pcg.html"}, {"tipo": "html", "label": "Informe taller PCG", "src": "evidencias/magdalena/informe-taller-pcg.html"}, {"tipo": "html", "label": "Ruta Puerto Berrío-Maceo", "src": "evidencias/magdalena/ruta-puerto-berrio-maceo.html"}, {"tipo": "html", "label": "Análisis RNT Puerto Berrío", "src": "evidencias/magdalena/analisis-rnt-puerto-berrio.html"}, {"tipo": "html", "label": "Rutas proyectadas", "src": "evidencias/magdalena/rutas-proyectadas.html"}, {"tipo": "html", "label": "Modelo de negocio", "src": "evidencias/magdalena/modelo-negocio.html"}, {"tipo": "html", "label": "Benchmarking PCC", "src": "evidencias/magdalena/benchmarking-pcc.html"}, {"tipo": "html", "label": "Mapa georreferenciación", "src": "evidencias/magdalena/mapa-georreferenciacion.html"}, {"tipo": "url", "label": "Plataforma web (Vercel)", "src": "https://mgdalena-medio.vercel.app/"}]}, {"id": "do", "t": "Denominación de origen", "d": "Tapetusa artesanal y reconocimiento DOP", "metric": "$360M", "metric_l": "ejecutado/gestionado", "tag": "DOP · CEITTO", "blurb": "Expediente técnico con percepción territorial, tableros Power BI, misión técnica, infografías y guías para autoridades y productores. Rubro gestionado: $ 360.000.000.", "evidencias": [{"tipo": "html", "label": "Infografía Tapetusa", "src": "evidencias/do/infografia-tapetusa-profesional.html"}, {"tipo": "html", "label": "Infografía actualizada", "src": "evidencias/do/infografia-tapetusa-actualizada.html"}, {"tipo": "pdf", "label": "Tableros Power BI", "src": "evidencias/do/anexo-4-screenshot-tableros-power-bi.pdf"}, {"tipo": "pdf", "label": "Gráfico de resultados", "src": "evidencias/do/anexo-1-gr-fico-de-resultados.pdf"}, {"tipo": "pdf", "label": "Tabla de resultados", "src": "evidencias/do/anexo-1-tabla-de-resultados.pdf"}, {"tipo": "pdf", "label": "Percepción municipios", "src": "evidencias/do/anexo-3-an-lisis-de-percepci-n-de-los-municipios.pdf"}, {"tipo": "pdf", "label": "Matriz diagnóstico", "src": "evidencias/do/anexo-5-matriz-diagnostico-de-los-municipios.pdf"}, {"tipo": "pdf", "label": "Informe misión técnica DOP", "src": "evidencias/do/anexo-8-informe-final-misi-n-t-cnica-dop.pdf"}, {"tipo": "pdf", "label": "Evidencia del viaje", "src": "evidencias/do/anexo-9-evidencia-del-viaje.pdf"}, {"tipo": "pdf", "label": "BPM Tapetusa", "src": "evidencias/do/bpm-tapetusa.pdf"}], "cop": "$ 360.000.000"}, {"id": "penol", "t": "Peñol", "d": "Estudio de oferta y demanda turística del municipio de El Peñol", "cop": "$ 10.000.000", "metric": "$10M", "metric_l": "ejecutado/gestionado", "tag": "Turismo · RNT", "blurb": "Webscraping del RNT y reporte turístico del municipio de Peñol como apoyo a la lectura competitiva del destino.", "evidencias": [{"tipo": "html", "label": "Informe webscraping Peñol", "src": "evidencias/penol/informe-webscraping-penol.html"}, {"tipo": "html", "label": "Informe turístico Peñol", "src": "evidencias/penol/informe-turistico-penol.html"}]}, {"id": "comfama", "t": "Comfama", "d": "Transferencia social del conocimiento", "metric": "1", "metric_l": "informe de madurez", "tag": "Transferencia social", "blurb": "Proyecto de transferencia social del conocimiento con Comfama: diagnóstico de madurez de la Ruta Lechera / San Pedro como insumo de vigilancia e inteligencia para el entorno.", "evidencias": [{"tipo": "html", "label": "Informe madurez Ruta San Pedro", "src": "evidencias/comfama/informe-madurez-ruta-san-pedro.html"}]}, {"id": "convocatorias", "t": "Convocatorias", "d": "Plataforma institucional de vigilancia de convocatorias", "metric": "Live", "metric_l": "plataforma Colmayor", "tag": "Radar · ecosistema", "blurb": "Observatorio de convocatorias en el ecosistema tecnológico Colmayor. Ábrelo en una pestaña nueva para consultar el tablero institucional.", "evidencias": [{"tipo": "url", "label": "Observatorio de convocatorias · ecosistema Colmayor", "src": "https://ecosistema.colmayor.edu.co/observatorio/"}]}, {"id": "investigacion", "t": "Investigación", "d": "Proyectos finalizados con evidencia entregable", "metric": "N", "metric_l": "cierres documentados", "tag": "Proyectos", "blurb": "Capacidad demostrada para cerrar estudios VT/IC con productos accionables para dependencias y aliados.", "evidencias": []}];
+const ESTUDIOS = [{"id": "camara", "t": "Cámara de Comercio", "d": "Ruta de competitividad turística regional · RNT 5 subregiones", "metric": "$97.8M", "metric_l": "ejecutado/gestionado", "cop": "$ 97.800.000", "tag": "Territorio · RNT", "blurb": "Proyecto $ 97.800.000. Gasto en inteligencia y analítica de datos: $ 37.000.000. Informe interactivo del RNT por subregiones, con lectura territorial para decisión empresarial e institucional.", "evidencias": [{"tipo": "html", "label": "Análisis RNT subregiones", "src": "evidencias/camara/analisis-rnt-subregiones.html"}], "cop_analitica": "$ 37.000.000"}, {"id": "magdalena", "t": "Magdalena medio", "d": "Paisaje cultural ganadero Magdalena Medio - Antioquia", "metric": "$42M", "metric_l": "ejecutado/gestionado", "cop": "$ 42.000.000", "tag": "Territorio · agro", "blurb": "Proyecto $ 42.000.000. Gasto en inteligencia y analítica de datos: $ 12.000.000. Estudios del paisaje ganadero del Magdalena Medio con entregables VT/IC.", "evidencias": [{"tipo": "html", "label": "Atractivos turísticos", "src": "evidencias/magdalena/atractivos-turisticos.html"}, {"tipo": "html", "label": "Dashboard taller PCG", "src": "evidencias/magdalena/dashboard-taller-pcg.html"}, {"tipo": "html", "label": "Informe taller PCG", "src": "evidencias/magdalena/informe-taller-pcg.html"}, {"tipo": "html", "label": "Ruta Puerto Berrío-Maceo", "src": "evidencias/magdalena/ruta-puerto-berrio-maceo.html"}, {"tipo": "html", "label": "Análisis RNT Puerto Berrío", "src": "evidencias/magdalena/analisis-rnt-puerto-berrio.html"}, {"tipo": "html", "label": "Rutas proyectadas", "src": "evidencias/magdalena/rutas-proyectadas.html"}, {"tipo": "html", "label": "Modelo de negocio", "src": "evidencias/magdalena/modelo-negocio.html"}, {"tipo": "html", "label": "Benchmarking PCC", "src": "evidencias/magdalena/benchmarking-pcc.html"}, {"tipo": "html", "label": "Mapa georreferenciación", "src": "evidencias/magdalena/mapa-georreferenciacion.html"}, {"tipo": "url", "label": "Plataforma web (Vercel)", "src": "https://mgdalena-medio.vercel.app/"}], "cop_analitica": "$ 12.000.000"}, {"id": "do", "t": "Denominación de origen", "d": "Tapetusa artesanal y reconocimiento DOP", "metric": "$360M", "metric_l": "ejecutado/gestionado", "tag": "DOP · CEITTO", "blurb": "Proyecto $ 360.000.000. Gasto en inteligencia y analítica de datos: $ 7.000.000. Expediente técnico DOP Tapetusa con tableros, misión técnica e infografías.", "evidencias": [{"tipo": "html", "label": "Infografía Tapetusa", "src": "evidencias/do/infografia-tapetusa-profesional.html"}, {"tipo": "html", "label": "Infografía actualizada", "src": "evidencias/do/infografia-tapetusa-actualizada.html"}, {"tipo": "pdf", "label": "Tableros Power BI", "src": "evidencias/do/anexo-4-screenshot-tableros-power-bi.pdf"}, {"tipo": "pdf", "label": "Gráfico de resultados", "src": "evidencias/do/anexo-1-gr-fico-de-resultados.pdf"}, {"tipo": "pdf", "label": "Tabla de resultados", "src": "evidencias/do/anexo-1-tabla-de-resultados.pdf"}, {"tipo": "pdf", "label": "Percepción municipios", "src": "evidencias/do/anexo-3-an-lisis-de-percepci-n-de-los-municipios.pdf"}, {"tipo": "pdf", "label": "Matriz diagnóstico", "src": "evidencias/do/anexo-5-matriz-diagnostico-de-los-municipios.pdf"}, {"tipo": "pdf", "label": "Informe misión técnica DOP", "src": "evidencias/do/anexo-8-informe-final-misi-n-t-cnica-dop.pdf"}, {"tipo": "pdf", "label": "Evidencia del viaje", "src": "evidencias/do/anexo-9-evidencia-del-viaje.pdf"}, {"tipo": "pdf", "label": "BPM Tapetusa", "src": "evidencias/do/bpm-tapetusa.pdf"}], "cop": "$ 360.000.000", "cop_analitica": "$ 7.000.000"}, {"id": "penol", "t": "Peñol", "d": "Estudio de oferta y demanda turística del municipio de El Peñol", "cop": "$ 10.000.000", "metric": "$10M", "metric_l": "ejecutado/gestionado", "tag": "Turismo · RNT", "blurb": "Webscraping del RNT y reporte turístico del municipio de Peñol como apoyo a la lectura competitiva del destino.", "evidencias": [{"tipo": "html", "label": "Informe webscraping Peñol", "src": "evidencias/penol/informe-webscraping-penol.html"}, {"tipo": "html", "label": "Informe turístico Peñol", "src": "evidencias/penol/informe-turistico-penol.html"}]}, {"id": "comfama", "t": "Comfama", "d": "Transferencia social del conocimiento", "metric": "1", "metric_l": "informe de madurez", "tag": "Transferencia social", "blurb": "Proyecto de transferencia social del conocimiento con Comfama: diagnóstico de madurez de la Ruta Lechera / San Pedro como insumo de vigilancia e inteligencia para el entorno.", "evidencias": [{"tipo": "html", "label": "Informe madurez Ruta San Pedro", "src": "evidencias/comfama/informe-madurez-ruta-san-pedro.html"}]}, {"id": "convocatorias", "t": "Convocatorias", "d": "Plataforma institucional de vigilancia de convocatorias", "metric": "Live", "metric_l": "plataforma Colmayor", "tag": "Radar · ecosistema", "blurb": "Observatorio de convocatorias en el ecosistema tecnológico Colmayor. Ábrelo en una pestaña nueva para consultar el tablero institucional.", "evidencias": [{"tipo": "url", "label": "Observatorio de convocatorias · ecosistema Colmayor", "src": "https://ecosistema.colmayor.edu.co/observatorio/"}]}, {"id": "investigacion", "t": "Investigación", "d": "Proyectos finalizados con evidencia entregable", "metric": "N", "metric_l": "cierres documentados", "tag": "Proyectos", "blurb": "Capacidad demostrada para cerrar estudios VT/IC con productos accionables para dependencias y aliados.", "evidencias": []}];
 document.getElementById('menu').onclick=()=>document.getElementById('links').classList.toggle('open');
 document.querySelectorAll('#links a').forEach(a=>{
   a.addEventListener('click',()=>document.getElementById('links').classList.remove('open'));
@@ -1475,7 +1521,7 @@ window.addEventListener('resize',()=>{
 });
 
 function trayPreviewHtml(e, ev){
-  const copLine = e.cop ? `<p class="cop" style="color:var(--orange);font-weight:800;font-size:1.15rem;margin:.4rem 0">${e.cop}</p>` : '';
+  const copLine = (e.cop ? `<p class="cop" style="color:var(--orange);font-weight:800;font-size:1.15rem;margin:.4rem 0">${e.cop}</p>` : '') + (e.cop_analitica ? `<p style="color:var(--teal);font-weight:700;font-size:.95rem;margin:.15rem 0 .4rem">Gasto en inteligencia y analítica: ${e.cop_analitica}</p>` : '');
   if(!ev){
     return `<div class="tray-fallback"><p class="badge">${e.tag}</p><h3>${e.t}</h3>${copLine}<p>${e.blurb}</p></div>`;
   }
@@ -1499,7 +1545,7 @@ function trayPreviewHtml(e, ev){
 
 function renderTray(i, evIdx=0){
   const e = ESTUDIOS[i];
-  const copLine = e.cop ? `<p class="cop" style="color:var(--orange);font-weight:800;font-size:1.15rem;margin:.4rem 0">${e.cop}</p>` : '';
+  const copLine = (e.cop ? `<p class="cop" style="color:var(--orange);font-weight:800;font-size:1.15rem;margin:.4rem 0">${e.cop}</p>` : '') + (e.cop_analitica ? `<p style="color:var(--teal);font-weight:700;font-size:.95rem;margin:.15rem 0 .4rem">Gasto en inteligencia y analítica: ${e.cop_analitica}</p>` : '');
   const ev = e.evidencias[evIdx] || null;
   document.getElementById('trayPreview').innerHTML = trayPreviewHtml(e, ev);
   const list = e.evidencias.length
