@@ -244,19 +244,20 @@ h2{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spacin
 .canal-tile .ci{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(0,179,175,.16),rgba(243,154,26,.12));font-family:var(--display);font-weight:800;font-size:.85rem;color:var(--teal-deep)}
 .canal-tile.on .ci{background:rgba(243,154,26,.25);color:var(--orange)}
 .canal-tile b{font-family:var(--display);font-size:.8rem;text-align:center;line-height:1.2}
-.svc-mosaic{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin-top:1.3rem}
-.svc-tile{position:relative;overflow:hidden;border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:1.15rem;cursor:pointer;text-align:left;font:inherit;color:inherit;transition:.3s;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:flex-end;min-height:138px}
-.svc-tile::after{content:"";position:absolute;inset:auto -30% -50%;height:80%;background:radial-gradient(circle,rgba(0,179,175,.2),transparent 65%);transition:.35s}
-.svc-tile:nth-child(1),.svc-tile:nth-child(6){grid-column:span 2;min-height:158px;background:linear-gradient(145deg,#2C3339,#006a67);color:#fff;border:none}
-.svc-tile:nth-child(1) span,.svc-tile:nth-child(6) span{color:rgba(255,255,255,.75)}
-.svc-tile:nth-child(1) .sn,.svc-tile:nth-child(6) .sn{color:var(--orange)}
-.svc-tile:hover,.svc-tile.on{transform:translateY(-4px)}
-.svc-tile.on{outline:2px solid var(--orange)}
-.svc-tile .sn{position:relative;z-index:1;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:.4rem}
-.svc-tile b{position:relative;z-index:1;font-family:var(--display);font-size:1.1rem;margin-bottom:.25rem}
-.svc-tile span{position:relative;z-index:1;font-size:.88rem;color:var(--mute)}
-.svc-detail{margin-top:.85rem;padding:1rem 1.15rem;background:var(--alt);border-radius:12px;border-left:4px solid var(--orange);font-size:1rem;color:var(--mute);display:none}
+.svc-mosaic{display:grid;grid-template-columns:repeat(2,1fr);gap:.85rem;margin-top:1.3rem}
+.svc-tile{position:relative;overflow:hidden;border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:1.2rem 1.2rem 1.15rem;cursor:pointer;text-align:left;font:inherit;color:inherit;transition:.3s;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:.35rem;min-height:0}
+.svc-tile::after{content:"";position:absolute;inset:auto -30% -50%;height:80%;background:radial-gradient(circle,rgba(0,179,175,.14),transparent 65%);transition:.35s;pointer-events:none}
+.svc-tile:hover,.svc-tile.on{transform:translateY(-3px);border-color:rgba(0,179,175,.35)}
+.svc-tile.on{outline:2px solid var(--orange);outline-offset:0}
+.svc-tile .sn{position:relative;z-index:1;font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
+.svc-tile b{position:relative;z-index:1;font-family:var(--display);font-size:1.15rem;color:var(--charcoal);line-height:1.25}
+.svc-tile .svc-tag{position:relative;z-index:1;font-size:.88rem;color:var(--mute);font-weight:600}
+.svc-tile .svc-x{position:relative;z-index:1;font-size:.92rem;color:var(--ink);line-height:1.5;margin-top:.25rem}
+.svc-detail{margin-top:.85rem;padding:1.1rem 1.2rem;background:linear-gradient(160deg,var(--charcoal),#1a3338);color:#fff;border-radius:14px;border-top:4px solid var(--orange);font-size:1rem;display:none}
 .svc-detail.show{display:block;animation:fadeUp .3s ease}
+.svc-detail strong{display:block;font-family:var(--display);font-size:1.15rem;margin-bottom:.35rem}
+.svc-detail p{margin:0;color:rgba(255,255,255,.86);line-height:1.5}
+@media (max-width:700px){.svc-mosaic{grid-template-columns:1fr}}
 
 /* Problematica + Ventajas PDI */
 .prob-stage{display:grid;grid-template-columns:1fr 1.05fr;gap:1.1rem;margin-top:1.4rem;align-items:start}
@@ -1028,26 +1029,61 @@ h2{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spacin
   <div class="wrap reveal">
     <p class="kicker">Portafolio</p>
     <h2>Servicios que se pueden ofrecer</h2>
+    <p class="sub">Cada servicio del Observatorio entrega un producto accionable para la institución, las facultades o el entorno.</p>
     <div class="svc-mosaic" id="svcMosaic">
-      <button class="svc-tile" type="button" data-i="0">
-        <span class="sn">01</span><b>Tendencias</b><span>Áreas de oportunidad en CTi</span>
-      </button><button class="svc-tile" type="button" data-i="1">
-        <span class="sn">02</span><b>Monitoreo</b><span>Necesidades de industria y academia</span>
-      </button><button class="svc-tile" type="button" data-i="2">
-        <span class="sn">03</span><b>VT / IC</b><span>Estudios a la medida</span>
-      </button><button class="svc-tile" type="button" data-i="3">
-        <span class="sn">04</span><b>Prospectiva</b><span>Escenarios futuros</span>
-      </button><button class="svc-tile" type="button" data-i="4">
-        <span class="sn">05</span><b>Patentabilidad</b><span>Estado de la técnica</span>
-      </button><button class="svc-tile" type="button" data-i="5">
-        <span class="sn">06</span><b>Capacitación</b><span>Asesoría en VT/IC</span>
-      </button><button class="svc-tile" type="button" data-i="6">
-        <span class="sn">07</span><b>Estado del arte</b><span>Apoyo a investigación</span>
-      </button><button class="svc-tile" type="button" data-i="7">
-        <span class="sn">08</span><b>Transferencia</b><span>Modelos de negocio</span>
+      <button class="svc-tile on" type="button" data-i="0">
+        <span class="sn">01</span>
+        <b>Tendencias CTi</b>
+        <span class="svc-tag">Áreas de oportunidad</span>
+        <p class="svc-x">Monitoreo permanente de señales científicas, tecnológicas, regulatorias y de mercado relevantes para Colmayor, con alertas y síntesis para dirección y facultades.</p>
+      </button>
+      <button class="svc-tile" type="button" data-i="1">
+        <span class="sn">02</span>
+        <b>Monitoreo</b>
+        <span class="svc-tag">Industria y academia</span>
+        <p class="svc-x">Lectura comparada de referentes sectoriales, pares IES y necesidades del entorno productivo para orientar investigación, extensión y programas.</p>
+      </button>
+      <button class="svc-tile" type="button" data-i="2">
+        <span class="sn">03</span>
+        <b>VT / IC</b>
+        <span class="svc-tag">Estudios a la medida</span>
+        <p class="svc-x">Estudios de vigilancia tecnológica e inteligencia competitiva con proceso digitalizado: solicitud → factores críticos → informe → divulgación.</p>
+      </button>
+      <button class="svc-tile" type="button" data-i="3">
+        <span class="sn">04</span>
+        <b>Prospectiva</b>
+        <span class="svc-tag">Escenarios futuros</span>
+        <p class="svc-x">Anticipación de trayectorias tecnológicas, regulatorias y de mercado para apoyar decisiones de mediano plazo de la plana directiva.</p>
+      </button>
+      <button class="svc-tile" type="button" data-i="4">
+        <span class="sn">05</span>
+        <b>Patentabilidad</b>
+        <span class="svc-tag">Estado de la técnica</span>
+        <p class="svc-x">Análisis del estado de la técnica como insumo para propiedad intelectual, evaluación de novedad y ruta de transferencia tecnológica.</p>
+      </button>
+      <button class="svc-tile" type="button" data-i="5">
+        <span class="sn">06</span>
+        <b>Capacitación</b>
+        <span class="svc-tag">Asesoría en VT/IC</span>
+        <p class="svc-x">Formación y acompañamiento a equipos académicos y de gestión en métodos de vigilancia, inteligencia competitiva y uso de evidencia.</p>
+      </button>
+      <button class="svc-tile" type="button" data-i="6">
+        <span class="sn">07</span>
+        <b>Estado del arte</b>
+        <span class="svc-tag">Apoyo a investigación</span>
+        <p class="svc-x">Síntesis estructurada de literatura, patentes y fuentes especializadas para grupos, semilleros y proyectos de investigación.</p>
+      </button>
+      <button class="svc-tile" type="button" data-i="7">
+        <span class="sn">08</span>
+        <b>Transferencia</b>
+        <span class="svc-tag">Modelos de negocio / OTRI</span>
+        <p class="svc-x">Articulación de madurez tecnológica, licenciamiento, modelos de negocio y spin-offs con la ruta de transferencia institucional.</p>
       </button>
     </div>
-    <div class="svc-detail" id="svcDetail"></div>
+    <div class="svc-detail show" id="svcDetail">
+      <strong>Tendencias CTi</strong>
+      <p>Monitoreo permanente de señales científicas, tecnológicas, regulatorias y de mercado relevantes para Colmayor, con alertas y síntesis para dirección y facultades.</p>
+    </div>
   </div>
 </section>
 
@@ -1415,7 +1451,16 @@ const JUSTIFICACION = [
 ];
 const PILARES = JUSTIFICACION;
 const VENTAJAS = [{"t": "Financiamiento", "d": "Oportunidades para proyectos y nuevos negocios"}, {"t": "Anticipación", "d": "Adelantarse a cambios del entorno"}, {"t": "Alertas", "d": "Monitoreo permanente por temática"}, {"t": "Mercado", "d": "Necesidades de industria"}, {"t": "Tendencias", "d": "Sectores de interés"}, {"t": "Estrategia", "d": "Decisiones con evidencia"}, {"t": "Innovación", "d": "Acelerar la innovación"}];
-const SERVICIOS = [{"t": "Tendencias", "d": "Áreas de oportunidad en CTi"}, {"t": "Monitoreo", "d": "Necesidades de industria y academia"}, {"t": "VT / IC", "d": "Estudios a la medida"}, {"t": "Prospectiva", "d": "Escenarios futuros"}, {"t": "Patentabilidad", "d": "Estado de la técnica"}, {"t": "Capacitación", "d": "Asesoría en VT/IC"}, {"t": "Estado del arte", "d": "Apoyo a investigación"}, {"t": "Transferencia", "d": "Modelos de negocio"}];
+const SERVICIOS = [
+  {"t":"Tendencias CTi","d":"Áreas de oportunidad","x":"Monitoreo permanente de señales científicas, tecnológicas, regulatorias y de mercado relevantes para Colmayor, con alertas y síntesis para dirección y facultades."},
+  {"t":"Monitoreo","d":"Industria y academia","x":"Lectura comparada de referentes sectoriales, pares IES y necesidades del entorno productivo para orientar investigación, extensión y programas."},
+  {"t":"VT / IC","d":"Estudios a la medida","x":"Estudios de vigilancia tecnológica e inteligencia competitiva con proceso digitalizado: solicitud → factores críticos → informe → divulgación."},
+  {"t":"Prospectiva","d":"Escenarios futuros","x":"Anticipación de trayectorias tecnológicas, regulatorias y de mercado para apoyar decisiones de mediano plazo de la plana directiva."},
+  {"t":"Patentabilidad","d":"Estado de la técnica","x":"Análisis del estado de la técnica como insumo para propiedad intelectual, evaluación de novedad y ruta de transferencia tecnológica."},
+  {"t":"Capacitación","d":"Asesoría en VT/IC","x":"Formación y acompañamiento a equipos académicos y de gestión en métodos de vigilancia, inteligencia competitiva y uso de evidencia."},
+  {"t":"Estado del arte","d":"Apoyo a investigación","x":"Síntesis estructurada de literatura, patentes y fuentes especializadas para grupos, semilleros y proyectos de investigación."},
+  {"t":"Transferencia","d":"Modelos de negocio / OTRI","x":"Articulación de madurez tecnológica, licenciamiento, modelos de negocio y spin-offs con la ruta de transferencia institucional."}
+];
 const ESTUDIOS = [{"id": "camara", "t": "Cámara de Comercio", "d": "Ruta de competitividad turística regional · RNT 5 subregiones", "metric": "$97.8M", "metric_l": "ejecutado/gestionado", "cop": "$ 97.800.000", "tag": "Territorio · RNT", "blurb": "Informe interactivo de análisis del Registro Nacional de Turismo por subregiones, con lectura territorial para decisión empresarial e institucional.", "evidencias": [{"tipo": "html", "label": "Análisis RNT subregiones", "src": "evidencias/camara/analisis-rnt-subregiones.html"}]}, {"id": "magdalena", "t": "Magdalena medio", "d": "Paisaje cultural ganadero Magdalena Medio - Antioquia", "metric": "$42M", "metric_l": "ejecutado/gestionado", "cop": "$ 42.000.000", "tag": "Territorio · agro", "blurb": "Estudios del paisaje ganadero del Magdalena Medio: atractivos, ruta Puerto Berrío-Maceo, benchmarking, modelo de negocio y taller PCG. La plataforma web se abre en pestaña nueva.", "evidencias": [{"tipo": "html", "label": "Atractivos turísticos", "src": "evidencias/magdalena/atractivos-turisticos.html"}, {"tipo": "html", "label": "Dashboard taller PCG", "src": "evidencias/magdalena/dashboard-taller-pcg.html"}, {"tipo": "html", "label": "Informe taller PCG", "src": "evidencias/magdalena/informe-taller-pcg.html"}, {"tipo": "html", "label": "Ruta Puerto Berrío-Maceo", "src": "evidencias/magdalena/ruta-puerto-berrio-maceo.html"}, {"tipo": "html", "label": "Análisis RNT Puerto Berrío", "src": "evidencias/magdalena/analisis-rnt-puerto-berrio.html"}, {"tipo": "html", "label": "Rutas proyectadas", "src": "evidencias/magdalena/rutas-proyectadas.html"}, {"tipo": "html", "label": "Modelo de negocio", "src": "evidencias/magdalena/modelo-negocio.html"}, {"tipo": "html", "label": "Benchmarking PCC", "src": "evidencias/magdalena/benchmarking-pcc.html"}, {"tipo": "html", "label": "Mapa georreferenciación", "src": "evidencias/magdalena/mapa-georreferenciacion.html"}, {"tipo": "url", "label": "Plataforma web (Vercel)", "src": "https://mgdalena-medio.vercel.app/"}]}, {"id": "do", "t": "Denominación de origen", "d": "Tapetusa artesanal y reconocimiento DOP", "metric": "12+", "metric_l": "anexos y tableros", "tag": "DOP · CEITTO", "blurb": "Expediente técnico con percepción territorial, tableros Power BI, misión técnica, infografías y guías para autoridades y productores.", "evidencias": [{"tipo": "html", "label": "Infografía Tapetusa", "src": "evidencias/do/infografia-tapetusa-profesional.html"}, {"tipo": "html", "label": "Infografía actualizada", "src": "evidencias/do/infografia-tapetusa-actualizada.html"}, {"tipo": "pdf", "label": "Tableros Power BI", "src": "evidencias/do/anexo-4-screenshot-tableros-power-bi.pdf"}, {"tipo": "pdf", "label": "Gráfico de resultados", "src": "evidencias/do/anexo-1-gr-fico-de-resultados.pdf"}, {"tipo": "pdf", "label": "Tabla de resultados", "src": "evidencias/do/anexo-1-tabla-de-resultados.pdf"}, {"tipo": "pdf", "label": "Percepción municipios", "src": "evidencias/do/anexo-3-an-lisis-de-percepci-n-de-los-municipios.pdf"}, {"tipo": "pdf", "label": "Matriz diagnóstico", "src": "evidencias/do/anexo-5-matriz-diagnostico-de-los-municipios.pdf"}, {"tipo": "pdf", "label": "Informe misión técnica DOP", "src": "evidencias/do/anexo-8-informe-final-misi-n-t-cnica-dop.pdf"}, {"tipo": "pdf", "label": "Evidencia del viaje", "src": "evidencias/do/anexo-9-evidencia-del-viaje.pdf"}, {"tipo": "pdf", "label": "BPM Tapetusa", "src": "evidencias/do/bpm-tapetusa.pdf"}]}, {"id": "penol", "t": "Peñol", "d": "Estudio de oferta y demanda turística del municipio de El Peñol", "cop": "$ 10.000.000", "metric": "$10M", "metric_l": "ejecutado/gestionado", "tag": "Turismo · RNT", "blurb": "Webscraping del RNT y reporte turístico del municipio de Peñol como apoyo a la lectura competitiva del destino.", "evidencias": [{"tipo": "html", "label": "Informe webscraping Peñol", "src": "evidencias/penol/informe-webscraping-penol.html"}, {"tipo": "html", "label": "Informe turístico Peñol", "src": "evidencias/penol/informe-turistico-penol.html"}]}, {"id": "comfama", "t": "Comfama", "d": "Madurez de la Ruta Lechera San Pedro", "metric": "1", "metric_l": "informe de madurez", "tag": "Rutas · turismo", "blurb": "Diagnóstico de madurez de la ruta lechera / San Pedro como insumo de vigilancia e inteligencia para el entorno turístico.", "evidencias": [{"tipo": "html", "label": "Informe madurez Ruta San Pedro", "src": "evidencias/comfama/informe-madurez-ruta-san-pedro.html"}]}, {"id": "convocatorias", "t": "Convocatorias", "d": "Radar de oportunidades de financiación", "metric": "30+", "metric_l": "oportunidades/mes (meta)", "tag": "Radar · I+D+i", "blurb": "El Observatorio de convocatorias opera como dashboard en vivo. Por seguridad del navegador no se embebe: ábrelo en una pestaña nueva para ver el tablero completo.", "evidencias": [{"tipo": "url", "label": "Observatorio de convocatorias - dashboard", "src": "https://convocaradar-web.vercel.app/dashboard"}, {"tipo": "url", "label": "Observatorio de convocatorias - inicio", "src": "https://convocaradar-web.vercel.app/"}]}, {"id": "investigacion", "t": "Investigación", "d": "Proyectos finalizados con evidencia entregable", "metric": "N", "metric_l": "cierres documentados", "tag": "Proyectos", "blurb": "Capacidad demostrada para cerrar estudios VT/IC con productos accionables para dependencias y aliados.", "evidencias": []}];
 document.getElementById('menu').onclick=()=>document.getElementById('links').classList.toggle('open');
 document.querySelectorAll('#links a').forEach(a=>{
@@ -1726,8 +1771,9 @@ document.querySelectorAll('#svcMosaic .svc-tile').forEach(btn=>{
     btn.classList.add('on');
     const s=SERVICIOS[+btn.dataset.i];
     const d=document.getElementById('svcDetail');
+    if(!d||!s) return;
     d.classList.add('show');
-    d.innerHTML=`<strong>${s.t}</strong>: ${s.d}`;
+    d.innerHTML=`<strong>${s.t}</strong><p>${s.x}</p>`;
   };
 });
 
